@@ -9,6 +9,7 @@ script:
   - npm run test:unit
   - npm run build
 deploy:
+  skip_cleanup: true
   provider: azure_web_apps
   on: vueStarter
   verbose: true
