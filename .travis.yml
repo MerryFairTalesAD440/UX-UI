@@ -5,11 +5,8 @@ dist: trusty
 install:
   - npm cache verify
   - npm install
+env:
+  - "ACCOUNT_KEY_DEV"
+  - "ACCOUNT_NAME_DEV"
 script:
   - npm run test:unit
-  - npm run build
-deploy:
-  skip_cleanup: true
-  provider: azure_web_apps
-  on: vueStarter
-  verbose: true
