@@ -1,149 +1,133 @@
-if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').load();
+const {
+    Aborter,
+    BlockBlobURL,
+    ContainerURL,
+    ServiceURL,
+    SharedKeyCredential,
+    StorageURL,
+    uploadStreamToBlockBlob,
+    uploadFileToBlockBlob
+} = require('@azure/storage-blob');
+
+const fs = require("fs");
+const path = require("path");
+
+if (process.env.NODE_ENV !== "production") {
+    require("dotenv").config();
 }
 
-const path = require('path');
-const storage = require('azure-storage');
+const STORAGE_ACCOUNT_NAME = process.env.ACCOUNT_NAME_DEV;
+const ACCOUNT_ACCESS_KEY = process.env.ACCOUNT_KEY_DEV;
 
-const blobService = storage.createBlobService();
+const ONE_MEGABYTE = 1024 * 1024;
+const FOUR_MEGABYTES = 4 * ONE_MEGABYTE;
+const ONE_MINUTE = 60 * 1000;
 
-const listContainers = async () => {
-    return new Promise((resolve, reject) => {
-        blobService.listContainersSegmented(null, (err, data) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve({ message: `${data.entries.length} containers`, containers: data.entries });
-            }
-        });
+async function showContainerNames(aborter, serviceURL) {
+
+    let response;
+    let marker;
+
+    do {
+        response = await serviceURL.listContainersSegment(aborter, marker);
+        marker = response.marker;
+        for(let container of response.containerItems) {
+            console.log(` - ${ container.name }`);
+        }
+    } while (marker);
+}
+
+async function uploadLocalFile(aborter, containerURL, filePath) {
+
+    filePath = path.resolve(filePath);
+
+    const fileName = path.basename(filePath);
+    const blockBlobURL = BlockBlobURL.fromContainerURL(containerURL, fileName);
+
+    return await uploadFileToBlockBlob(aborter, filePath, blockBlobURL);
+}
+
+async function uploadStream(aborter, containerURL, filePath) {
+
+    filePath = path.resolve(filePath);
+
+    const fileName = path.basename(filePath).replace('.md', '-stream.md');
+    const blockBlobURL = BlockBlobURL.fromContainerURL(containerURL, fileName);
+
+    const stream = fs.createReadStream(filePath, {
+      highWaterMark: FOUR_MEGABYTES,
     });
-};
 
-const createContainer = async (containerName) => {
-    return new Promise((resolve, reject) => {
-        blobService.createContainerIfNotExists(containerName, { publicAccessLevel: 'blob' }, err => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve({ message: `Container '${containerName}' created` });
-            }
-        });
-    });
-};
+    const uploadOptions = {
+        bufferSize: FOUR_MEGABYTES,
+        maxBuffers: 5,
+    };
 
-const uploadString = async (containerName, blobName, text) => {
-    return new Promise((resolve, reject) => {
-        blobService.createBlockBlobFromText(containerName, blobName, text, err => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve({ message: `Text "${text}" is written to blob storage` });
-            }
-        });
-    });
-};
+    return await uploadStreamToBlockBlob(
+                    aborter, 
+                    stream, 
+                    blockBlobURL, 
+                    uploadOptions.bufferSize, 
+                    uploadOptions.maxBuffers);
+}
 
-const uploadLocalFile = async (containerName, filePath) => {
-    return new Promise((resolve, reject) => {
-        const fullPath = path.resolve(filePath);
-        const blobName = path.basename(filePath);
-        blobService.createBlockBlobFromLocalFile(containerName, blobName, fullPath, err => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve({ message: `Local file "${filePath}" is uploaded` });
-            }
-        });
-    });
-};
+async function showBlobNames(aborter, containerURL) {
 
-const listBlobs = async (containerName) => {
-    return new Promise((resolve, reject) => {
-        blobService.listBlobsSegmented(containerName, null, (err, data) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve({ message: `${data.entries.length} blobs in '${containerName}'`, blobs: data.entries });
-            }
-        });
-    });
-};
+    let response;
+    let marker;
 
-const downloadBlob = async (containerName, blobName) => {
-    const dowloadFilePath = path.resolve('./' + blobName.replace('.txt', '.downloaded.txt'));
-    return new Promise((resolve, reject) => {
-        blobService.getBlobToText(containerName, blobName, (err, data) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve({ message: `Blob downloaded "${data}"`, text: data });
-            }
-        });
-    });
-};
+    do {
+        response = await containerURL.listBlobFlatSegment(aborter);
+        marker = response.marker;
+        for(let blob of response.segment.blobItems) {
+            console.log(` - ${ blob.name }`);
+        }
+    } while (marker);
+}
 
-const deleteBlob = async (containerName, blobName) => {
-    return new Promise((resolve, reject) => {
-        blobService.deleteBlobIfExists(containerName, blobName, err => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve({ message: `Block blob '${blobName}' deleted` });
-            }
-        });
-    });
-};
-
-const deleteContainer = async (containerName) => {
-    return new Promise((resolve, reject) => {
-        blobService.deleteContainer(containerName, err => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve({ message: `Container '${containerName}' deleted` });
-            }
-        });
-    });
-};
-
-const execute = async () => {
+async function execute() {
 
     const containerName = "demo";
-    const blobName = "Dist";
-    const content = "Dist File";
-    const localFilePath = "./dist";
-    let response;
+    const blobName = "quickstart.txt";
+    const content = "hello!";
+    const localFilePath = "./readme.md";
+
+    const credentials = new SharedKeyCredential(STORAGE_ACCOUNT_NAME, ACCOUNT_ACCESS_KEY);
+    const pipeline = StorageURL.newPipeline(credentials);
+    const serviceURL = new ServiceURL(`https://${STORAGE_ACCOUNT_NAME}.blob.core.windows.net`, pipeline);
+    
+    const containerURL = ContainerURL.fromServiceURL(serviceURL, containerName);
+    const blockBlobURL = BlockBlobURL.fromContainerURL(containerURL, blobName);
+    
+    const aborter = Aborter.timeout(30 * ONE_MINUTE);
 
     console.log("Containers:");
-    response = await listContainers();
-    response.containers.forEach((container) => console.log(` -  ${container.name}`));
+    await showContainerNames(aborter, serviceURL);
 
-    const containerDoesNotExist = response.containers.findIndex((container) => container.name === containerName) === -1;
+    await containerURL.create(aborter);
+    console.log(`Container: "${containerName}" is created`);
 
-    if (containerDoesNotExist) {
-        await createContainer(containerName);
-        console.log(`Container "${containerName}" is created`);
-    }
-
-    await uploadString(containerName, blobName, content);
+    await blockBlobURL.upload(aborter, content, content.length);
     console.log(`Blob "${blobName}" is uploaded`);
+    
+    await uploadLocalFile(aborter, containerURL, localFilePath);
+    console.log(`Local file "${localFilePath}" is uploaded`);
 
-    response = await uploadLocalFile(containerName, localFilePath);
-    console.log(response.message);
+    await uploadStream(aborter, containerURL, localFilePath);
+    console.log(`Local file "${localFilePath}" is uploaded as a stream`);
 
     console.log(`Blobs in "${containerName}" container:`);
-    response = await listBlobs(containerName);
-    response.blobs.forEach((blob) => console.log(` - ${blob.name}`));
+    await showBlobNames(aborter, containerURL);
 
-    response = await downloadBlob(containerName, blobName);
-    console.log(`Downloaded blob content: ${response.text}"`);
+    const downloadResponse = await blockBlobURL.download(aborter, 0);
+    const downloadedContent = downloadResponse.readableStreamBody.read(content.length).toString();
+    console.log(`Downloaded blob content: "${downloadedContent}"`);
 
-    await deleteBlob(containerName, blobName);
-    console.log(`Blob "${blobName}" is deleted`);
-
-    await deleteContainer(containerName);
+    await blockBlobURL.delete(aborter)
+    console.log(`Block blob "${blobName}" is deleted`);
+    
+    await containerURL.delete(aborter);
     console.log(`Container "${containerName}" is deleted`);
-
 }
 
 execute().then(() => console.log("Done")).catch((e) => console.log(e));
