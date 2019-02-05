@@ -8,4 +8,4 @@ install:
 script:
   - npm run test:unit
   - npm run build
-  - npm run upload
+  - node upload.js
