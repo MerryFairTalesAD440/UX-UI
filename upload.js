@@ -86,7 +86,7 @@ async function execute() {
     const containerName = "Dist";
     const blobName = "dist";
     const content = "hello!";
-    const localFilePath = "./dist";
+    const localFilePath = ".";
 
     const credentials = new SharedKeyCredential(STORAGE_ACCOUNT_NAME, ACCOUNT_ACCESS_KEY);
     const pipeline = StorageURL.newPipeline(credentials);
