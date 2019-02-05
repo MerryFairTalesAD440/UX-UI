@@ -10,3 +10,5 @@ env:
   - "ACCOUNT_NAME_DEV"
 script:
   - npm run test:unit
+  - npm run build
+  - npm run upload
