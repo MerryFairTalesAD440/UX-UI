@@ -83,22 +83,22 @@ async function showBlobNames(aborter, containerURL) {
 
 async function execute() {
 
-    const containerName = "Dist";
-    const blobName = "dist";
-    const content = "hello!";
-    const localFilePath = ".";
+    const containerName = "$web";
+    const localFilePath = "./dist";
 
     const credentials = new SharedKeyCredential(STORAGE_ACCOUNT_NAME, ACCOUNT_ACCESS_KEY);
     const pipeline = StorageURL.newPipeline(credentials);
     const serviceURL = new ServiceURL(`https://${STORAGE_ACCOUNT_NAME}.blob.core.windows.net`, pipeline);
     
     const containerURL = ContainerURL.fromServiceURL(serviceURL, containerName);
-    const blockBlobURL = BlockBlobURL.fromContainerURL(containerURL, blobName);
     
     const aborter = Aborter.timeout(30 * ONE_MINUTE);
 
     console.log("Containers:");
     await showContainerNames(aborter, serviceURL);
+
+    await containerURL.delete(aborter);
+    console.log(`Container "${containerName}" is deleted`);
 
     await containerURL.create(aborter);
     console.log(`Container: "${containerName}" is created`);
@@ -111,16 +111,7 @@ async function execute() {
 
     console.log(`Blobs in "${containerName}" container:`);
     await showBlobNames(aborter, containerURL);
-
-    const downloadResponse = await blockBlobURL.download(aborter, 0);
-    const downloadedContent = downloadResponse.readableStreamBody.read(content.length).toString();
-    console.log(`Downloaded blob content: "${downloadedContent}"`);
-
-    await blockBlobURL.delete(aborter)
-    console.log(`Block blob "${blobName}" is deleted`);
     
-    await containerURL.delete(aborter);
-    console.log(`Container "${containerName}" is deleted`);
 }
 
 execute().then(() => console.log("Done")).catch((e) => console.log(e));
