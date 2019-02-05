@@ -12,10 +12,6 @@ const {
 const fs = require("fs");
 const path = require("path");
 
-if (process.env.NODE_ENV !== "production") {
-    require("dotenv").config();
-}
-
 const STORAGE_ACCOUNT_NAME = process.env.ACCOUNT_NAME_DEV;
 const ACCOUNT_ACCESS_KEY = process.env.ACCOUNT_KEY_DEV;
 
