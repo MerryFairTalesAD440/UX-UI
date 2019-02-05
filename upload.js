@@ -83,8 +83,8 @@ async function showBlobNames(aborter, containerURL) {
 
 async function execute() {
 
-    const containerName = "demo";
-    const blobName = "quickstart.txt";
+    const containerName = "Dist";
+    const blobName = "dist";
     const content = "hello!";
     const localFilePath = "./dist";
 
@@ -102,9 +102,6 @@ async function execute() {
 
     await containerURL.create(aborter);
     console.log(`Container: "${containerName}" is created`);
-
-    await blockBlobURL.upload(aborter, content, content.length);
-    console.log(`Blob "${blobName}" is uploaded`);
     
     await uploadLocalFile(aborter, containerURL, localFilePath);
     console.log(`Local file "${localFilePath}" is uploaded`);
