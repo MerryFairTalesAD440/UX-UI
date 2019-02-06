@@ -78,6 +78,12 @@ async function showBlobNames(aborter, containerURL) {
   } while (marker);
 }
 
+function sleep(seconds) 
+{
+  var e = new Date().getTime() + (seconds * 1000);
+  while (new Date().getTime() <= e) {}
+}
+
 async function execute() {
   const containerName = "$web";
   const localFilePath = "./dist";
@@ -101,6 +107,8 @@ async function execute() {
 
   await containerURL.delete(aborter);
   console.log(`Container "${containerName}" is deleted`);
+
+  sleep(30);
 
   console.log("Containers:");
   await showContainerNames(aborter, serviceURL);
