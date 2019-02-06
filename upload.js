@@ -35,12 +35,12 @@ async function showContainerNames(aborter, serviceURL) {
 async function uploadLocalFile(aborter, containerURL, filePath) {
   filePath = path.resolve(filePath);
 
-  //const fileName = path.basename(filePath);
-  const blockBlobURL = BlockBlobURL.fromContainerURL(containerURL, filePath);//>>fileName
+  const blockBlobURL = BlockBlobURL.fromContainerURL(containerURL, filePath);
 
   return await uploadFileToBlockBlob(aborter, filePath, blockBlobURL);
 }
 
+/*
 async function uploadStream(aborter, containerURL, filePath) {
   filePath = path.resolve(filePath);
 
@@ -64,6 +64,7 @@ async function uploadStream(aborter, containerURL, filePath) {
     uploadOptions.maxBuffers
   );
 }
+*/
 
 async function showBlobNames(aborter, containerURL) {
   let response;
@@ -143,9 +144,6 @@ async function execute() {
   for(let file of files){
     await uploadLocalFile(aborter, containerURL, file);
     console.log(`Local file "${file}" is uploaded`);
-
-    await uploadStream(aborter, containerURL, file);
-    console.log(`Local file "${file}" is uploaded as a stream`);
   }
 
   console.log(`Blobs in "${containerName}" container:`);
