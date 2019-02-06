@@ -34,9 +34,16 @@ async function showContainerNames(aborter, serviceURL) {
 
 //Work on this bit
 async function uploadLocalFile(aborter, containerURL, filePath) {
-  filePath = path.resolve(filePath);
+  const toRepath = path.resolve(filePath);
+  const pathArray = toRepath.split(path.sep);
+  var newPath = '';
 
-  const blockBlobURL = BlockBlobURL.fromContainerURL(containerURL, filePath);
+  //creating the right file name from travis ci root path
+  for(let i = 6; i < pathArray; i++){
+    newPath = path.join(newPath,pathArray[i]);
+  }
+
+  const blockBlobURL = BlockBlobURL.fromContainerURL(containerURL, newPath);
 
   return await uploadFileToBlockBlob(aborter, filePath, blockBlobURL);
 }
