@@ -35,7 +35,7 @@ async function showContainerNames(aborter, serviceURL) {
 async function uploadLocalFile(aborter, containerURL, filePath) {
   filePath = path.resolve(filePath);
   
-  const blockBlobURL = BlockBlobURL.fromContainerURL(containerURL, fileName);
+  const blockBlobURL = BlockBlobURL.fromContainerURL(containerURL, filePath);
 
   return await uploadFileToBlockBlob(aborter, filePath, blockBlobURL);
 }
