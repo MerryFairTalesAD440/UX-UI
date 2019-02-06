@@ -84,21 +84,25 @@ function sleep(seconds)
   while (new Date().getTime() <= e) {}
 }
 
-async function walkSync(currentDirPath, callback) {
-  fs.readdirSync(currentDirPath).forEach(function (name) {
-      var filePath = path.join(currentDirPath, name);
-      var stat = fs.statSync(filePath);
-      if (stat.isFile()) {
-          callback(filePath, stat);
-      } else if (stat.isDirectory()) {
-          walkSync(filePath, callback);
-      }
-  });
-}
 
 async function execute() {
   const containerName = "$web";
   const folderPath = "./dist";
+  const walk = require('walk');
+  const files = [];
+
+  const walker  = walk.walk(folderPath, { followLinks: false });
+
+  walker.on('file', function(root, stat, next) {
+    // Add this file to the list of files
+    files.push(root + '/' + stat.name);
+    next();
+  });
+
+  walker.on('end', function() {
+    console.log(files);
+  });
+
 
   const credentials = new SharedKeyCredential(
     STORAGE_ACCOUNT_NAME,
@@ -136,15 +140,13 @@ async function execute() {
   await showContainerNames(aborter, serviceURL);
 
 
-  walkSync(folderPath, function(filepath, stat) {
+  for(let file of files){
+    await uploadLocalFile(aborter, containerURL, file);
+    console.log(`Local file "${file}" is uploaded`);
 
-    await uploadLocalFile(aborter, containerURL, filePath);
-    console.log(`Local file "${filePath}" is uploaded`);
-  
-    await uploadStream(aborter, containerURL, filePath);
-    console.log(`Local file "${filePath}" is uploaded as a stream`);
-
-  });
+    await uploadStream(aborter, containerURL, file);
+    console.log(`Local file "${file}" is uploaded as a stream`);
+  }
 
   console.log(`Blobs in "${containerName}" container:`);
   await showBlobNames(aborter, containerURL);
