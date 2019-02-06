@@ -105,9 +105,12 @@ async function execute() {
   console.log("Containers:");
   await showContainerNames(aborter, serviceURL);
 
-  await containerURL.delete(aborter);
-  console.log(`Container "${containerName}" is deleted`);
+  try{
+    await containerURL.delete(aborter);
+    console.log(`Container "${containerName}" is deleted`);
+  }catch(e){
 
+  }
   sleep(30);
 
   console.log("Containers:");
