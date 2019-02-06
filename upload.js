@@ -102,8 +102,14 @@ async function execute() {
   await containerURL.delete(aborter);
   console.log(`Container "${containerName}" is deleted`);
 
+  console.log("Containers:");
+  await showContainerNames(aborter, serviceURL);
+
   await containerURL.create(aborter);
   console.log(`Container: "${containerName}" is created`);
+
+  console.log("Containers:");
+  await showContainerNames(aborter, serviceURL);
 
   await uploadLocalFile(aborter, containerURL, localFilePath);
   console.log(`Local file "${localFilePath}" is uploaded`);

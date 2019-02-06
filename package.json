@@ -7,7 +7,6 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
-    "upload":  "./upload.js"
   },
   "dependencies": {
     "@azure/storage-blob": "^10.3.0",
