@@ -84,9 +84,21 @@ function sleep(seconds)
   while (new Date().getTime() <= e) {}
 }
 
+function walkSync(currentDirPath, callback) {
+  fs.readdirSync(currentDirPath).forEach(function (name) {
+      var filePath = path.join(currentDirPath, name);
+      var stat = fs.statSync(filePath);
+      if (stat.isFile()) {
+          callback(filePath, stat);
+      } else if (stat.isDirectory()) {
+          walkSync(filePath, callback);
+      }
+  });
+}
+
 async function execute() {
   const containerName = "$web";
-  const localFilePath = "./dist/index.html";
+  const folderPath = "./dist";
 
   const credentials = new SharedKeyCredential(
     STORAGE_ACCOUNT_NAME,
@@ -123,11 +135,16 @@ async function execute() {
   console.log("Containers:");
   await showContainerNames(aborter, serviceURL);
 
-  await uploadLocalFile(aborter, containerURL, localFilePath);
-  console.log(`Local file "${localFilePath}" is uploaded`);
 
-  await uploadStream(aborter, containerURL, localFilePath);
-  console.log(`Local file "${localFilePath}" is uploaded as a stream`);
+  walkSync(folderPath, function(filepath, stat) {
+
+    await uploadLocalFile(aborter, containerURL, filePath);
+    console.log(`Local file "${filePath}" is uploaded`);
+  
+    await uploadStream(aborter, containerURL, filePath);
+    console.log(`Local file "${filePath}" is uploaded as a stream`);
+
+  });
 
   console.log(`Blobs in "${containerName}" container:`);
   await showBlobNames(aborter, containerURL);
