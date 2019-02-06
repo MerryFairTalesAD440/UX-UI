@@ -32,20 +32,17 @@ async function showContainerNames(aborter, serviceURL) {
   } while (marker);
 }
 
-//Work on this bit
 async function uploadLocalFile(aborter, containerURL, filePath) {
-  const toRepath = path.resolve(filePath);
-  const pathArray = toRepath.split(path.sep);
-  var newPath = '';
+  filePath = path.resolve(filePath);
 
-  //creating the right file name from travis ci root path
-  for(let i = 6; i < pathArray; i++){
-    newPath = path.join(newPath,pathArray[i]);
-  }
 
-  const blockBlobURL = BlockBlobURL.fromContainerURL(containerURL, filePath);
+  //remate this into a better format
+  const fileName = path.split(filePath);
 
-  return await uploadFileToBlockBlob(aborter, newPath, blockBlobURL);
+
+  const blockBlobURL = BlockBlobURL.fromContainerURL(containerURL, fileName);
+
+  return await uploadFileToBlockBlob(aborter, filePath, blockBlobURL);
 }
 
 async function showBlobNames(aborter, containerURL) {
@@ -60,6 +57,13 @@ async function showBlobNames(aborter, containerURL) {
     }
   } while (marker);
 }
+
+function sleep(seconds) 
+{
+  var e = new Date().getTime() + (seconds * 1000);
+  while (new Date().getTime() <= e) {}
+}
+
 
 async function execute() {
   const containerName = "$web";
@@ -96,10 +100,6 @@ async function execute() {
 
   console.log("Containers:");
   await showContainerNames(aborter, serviceURL);
-
-  console.log("Containers:");
-  await showContainerNames(aborter, serviceURL);
-
 
   for(let file of files){
     await uploadLocalFile(aborter, containerURL, file);
