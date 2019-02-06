@@ -32,6 +32,7 @@ async function showContainerNames(aborter, serviceURL) {
   } while (marker);
 }
 
+//Work on this bit
 async function uploadLocalFile(aborter, containerURL, filePath) {
   filePath = path.resolve(filePath);
 
@@ -39,32 +40,6 @@ async function uploadLocalFile(aborter, containerURL, filePath) {
 
   return await uploadFileToBlockBlob(aborter, filePath, blockBlobURL);
 }
-
-/*
-async function uploadStream(aborter, containerURL, filePath) {
-  filePath = path.resolve(filePath);
-
-  const fileName = path.basename(filePath).replace(".md", "-stream.md");
-  const blockBlobURL = BlockBlobURL.fromContainerURL(containerURL, fileName);
-
-  const stream = fs.createReadStream(filePath, {
-    highWaterMark: FOUR_MEGABYTES
-  });
-
-  const uploadOptions = {
-    bufferSize: FOUR_MEGABYTES,
-    maxBuffers: 5
-  };
-
-  return await uploadStreamToBlockBlob(
-    aborter,
-    stream,
-    blockBlobURL,
-    uploadOptions.bufferSize,
-    uploadOptions.maxBuffers
-  );
-}
-*/
 
 async function showBlobNames(aborter, containerURL) {
   let response;
@@ -78,13 +53,6 @@ async function showBlobNames(aborter, containerURL) {
     }
   } while (marker);
 }
-
-function sleep(seconds) 
-{
-  var e = new Date().getTime() + (seconds * 1000);
-  while (new Date().getTime() <= e) {}
-}
-
 
 async function execute() {
   const containerName = "$web";
@@ -121,21 +89,6 @@ async function execute() {
 
   console.log("Containers:");
   await showContainerNames(aborter, serviceURL);
-
-  try{
-    await containerURL.delete(aborter);
-    console.log(`Container "${containerName}" is deleted`);
-  }catch(e){
-
-  }
-
-  sleep(60);
-
-  console.log("Containers:");
-  await showContainerNames(aborter, serviceURL);
-
-  await containerURL.create(aborter);
-  console.log(`Container: "${containerName}" is created`);
 
   console.log("Containers:");
   await showContainerNames(aborter, serviceURL);
