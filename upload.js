@@ -111,8 +111,8 @@ async function execute() {
   }catch(e){
 
   }
-  
-  sleep(30);
+
+  sleep(60);
 
   console.log("Containers:");
   await showContainerNames(aborter, serviceURL);
