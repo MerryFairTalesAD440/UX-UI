@@ -39,7 +39,7 @@ async function uploadLocalFile(aborter, containerURL, filePath) {
 
   var fileName = '';
 
-  for(let i = 6; i < pathArray.length; i++){
+  for(let i = 7; i < pathArray.length; i++){
     fileName = path.join(fileName,pathArray[i]);
   }
 
