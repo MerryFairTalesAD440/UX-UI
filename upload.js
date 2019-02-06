@@ -86,7 +86,7 @@ function sleep(seconds)
 
 async function execute() {
   const containerName = "$web";
-  const localFilePath = "./dist";
+  const localFilePath = "./dist/index.html";
 
   const credentials = new SharedKeyCredential(
     STORAGE_ACCOUNT_NAME,
