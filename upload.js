@@ -111,6 +111,7 @@ async function execute() {
   }catch(e){
 
   }
+  
   sleep(30);
 
   console.log("Containers:");
