@@ -91,7 +91,7 @@
                 .then(response => {this.$session.set('myI',response.data.token);})
                 .catch(error => (this.info = error))
               var myDate = new Date();
-              var myUrl = "https://ad440oneboxtempbb81.blob.core.windows.net/getsastoken/"+this.myFileName+".jpg"+this.$session.get('myI');
+              var myUrl = "https://ad440oneboxtempbb81.blob.core.windows.net/getsastoken/"+this.myFileName+"/"+this.$session.get('myI');
               axios({ method: "PUT",
                   "url": myUrl,
                   "data": this.files,
