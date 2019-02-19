@@ -42,9 +42,7 @@ async function uploadLocalFile(aborter, containerURL, filePath) {
     fileName = path.join(fileName,pathArray[i]);
   }
 
-  const options = {
-    blobHTTPHeaders:"blobContentType=text/html"
-  }
+  const options = {contentSettings:{contentType:'text/html'}}
 
   const blockBlobURL = BlockBlobURL.fromContainerURL(containerURL, fileName);
 
