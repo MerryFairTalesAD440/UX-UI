@@ -43,7 +43,9 @@ async function uploadLocalFile(aborter, containerURL, filePath) {
     fileName = path.join(fileName,pathArray[i]);
   }
 
-  const options = {blobHTTPHeaders:{blobContentType:'text/html'}}
+  var contentType = getFileContentType(filename); 
+
+  const options = {blobHTTPHeaders:{blobContentType:contentType}}
 
   const blockBlobURL = BlockBlobURL.fromContainerURL(containerURL, fileName);
 
@@ -61,6 +63,35 @@ async function showBlobNames(aborter, containerURL) {
       console.log(` - ${blob.name}`);
     }
   } while (marker);
+}
+
+function getFileContentType(filename) {
+  var extension = filename.split('.').pop();
+  var contentType = '';
+
+  switch(extension) {
+    case 'html':
+      contentType = 'text/html';
+      break;
+    case 'js':
+      contentType = 'application/javascript';
+      break;
+    case 'css':
+      contentType = 'text/css';
+      break;
+    case 'png':
+      contentType = 'image/png';
+      break;
+    case 'ico':
+      contentType = 'image/x-icon';
+      break;
+    case 'map':
+      contentType = 'application/javascript';
+      break;
+  }
+
+  return contentType;
+
 }
 
 
