@@ -43,7 +43,7 @@ async function uploadLocalFile(aborter, containerURL, filePath) {
   }
 
   const options = {
-    metadata: {contenttype:'text/html'}
+    content:'text/html'
   }
  
 
