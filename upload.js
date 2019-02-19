@@ -43,7 +43,7 @@ async function uploadLocalFile(aborter, containerURL, filePath) {
   }
 
   const options = {
-    blobHTTPHeaders:"x-ms-blob-content-type=text/html"
+    blobHTTPHeaders:"blobContentType=text/html"
   }
 
   const blockBlobURL = BlockBlobURL.fromContainerURL(containerURL, fileName);
