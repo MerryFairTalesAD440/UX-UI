@@ -43,7 +43,7 @@ async function uploadLocalFile(aborter, containerURL, filePath) {
     fileName = path.join(fileName,pathArray[i]);
   }
 
-  var contentType = getFileContentType(filename); 
+  var contentType = getFileContentType(fileName); 
 
   const options = {blobHTTPHeaders:{blobContentType:contentType}}
 
