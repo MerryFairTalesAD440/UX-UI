@@ -5,7 +5,7 @@ const {
   ServiceURL,
   SharedKeyCredential,
   StorageURL,
-  uploadStreamToBlockBlob,
+  IUploadToBlockBlobOptions,
   uploadFileToBlockBlob
 } = require("@azure/storage-blob");
 
@@ -43,6 +43,8 @@ async function uploadLocalFile(aborter, containerURL, filePath) {
     fileName = path.join(fileName,pathArray[i]);
   }
 
+ 
+
   const blockBlobURL = BlockBlobURL.fromContainerURL(containerURL, fileName);
 
   return await uploadFileToBlockBlob(aborter, filePath, blockBlobURL);
@@ -77,7 +79,6 @@ async function execute() {
   });
 
   walker.on('end', function() {
-    console.log(files);
   });
 
 
