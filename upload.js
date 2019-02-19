@@ -5,6 +5,7 @@ const {
   ServiceURL,
   SharedKeyCredential,
   StorageURL,
+  IUploadToBlockBlobOptions,
   uploadFileToBlockBlob
 } = require("@azure/storage-blob");
 
@@ -42,7 +43,7 @@ async function uploadLocalFile(aborter, containerURL, filePath) {
     fileName = path.join(fileName,pathArray[i]);
   }
 
-  const options = {contentSettings:{contentType:'text/html'}}
+  const options = {blobHTTPHeaders:{blobContentType:'text/html'}}
 
   const blockBlobURL = BlockBlobURL.fromContainerURL(containerURL, fileName);
 
