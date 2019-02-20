@@ -7,6 +7,7 @@ const app = new Vue({
     // data
     data: {
       title: '',
+      description: '',
       author: '',
       errors: []
     },
@@ -16,8 +17,9 @@ const app = new Vue({
     methods: {
       processForm: function() {
 
-         axios.post('https://demofunctionsmikal-1-10-2019.azurewebsites.net', {
-  
+          //axios.post('https://melanieoneboxfunctionsprint2.azurewebsites.net/api/books', {
+          axios.post('https://merry-fairy-tales.azurewebsites.net/api/GetBooks', {
+
              data: this.data
              
           })
@@ -34,10 +36,13 @@ const app = new Vue({
             console.log('Error ' + e);
           })
 
-        console.log({ title: this.title, author: this.author });
+        console.log({ title: this.title, description: this.description, author: this.author });
         alert('Processing!');
       }
 
     }
     
   });
+
+    // API endpoint if running into CORS issues
+// https://cors.io/?https://demofunctionsmikal-1-10-2019.azurewebsites.net/api/printname?name=Dave
