@@ -17,4 +17,4 @@ jobs:
     - stage: deployDev
       script:
       - npm run build
-      - node .\\travisCi\uploadDev.js
+      - node travisCi/uploadDev.js
