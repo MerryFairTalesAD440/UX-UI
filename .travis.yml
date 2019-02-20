@@ -7,15 +7,15 @@ install:
   - npm install
 stages:
   - test
-  - name: build
-    if: branch = develop
   - name: deploy
     if: branch = develop
 jobs:
   include:
     - stage: test
-      script: npm run test:unit
-    - stage: build
-      script: node upload.js
+      script: 
+      - npm run test:unit
     - stage: deploy
-      script: npm run build
+      script:
+      - npm run test:unit
+      - npm run build
+      - node upload.js
