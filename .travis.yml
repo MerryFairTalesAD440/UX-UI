@@ -16,6 +16,5 @@ jobs:
       - npm run test:unit
     - stage: deploy
       script:
-      - npm run test:unit
       - npm run build
       - node upload.js
