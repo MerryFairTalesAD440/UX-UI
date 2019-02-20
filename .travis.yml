@@ -12,5 +12,6 @@ install:
 script:
   - npm run test:unit
 if: branch = develop
-  - npm run build
-  - node upload.js
+  script:
+    - npm run build
+    - node upload.js
