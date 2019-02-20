@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # ux-ui
 
 ## Project setup
@@ -36,4 +35,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 =======
 # UX-UI
 Web team repo
->>>>>>> beafba575818d2a73b33c66438eacf4f331d9fc1
+
