@@ -7,14 +7,14 @@ install:
   - npm install
 stages:
   - test
-  - name: deploy
+  - name: deployDev
     if: branch = develop
 jobs:
   include:
     - stage: test
       script: 
       - npm run test:unit
-    - stage: deploy
+    - stage: deployDev
       script:
       - npm run build
-      - node upload.js
+      - node travisCi\uploadDev.js
