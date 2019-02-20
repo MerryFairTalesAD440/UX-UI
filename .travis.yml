@@ -2,10 +2,15 @@ language: node_js
 node_js: stable
 sudo: required
 dist: trusty
+branches:
+  only:
+  - master
+  - develop
 install:
   - npm cache verify
   - npm install
 script:
   - npm run test:unit
-  - npm run build
-  - node upload.js
+  if: branch = develop
+    - npm run build
+    - node upload.js
