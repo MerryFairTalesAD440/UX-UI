@@ -12,8 +12,8 @@ const {
 const fs = require("fs");
 const path = require("path");
 
-const STORAGE_ACCOUNT_NAME = process.env.ACCOUNT_NAME_DEV;
-const ACCOUNT_ACCESS_KEY = process.env.ACCOUNT_KEY_DEV;
+const STORAGE_ACCOUNT_NAME = process.env.ACCOUNT_NAME_MASTER;
+const ACCOUNT_ACCESS_KEY = process.env.ACCOUNT_KEY_MASTER;
 
 const ONE_MEGABYTE = 1024 * 1024;
 const FOUR_MEGABYTES = 4 * ONE_MEGABYTE;
