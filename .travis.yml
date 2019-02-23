@@ -1,0 +1,26 @@
+language: node_js
+node_js: stable
+sudo: required
+dist: trusty
+install:
+  - npm cache verify
+  - npm install
+stages:
+  - test
+  - name: deployDev
+    if: branch = develop
+  - name: deployMaster
+    if: branch = master
+jobs:
+  include:
+    - stage: test
+      script: 
+      - npm run test:unit
+    - stage: deployDev
+      script:
+      - npm run build
+      - node travisCi/uploadDev.js
+    - stage: deployMaster
+      script:
+      - npm run build
+      - node travisCi/uploadMaster.js
