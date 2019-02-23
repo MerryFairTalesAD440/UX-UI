@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import BookListFilter from "./components/BookList_Filter.vue";
+import BookListFilter from "./components/BookListFilter.vue";
 
 export default {
   name: "app",
