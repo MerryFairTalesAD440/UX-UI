@@ -1,12 +1,9 @@
 import { shallowMount } from "@vue/test-utils";
-import HelloWorld from "@/components/BookList_Filter.vue";
+import BookListFilter from "@/components/BookListFilter.vue";
 
 describe("HelloWorld.vue", () => {
-  it("renders props.msg when passed", () => {
-    const msg = "new message";
-    const wrapper = shallowMount(HelloWorld, {
-      propsData: { msg }
-    });
-    expect(wrapper.text()).toMatch(msg);
+  it("Makes sure the filter mounts with empty search data.", () => {
+    const wrapper = shallowMount(BookListFilter);
+    expect(wrapper.data.search).toMatch("");
   });
 });
