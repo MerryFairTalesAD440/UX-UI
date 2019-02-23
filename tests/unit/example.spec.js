@@ -1,9 +1,11 @@
-import { shallowMount } from "@vue/test-utils";
-import BookListFilter from "@/components/BookListFilter.vue";
+const shoppingList = [
+  'diapers',
+  'kleenex',
+  'trash bags',
+  'paper towels',
+  'beer',
+];
 
-describe("HelloWorld.vue", () => {
-  it("Makes sure the filter mounts with empty search data.", () => {
-    const wrapper = shallowMount(BookListFilter);
-    expect(wrapper.data.search).toMatch("");
-  });
+test('the shopping list has beer on it', () => {
+  expect(shoppingList).toContain('beer');
 });
