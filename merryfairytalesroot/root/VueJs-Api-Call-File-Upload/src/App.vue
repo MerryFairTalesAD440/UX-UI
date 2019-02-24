@@ -2,6 +2,8 @@
 <div id="app">
         {{$session.get('myI')}}
         <br /><br />
+        {{ info }}
+        <br /><br />
         {{ infos }}
         <br /><br />
         {{ infos2 }}
@@ -97,10 +99,12 @@
                 infos3: null
             }
         },
-        methods: {
-            beforeMount(){
-                this.getSas()
+        beforeMount(){
+              axios({ method: "POST", "url": "https://merryfairytales.azurewebsites.net/v1/sastoken", "data": {'container': 'getsastoken'}, "headers": {'Content-Type': 'application/json'}})
+                .then(response => {this.$session.set('myI',response.data.token);})
+                .catch(error => (this.info = error))
             },
+        methods: {
             fileChange(fileList) {
                 this.files.append("file", fileList[0], fileList[0].name);
             },
@@ -109,11 +113,6 @@
             },
             fileChange(fileList3) {
                 this.files3.append("file3", fileList3[0], fileList3[0].name);
-            },
-            getSas(){
-              axios({ method: "POST", "url": "https://merryfairytales.azurewebsites.net/v1/sastoken", "data": {'container': 'getsastoken'}, "headers": {'Content-Type': 'application/json'}})
-                .then(response => {this.$session.set('myI',response.data.token);})
-                .catch(error => (this.info = error))
             },
             created() {
               var myDate = new Date();
