@@ -3,6 +3,10 @@
         {{$session.get('myI')}}
         <br /><br />
         {{ infos }}
+        <br /><br />
+        {{ infos2 }}
+        <br /><br />
+        {{ infos3 }}
         <h2>Upload a File - Vuejs API Call</h2>
         <form enctype="multipart/form-data">
             <div class="form-horizontal">
@@ -40,7 +44,14 @@
                 <div class="form-group">
                     <p class="control-label col-md-2">Sounds</p>
                     <div class="col-md-10">
-                        <input type="file" multiple="multiple" id="photoUrl" name="file" v-on:change="fileChange($event.target.files)" accept="application/vnd.msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
+                        <input type="file" multiple="multiple" id="photoUrl3" name="file2" v-on:change="fileChange3($event2.target.files2)" accept="application/vnd.msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
+                text/plain, application/pdf, image/*">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p class="control-label col-md-2">Text File</p>
+                    <div class="col-md-10">
+                        <input type="file" multiple="multiple" id="photoUrl2" name="file3" v-on:change="fileChange2($event3.target.files3)" accept="application/vnd.msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
                 text/plain, application/pdf, image/*">
                     </div>
                 </div>
@@ -76,22 +87,33 @@
         data() {
             return {
                 files: new FormData(),
+                files2: new FormData(),
+                files3: new FormData(),
                 info: null,
                 infos: null,
-                myFileName : null
+                info2: null,
+                infos2: null,
+                info3: null,
+                infos3: null
             }
         },
         methods: {
             fileChange(fileList) {
                 this.files.append("file", fileList[0], fileList[0].name);
-                this.myFileName = fileList[0].name;
+            },
+            fileChange(fileList2) {
+                this.files2.append("file2", fileList2[0], fileList2[0].name);
+            },
+            fileChange(fileList3) {
+                this.files3.append("file3", fileList3[0], fileList3[0].name);
             },
             created() {
-              axios({ method: "POST", "url": "https://merryfairytales.azurewebsites.net/api/getSAS", "data": {'container': 'getsastoken'}, "headers": {'Content-Type': 'application/json'}})
+              axios({ method: "POST", "url": "https://merryfairytales.azurewebsites.net/v1/sastoken", "data": {'container': 'getsastoken'}, "headers": {'Content-Type': 'application/json'}})
                 .then(response => {this.$session.set('myI',response.data.token);})
                 .catch(error => (this.info = error))
+
               var myDate = new Date();
-              var myUrl = "https://ad440oneboxtempbb81.blob.core.windows.net/getsastoken/"+this.myFileName+"/"+this.$session.get('myI');
+              var myUrl = "https://ad440oneboxtempbb81.blob.core.windows.net/getsastoken/februaryPic.jpg/"+this.$session.get('myI');
               axios({ method: "PUT",
                   "url": myUrl,
                   "data": this.files,
@@ -104,6 +126,34 @@
                   })
                 .then(response => (this.infos = response))
                 .catch(error => (this.infos = error));
+
+              var myUrl2 = "https://ad440oneboxtempbb81.blob.core.windows.net/getsastoken/FebruarySound.mp3/"+this.$session.get('myI');
+              axios({ method: "PUT",
+                  "url": myUrl2,
+                  "data": this.files2,
+                  "headers": {
+                      "x-ms-blob-type": "BlockBlob",
+                      "x-ms-date": myDate,
+                      "x-ms-version": "2018-03-28",
+                      "Content-Type": "multipart/form-data"},
+                      "ContentLength": this.files2.length
+                  })
+                .then(response => (this.infos2 = response))
+                .catch(error => (this.infos2 = error));
+
+              var myUrl3 = "https://ad440oneboxtempbb81.blob.core.windows.net/getsastoken/februaryFile.docx/"+this.$session.get('myI');
+              axios({ method: "PUT",
+                  "url": myUrl3,
+                  "data": this.files3,
+                  "headers": {
+                      "x-ms-blob-type": "BlockBlob",
+                      "x-ms-date": myDate,
+                      "x-ms-version": "2018-03-28",
+                      "Content-Type": "multipart/form-data"},
+                      "ContentLength": this.files3.length
+                  })
+                .then(response => (this.infos3 = response))
+                .catch(error => (this.infos3 = error));
             }
         }
     }
