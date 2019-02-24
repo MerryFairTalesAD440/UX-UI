@@ -113,7 +113,7 @@
                 .catch(error => (this.info = error))
 
               var myDate = new Date();
-              var myUrl = "https://ad440oneboxtempbb81.blob.core.windows.net/getsastoken/februaryPic.jpg/"+this.$session.get('myI');
+              var myUrl = "https://ad440oneboxtempbb81.blob.core.windows.net/getsastoken/februaryPic.jpg"+this.$session.get('myI');
               axios({ method: "PUT",
                   "url": myUrl,
                   "data": this.files,
@@ -127,7 +127,7 @@
                 .then(response => (this.infos = response))
                 .catch(error => (this.infos = error));
 
-              var myUrl2 = "https://ad440oneboxtempbb81.blob.core.windows.net/getsastoken/FebruarySound.mp3/"+this.$session.get('myI');
+              var myUrl2 = "https://ad440oneboxtempbb81.blob.core.windows.net/getsastoken/FebruarySound.mp3"+this.$session.get('myI');
               axios({ method: "PUT",
                   "url": myUrl2,
                   "data": this.files2,
@@ -141,7 +141,7 @@
                 .then(response => (this.infos2 = response))
                 .catch(error => (this.infos2 = error));
 
-              var myUrl3 = "https://ad440oneboxtempbb81.blob.core.windows.net/getsastoken/februaryFile.docx/"+this.$session.get('myI');
+              var myUrl3 = "https://ad440oneboxtempbb81.blob.core.windows.net/getsastoken/februaryFile.docx"+this.$session.get('myI');
               axios({ method: "PUT",
                   "url": myUrl3,
                   "data": this.files3,
