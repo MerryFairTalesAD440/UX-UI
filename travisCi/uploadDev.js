@@ -94,6 +94,23 @@ function getFileContentType(filename) {
 
 }
 
+async function clearJsBlobs(aborter, containerURL, pipeline, serviceURL) {
+  let response;
+  let marker;
+
+  do {
+    response = await containerURL.listBlobFlatSegment(aborter);
+    marker = response.marker;
+    for (let blob of response.segment.blobItems) {
+      if(getFileContentType(blob.name) == "application/javascript"){
+        blobToDelete = new BlockBlobURL(serviceURL + blob.name, pipeline);
+        await blobToDelete.delete(aborter);
+        console.log(`Block blob "${blob.name}" is deleted`);
+      }
+    }
+  } while (marker);
+}
+
 
 async function execute() {
   const containerName = "$web";
@@ -130,6 +147,10 @@ async function execute() {
   console.log("Containers:");
   await showContainerNames(aborter, serviceURL);
 
+  console.log("Deleting old JS files:");
+  await clearJsBlobs(aborter, containerURL, pipeline, serviceURL.url + containerName + "/");
+
+  console.log("Uploading build files:");
   for(let file of files){
     await uploadLocalFile(aborter, containerURL, file);
     console.log(`Local file "${file}" is uploaded`);
