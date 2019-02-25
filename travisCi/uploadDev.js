@@ -94,7 +94,7 @@ function getFileContentType(filename) {
 
 }
 
-async function clearJsBlobs(aborter, containerURL, pipeline) {
+async function clearJsBlobs(aborter, containerURL, pipeline, serviceURL) {
   let response;
   let marker;
 
@@ -103,7 +103,7 @@ async function clearJsBlobs(aborter, containerURL, pipeline) {
     marker = response.marker;
     for (let blob of response.segment.blobItems) {
       if(getFileContentType(blob.name) == "application/javascript"){
-        blobToDelete = new BlockBlobURL(blob.name, pipeline);
+        blobToDelete = new BlockBlobURL(serviceURL + blob.name, pipeline);
         await blobToDelete.delete(aborter);
         console.log(`Block blob "${blob.name}" is deleted`);
       }
@@ -147,7 +147,7 @@ async function execute() {
   console.log("Containers:");
   await showContainerNames(aborter, serviceURL);
 
-  await clearJsBlobs(aborter, containerURL, pipeline)
+  await clearJsBlobs(aborter, containerURL, pipeline, serviceURL);
 
   for(let file of files){
     await uploadLocalFile(aborter, containerURL, file);
