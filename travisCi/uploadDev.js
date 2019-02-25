@@ -147,7 +147,7 @@ async function execute() {
   console.log("Containers:");
   await showContainerNames(aborter, serviceURL);
 
-  await clearJsBlobs(aborter, containerURL, pipeline, serviceURL.url + "/" + containerName + "/");
+  await clearJsBlobs(aborter, containerURL, pipeline, serviceURL.url + containerName + "/");
 
   for(let file of files){
     await uploadLocalFile(aborter, containerURL, file);
