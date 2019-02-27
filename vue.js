@@ -4,45 +4,38 @@ Vue.http.options.emulateJSON = true;
 const app = new Vue({
     el: '#submisson-form',
   
-    // data
-    data: {
+     data: {
       title: '',
       description: '',
-      author: '',
-      errors: []
+      author: ''
     },
-  
-
+   
 // methods
     methods: {
-      processForm: function() {
-
-          //axios.post('https://melanieoneboxfunctionsprint2.azurewebsites.net/api/books', {
-          axios.post('https://merry-fairy-tales.azurewebsites.net/api/GetBooks', {
-
-             data: this.data
+      processForm: function() { 
              
-          })
-          .then(response => {
+          data = { title: this.title, description: this.description, author: this.author }
+          const url = 'https://melanieoneboxfunctionsprint2.azurewebsites.net/v1/books';
 
+          axios.post(url, data)  
+ 
+          .then(response => {
+            
             alert('Book information submitted');
 
-            console.log(response.data);
-          })
-          .catch(e => {
+            var newId = response.data;
+            console.log(newId);
 
-            this.errors.push(e)
-            alert('Error ' + e);
-            console.log('Error ' + e);
-          })
+            data.id= newId
+            console.log(data);
+
+           })
 
         console.log({ title: this.title, description: this.description, author: this.author });
         alert('Processing!');
       }
-
-    }
-    
+        
+  }
   });
 
-    // API endpoint if running into CORS issues
-// https://cors.io/?https://demofunctionsmikal-1-10-2019.azurewebsites.net/api/printname?name=Dave
+   
