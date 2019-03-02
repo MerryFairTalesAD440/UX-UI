@@ -105,7 +105,6 @@ async function clearJsBlobs(aborter, containerURL, pipeline, serviceURL) {
   } while (marker);
 }
 
-
 async function execute() {
   //Prepare to move the contents of ./dist folder into the $web container
   const containerName = "$web";
