@@ -1,123 +1,90 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="google-site-verification" content="i5Agj2Wt0CqT_i9DmzC7rQdglKFPdZ5W0wo9Sv2ihEs" />
-    <meta name="google-signin-client_id" content="606095925126-3n35c9cad1f5bh51lbsd4okvg388k6vg.apps.googleusercontent.com">
-    <title>Login Page</title>
-    <script src="https://apis.google.com/js/platform.js" async defer>
-        var flag = false;
-    </script>
-    <style>
-        body {
-            background: url(mountains.png) no-repeat center center fixed;
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            -o-background-size: cover;
-            background-size: cover;
-        }
-        img {
-            padding-top: 10vh;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title></title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        .outer {
-            padding: 30px;
-            text-align: center;
 
-        }
+  <script
+    type="text/javascript"
+    src="//cdnjs.cloudflare.com/ajax/libs/vue/2.2.1/vue.js"
+    
+  ></script>
 
-        .inner {
-            padding: 50px;
-            font-family: Arial;
-            width: 100px;
-            position: absolute;
-        }
+    <link rel="stylesheet" type="text/css" href="/css/result-light.css">
 
-        a:active, a:visited, a:link, a {
-            color: black;
-            text-decoration: none;
-        }
+      <script type="text/javascript" src="https://apis.google.com/js/api:client.js"></script>
+      <script type="text/javascript" src="https://vuejs.org/js/vue.js"></script>
 
-        h1 {
-            text-align: center;
-            font-family: Arial, sans-serif;
-        }
+  <style id="compiled-css" type="text/css">
+      .btn-sign-in {
+  background: #fff;
+  font: 16px/22px Roboto;
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  display: inline-block;
+  cursor: pointer;
+}
+  </style>
 
-        a {
-            text-align: center;
-            margin-bottom: 40px;
-        }
 
-        #email {
-            text-align: center;
-            padding-left: 45.5%;
-        }
+  <!-- TODO: Missing CoffeeScript 2 -->
 
-        .g-signin2, inner {
-            bottom: 29%;
-            height: 50px;
-            position: absolute;
-            z-index: 2;
-            margin: 0 auto;
-            float: none;
-            display: inline-block;
-        }
-        a.button6 {
-            padding: 0.7em 1.4em;
-            margin: 0 0.3em 0.3em 0;
-            border-radius: 0.15em;
-            box-sizing: border-box;
-            text-decoration: none;
-            font-family: 'Roboto',sans-serif;
-            text-transform: uppercase;
-            font-weight: 400;
-            color: #FFFFFF;
-            color: #FFFFFF;
-            background-color: #3369ff;
-            box-shadow: inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
-            text-align: center;
-            font-size: 11px;
-        }
+  <script type="text/javascript">
 
-    </style>
+
+    window.onload=function(){
+      
+Vue.component('g-signin-button', {
+  template: '<div ref="signinBtn" class="btn-sign-in">Sign In</div>',
+  mounted () {
+    window.gapi.load('auth2', () => {
+      const auth2 = window.gapi.auth2.init({
+        client_id: '606095925126-3n35c9cad1f5bh51lbsd4okvg388k6vg.apps.googleusercontent.com',
+        cookiepolicy: 'single_host_origin'
+      })
+      auth2.attachClickHandler(this.$refs.signinBtn, {}, googleUser => {
+        this.$emit('done', googleUser)
+      }, error => console.log(error))
+    })
+  }
+})
+
+new Vue({
+  el: '#app',
+  methods: {
+    onUserLoggedIn (user) {
+      console.log(user)
+    }
+  }
+})
+
+    }
+
+</script>
+
 </head>
 <body>
+    <div id="app">
+  <g-signin-button @done="onUserLoggedIn"/>
+</div>
 
-    <div id="profileinfo"></div>
-    <div class="outer">
-        <div class="g-signin2" data-onsuccess="onSignIn"></div>
-            <script>
-                function onSignIn(googleUser) {
-                    var profile = googleUser.getBasicProfile();
-                    document.getElementById('profileinfo').innerHTML = "<img src='" + profile.getImageUrl() + "'/>"
-                        + "<h1>" + profile.getName() + "</h1>" + "<br>" + "<a id='email' style: 'color: black;' href='mailto:'" + profile.getEmail()
-                        + "'>" + profile.getEmail() + "</a>" + "<br>";
-                    flag = true;
-                }
-                function readButton() {
-                    if(flag == true){
-                        myObj = { "name":"John", "age":30, "car":null };
-                        for (x in myObj) {
-                            document.getElementById("demo").innerHTML += x + "<br>";
-                        }
-                    }
-                }
-            </script>
-        <a href="#" class="inner button6" onclick="signOut();" style="background-color:#668fff; z-index: 2; bottom: 20%; position: absolute;">Sign Out</a>
-        <script>
-            function signOut() {
-                var auth2 = gapi.auth2.getAuthInstance();
-                auth2.signOut().then(function () {
-                    document.getElementById('profileinfo').innerHTML = "";
-                });
-                flag = false;
-            }
-        </script>
-        <a href="#" class="inner button6" onclick="readButton();" style="background-color:green; z-index: 2; bottom: 15%; position: absolute;">Get</a>
-        <p id="demo"></p>
-    </div>
+  
+  <script>
+    // tell the embed parent frame the height of the content
+    if (window.parent && window.parent.parent){
+      window.parent.parent.postMessage(["resultsFrame", {
+        height: document.body.getBoundingClientRect().height,
+        slug: ""
+      }], "*")
+    }
+
+    // always overwrite window.name, in case users try to set it manually
+    window.name = "result"
+  </script>
 </body>
 </html>
