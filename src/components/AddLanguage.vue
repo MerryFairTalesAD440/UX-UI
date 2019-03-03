@@ -1,5 +1,8 @@
 <template>
-    <div class="container">
-        <h1> Add Language </h1>
+    <div>
+        <b-jumbotron header="Add Language">
+        <b-button variant="outline-primary"><nav><router-link to='/'>Back to book page</router-link></nav></b-button>
+        <router-view/>
+        </b-jumbotron>
     </div>
 </template>

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <NavBar />
-    <router-link to='/'>BookPage</router-link>
+    <!-- <router-link to='/'>BookPage</router-link> -->
     <router-view/>
     <!-- <BookList /> -->
     <!-- <BookListFilter msg="Book List" /> -->
@@ -10,16 +10,16 @@
 
 <script>
 // import BookListFilter from "./components/BookListFilter.vue";
-// import NavBar from "./components/NavBar.vue";
+import NavBar from "./components/NavBar.vue";
 // import BookList from "./components/BookList.vue";
 
 export default {
-  name: "app"
-  // components: {
+  name: "app",
+   components: {
   //   BookListFilter,
-  //   NavBar,
+    NavBar
   //   BookList
-  // }
+  }
 };
 </script>
 
