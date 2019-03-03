@@ -11,7 +11,7 @@
                                     Admin Portal
                                 </template>
                                 <hr class="my-4">
-                                <b-btn variant="info" href="#">Add New Book</b-btn>
+                                <b-btn variant="info" b-link to="AddBook">Add New Book</b-btn>
                                             
                             </b-jumbotron>
                             </div>
@@ -58,13 +58,14 @@ export default {
     }
   },
    mounted () {
-    var self = this
+    // var self = this
     axios
         .get('https://merry-fairy-tales.azurewebsites.net/api/v1/books')
-        .then(function (response) {
-            self.bookList = response.data
-            console.log('Data: ', response.data)
-        })
+        .then(response => (this.bookList = response.data))
+        // .then(function (response) {
+        //     self.bookList = response.data
+        //     console.log('Data: ', response.data)
+        // })
 }
 }
 </script>
