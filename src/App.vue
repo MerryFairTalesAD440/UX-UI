@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <NavBar />
-    <BookList />
+    <!-- <BookList /> -->
+    <router-view />
     <!-- <BookListFilter msg="Book List" /> -->
   </div>
 </template>
