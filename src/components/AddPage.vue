@@ -7,7 +7,7 @@
             <li><router-link to='/addimage'>Add Image</router-link></li>
             </ul>
         </nav>
-        <b-button variant="outline-primary"><nav><router-link to='/'>Back to book page</router-link></nav></b-button>
+        <router-link to='/' tag='button'>Back to book page</router-link>
         <router-view/>
         </b-jumbotron>
     </div>
