@@ -13,6 +13,7 @@ import BookListFilter from "./components/BookListFilter.vue";
 import NavBar from "./components/NavBar.vue";
 import BookList from "./components/BookList.vue";
 import AddBook from "./components/AddBook.vue";
+import UploadFile from "./components/UploadFile.vue";
 
 export default {
   name: "app",
@@ -20,7 +21,8 @@ export default {
     BookListFilter,
     NavBar,
     BookList,
-    AddBook
+    AddBook,
+    UploadFile
   }
 };
 </script>
