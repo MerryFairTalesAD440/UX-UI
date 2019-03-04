@@ -11,7 +11,11 @@
                                     Admin Portal
                                 </template>
                                 <hr class="my-4">
+<<<<<<< HEAD
                                 <b-btn variant="info" b-link to="AddBook">Add New Book</b-btn>
+=======
+                                <b-btn variant="info" href="#">Add New Book</b-btn>
+>>>>>>> f9f0fb669c679d1493107bbbcc96977c7b8d57de
                                             
                             </b-jumbotron>
                             </div>
@@ -58,6 +62,7 @@ export default {
     }
   },
    mounted () {
+<<<<<<< HEAD
     // var self = this
     axios
         .get('https://merry-fairy-tales.azurewebsites.net/api/v1/books')
@@ -66,6 +71,15 @@ export default {
         //     self.bookList = response.data
         //     console.log('Data: ', response.data)
         // })
+=======
+    var self = this
+    axios
+        .get('https://merry-fairy-tales.azurewebsites.net/api/v1/books')
+        .then(function (response) {
+            self.bookList = response.data
+            console.log('Data: ', response.data)
+        })
+>>>>>>> f9f0fb669c679d1493107bbbcc96977c7b8d57de
 }
 }
 </script>
