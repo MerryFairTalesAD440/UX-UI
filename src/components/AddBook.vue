@@ -1,4 +1,35 @@
 <template>
+                    <!-- Beginning of Form -->
+                            <!-- <form id="getSas" @submit.prevent="processForm">
+                            <div>
+                              <b-form-input v-model="title" type="text" placeholder="Enter Book" />
+                               <div class="mt-2">Value: {{ title }}</div>
+                            </div>
+                            <div>
+                              <b-form-input v-model="description" type="text" placeholder="Enter Book Description" />
+                               <div class="mt-2">Value: {{ description }}</div>
+                            </div>
+                            <div>
+                              <b-form-input v-model="author" type="text" placeholder="Enter Book Author" />
+                               <div class="mt-2">Value: {{ author }}</div>
+                            </div>
+                            </form> -->
+
+<!-- Beginning of Form -->
+                            <!-- <form id="getSas" @submit.prevent="processForm">
+                            <div>
+                              <b-form-input v-model="title" type="text" placeholder="Enter Book" />
+                               <div class="mt-2">Value: {{ title }}</div>
+                            </div>
+                            <div>
+                              <b-form-input v-model="description" type="text" placeholder="Enter Book Description" />
+                               <div class="mt-2">Value: {{ description }}</div>
+                            </div>
+                            <div>
+                              <b-form-input v-model="author" type="text" placeholder="Enter Book Author" />
+                               <div class="mt-2">Value: {{ author }}</div>
+                            </div>
+                            </form> -->
 
 
 <div class="hero is-fullheight is-info is-bold">
