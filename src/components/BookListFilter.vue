@@ -1,4 +1,3 @@
-<!--template for filter page-->
 <template>
   <div class="container">
     Filter: <input v-model="search" placeholder="author name or book title"/>
@@ -16,10 +15,8 @@
   </div>
 </template>
 
-<!--script call API, show on list, and filter method textarea-->
 <script>
-    import axios from 'axios';
-    const API_URL='https://merry-fairy-tales.azurewebsites.net/api/v1/books';
+    import axios from 'axios'
     export default {
         name: 'BookListFilter',
         data () {
@@ -31,7 +28,7 @@
         mounted () {
             var self = this
             axios
-                .get(API_URL)
+                .get('https://merry-fairy-tales.azurewebsites.net/api/GetBooks')
                 .then(function (response) {
                     self.bookList = response.data
                     console.log('Data: ', response.data)
