@@ -8,7 +8,7 @@
             <div class="form-horizontal">
                 <div class="form-group">
                     <p class="control-label col-md-2">Images</p>
-                    <input type="file" multiple="multiple" id="photoUrl" name="file" v-on:change="fileChange($event.target.files)" accept="image/*">
+                    <input type="file" multiple="multiple" id="urlPic" name="file" v-on:change="fileChange($event.target.files)" accept="image/*">
                 </div>
             </div>
         </form>
