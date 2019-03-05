@@ -11,7 +11,7 @@
                                     Admin Portal
                                 </template>
                                 <hr class="my-4">
-                                <b-btn variant="info" b-link to="AddBook">Add New Book</b-btn>
+                                <b-btn variant="primary" b-link to="AddBook">Add New Book</b-btn>
                                             
                             </b-jumbotron>
                             </div>
@@ -25,10 +25,20 @@
                                     <h6 class="card-text">
                                         Description: {{book.description}}
                                     </h6>
-                                    <a href="#"
+
+                                    <div class="mt-3">
+                                        <b-button-group>
+                                        <b-button variant="primary" b-link to="/bookpage">Edit Book</b-button>
+                                        <b-button variant="danger" b-link to="#">Delete Book</b-button>
+                                        
+                                        </b-button-group>
+                                    </div>
+                                    <!-- <b-btn variant="info" b-link to="book_page">Edit Book</b-btn>
+                                    <b-btn variant="info" b-link to="#">Delete Book</b-btn> -->
+                                    <!-- <a href="#"
                                        class="card-link">Edit Book</a>
-                                    <b-link href="#"
-                                            class="card-link">Delete Book</b-link>
+                                    <b-link href="/bookpage"
+                                            class="card-link">Delete Book</b-link> -->
                                 </b-card>
                                 <hr class="my-4">
                             </div>
