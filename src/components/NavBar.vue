@@ -1,6 +1,7 @@
 
 <template>
 <div id="app">
+    Google Token
     <br /><br />
     {{ infom }}
     <br /><br />
@@ -16,7 +17,7 @@ export default {
   },
   data: () => ({
     clientId: '605612772484-00bg9me5h345h6b0utcrmlh8le4f3a9r',
-    infot: null
+    infom: null
   }),
   methods: {
     OnGoogleAuthSuccess (idToken) {
