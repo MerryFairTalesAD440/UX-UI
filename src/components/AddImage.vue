@@ -9,7 +9,7 @@
             </ul>
         </nav>
         <hr />
-        <router-link to='/' tag='button'>Back to book page</router-link>
+        <router-link to='/bookpage' tag='button'>Back to book page</router-link>
         <router-view/>
         </b-jumbotron>
         </b-card>

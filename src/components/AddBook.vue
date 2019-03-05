@@ -67,7 +67,7 @@ name: 'AddBook',
    var self = this
              
           data = { title: this.title, description: this.description, author: this.author }
-          const url = 'https://melanieoneboxfunctionsprint2.azurewebsites.net/v1/books';
+          const url = 'https://melanieoneboxfunctionsprint3.azurewebsites.net/v1/books';
 
           axios.post(url, data)  
  

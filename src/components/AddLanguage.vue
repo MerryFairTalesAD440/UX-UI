@@ -5,11 +5,11 @@
         <hr />
         <nav>
             <ul>
-            <li><router-link to="">Add Files</router-link></li>
+            <li><router-link to="/uploadFile">Add Files</router-link></li>
             </ul>
         </nav>
         <hr>
-        <router-link to='/' tag='button'>Back to book page</router-link>
+        <router-link to='/bookpage' tag='button'>Back to book page</router-link>
         <router-view/>
         </b-jumbotron>
         </b-card>
