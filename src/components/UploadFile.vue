@@ -1,5 +1,11 @@
 <template>
 <div id="app">
+        GoogleToken
+        <br />
+        {{$session.get('myT')}}
+        <br /><br />
+        Azure Token
+        <br />
         {{$session.get('myI')}}
         <br /><br />
         {{ info }}
@@ -84,6 +90,9 @@
     import axios from "axios";
     import VueSession from 'vue-session';
     Vue.use(VueSession);
+    // It can also be imported as { GoogleLogin }
+    import GoogleLogin from 'vue-google-login';
+    
     export default {
         name: 'app',
         data() {
@@ -100,10 +109,12 @@
             }
         },
         beforeMount(){
+            if(this.$session.get('myT') != null)
+            {
               axios({ method: "POST", "url": "https://merryfairytales.azurewebsites.net/v1/sastoken", "data": {'container': 'getsastoken'}, "headers": {'Content-Type': 'application/json'}})
                 .then(response => {this.$session.set('myI',response.data.token);})
                 .catch(error => (this.info = error))
-            },
+            }},
         methods: {
             fileChange(fileList) {
                 this.files.append("file", fileList[0], fileList[0].name);
@@ -115,6 +126,8 @@
                 this.files3.append("file3", fileList3[0], fileList3[0].name);
             },
             created() {
+              if(this.$session.get('myT') != null)
+              {
               var myDate = new Date();
               var myUrl = "https://ad440oneboxtempbb81.blob.core.windows.net/getsastoken/februaryPic.jpg"+this.$session.get('myI');
               axios({ method: "PUT",
@@ -157,7 +170,7 @@
                   })
                 .then(response => (this.infos3 = response))
                 .catch(error => (this.infos3 = error));
-            }
+            }}
         }
     }
 </script>
