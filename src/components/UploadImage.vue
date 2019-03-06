@@ -7,9 +7,11 @@
         <form enctype="multipart/form-data">
             <div class="form-horizontal">
                 <div class="form-group">
-                    <p class="control-label col-md-2">Images</p>
                     <input type="file" multiple="multiple" id="urlPic" name="file" v-on:change="fileChange($event.target.files)" accept="image/*">
                 </div>
+            </div>
+            <div class="form-group">
+                <button type="button" v-on:click="created()" class="btn btn-primary btn-lg" style="width:25%;">Submit</button>
             </div>
         </form>
     </div>
