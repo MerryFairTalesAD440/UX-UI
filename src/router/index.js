@@ -8,6 +8,8 @@ import BookPage from '@/components/BookPage';
 import AddPage from '@/components/AddPage';
 import AddLanguage from '@/components/AddLanguage';
 import AddImage from '@/components/AddImage';
+import UploadImage from '@/components/UploadImage';
+
 
 Vue.use(Router);
  
@@ -47,11 +49,16 @@ export default new Router({
       path: '/addlanguage',
       name: 'language_page',
       component: AddLanguage
-  },
-  {
+
       path: '/addimage',
       name: 'image_page',
       component: AddImage
+  },
+  {
+    path: '/uploadimage',
+    name: 'UploadImage',
+    component: UploadImage
+
   }
   ]
 });

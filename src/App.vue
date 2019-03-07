@@ -12,6 +12,8 @@ import NavBar from "./components/NavBar.vue";
 import BookList from "./components/BookList.vue";
 import AddBook from "./components/AddBook.vue";
 import UploadFile from "./components/UploadFile.vue";
+import UploadImage from "./components/UploadImage.vue";
+
 
 export default {
   name: "app",
@@ -20,7 +22,10 @@ export default {
     NavBar,
     BookList,
     AddBook,
+    UploadFile,
+    UploadImage,
     UploadFile
+
   }
 };
 </script>
