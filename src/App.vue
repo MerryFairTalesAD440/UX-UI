@@ -12,10 +12,12 @@ import NavBar from "./components/NavBar.vue";
 import BookList from "./components/BookList.vue";
 import AddBook from "./components/AddBook.vue";
 import UploadFile from "./components/UploadFile.vue";
+import LoginPage from "./components/LoginPage.vue";
 
 export default {
   name: "app",
   components: {
+    LoginPage,
     BookListFilter,
     NavBar,
     BookList,
