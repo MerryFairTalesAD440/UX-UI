@@ -42,7 +42,7 @@
                 .then(response => {this.$session.set('sesh',response.data.token);})
                 .catch(error => (this.info = error))
               var myDate = new Date();
-              var myUrl = "https://nathansprint2.z13.web.core.windows.net/AddImage/pic.jpg"+this.$session.get('sesh');
+              var myUrl = " var myUrl = "https://ad440oneboxtempbb81.blob.core.windows.net/getsastoken/pic.jpg"+this.$session.get('sesh');
               axios({ method: "PUT",
                   "url": myUrl,
                   "data": this.files,
