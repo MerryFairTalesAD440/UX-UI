@@ -14,6 +14,7 @@ import AddBook from "./components/AddBook.vue";
 import UploadFile from "./components/UploadFile.vue";
 import UploadImage from "./components/UploadImage.vue";
 
+
 export default {
   name: "app",
   components: {
@@ -22,7 +23,9 @@ export default {
     BookList,
     AddBook,
     UploadFile,
-    UploadImage
+    UploadImage,
+    UploadFile
+
   }
 };
 </script>
