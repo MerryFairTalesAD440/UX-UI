@@ -22,7 +22,7 @@
                                             <em>User</em>
                                           </template>
                                           <b-dropdown-item href="#">Profile</b-dropdown-item>
-                                          <b-dropdown-item href="#">Signout</b-dropdown-item>
+                                          <b-dropdown-item @click="signOut" href="/">Signout</b-dropdown-item>
                                         </b-nav-item-dropdown>
                                     </b-navbar-nav>
                                 </b-collapse>
@@ -35,6 +35,15 @@ export default {
   name: 'NavBar',
   data(){
     
+  },
+    methods: {
+    signOut: function() {
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+      console.log('User signed out.');
+      this.$router.push({ name: 'LoginPage', query: { redirect: '/' } });
+      }); 
+    }
   }
 }
 </script>
