@@ -24,6 +24,7 @@
 <script>
 import GoogleSignInButton from 'vue-google-signin-button-directive'
 export default {
+  name: 'LoginPage',
   directives: {
     GoogleSignInButton
   },
@@ -36,6 +37,7 @@ export default {
       // Receive the idToken and make your magic with the backend
       this.$session.set('myT',idToken);
       this.infom = idToken;
+      this.$router.push({ name: 'BookList', query: { redirect: '/bookList' } });
     },
     OnGoogleAuthFail (error) {
       this.infom = error
