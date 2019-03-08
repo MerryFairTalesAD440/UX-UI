@@ -12,6 +12,8 @@
                                 </template>
                                 <hr class="my-4">
                                 <b-btn variant="primary" b-link to="AddBook">Add New Book</b-btn>
+                                &nbsp;&nbsp;
+                                <b-btn variant="primary" b-link to="InsertBook">Insert New Book</b-btn>
                                             
                             </b-jumbotron>
                             </div>
@@ -28,7 +30,7 @@
 
                                     <div class="mt-3">
                                         <b-button-group>
-                                        <b-button variant="primary" b-link to="/bookpage">Edit Book</b-button>
+                                        <b-button variant="primary" b-link to="/bookdetails">Edit Book</b-button>
                                         <b-button variant="danger" b-link to="#">Delete Book</b-button>
                                         
                                         </b-button-group>
