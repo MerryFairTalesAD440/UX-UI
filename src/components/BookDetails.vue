@@ -11,26 +11,97 @@
                             <!-- Cards to Display Books(getBooks) -->
                             <div>
                                 <b-card >
-                                    <h2 class="card-text">Title: {{ bookList[0].title }}</h2>
+                                    <h2 class="card-text">The Book: {{ bookList[0].title }}</h2>
                                     <h5 class="card-text">Author: {{ bookList[0].author }}</h5>
                                     <h6 class="card-text">
                                         Description: {{bookList[0].description}}
                                     </h6>
+                                    <div class="mt-3">
+                                        <b-button-group>
+                                        <b-button variant="primary" b-link to="/bookdetails">Edit Book</b-button>
+                                        <b-button variant="danger" b-link to="#">Delete Book</b-button>
+                                        
+                                        </b-button-group>
+                                    </div>
                                 </b-card>
                                 <hr class="my-4">
                             </div>
                             <!-- End Book Cards -->
                             </b-col>
                         </b-row>
-
-                        <!-- Back to the Top(VueScrollTo) -->
-                        <a href="#" v-scroll-to="'#topPage'"><b>Back to the Top</b></a>
                         <!-- <b-btn href="#" v-scroll-to="'#topPage'" variant="info">Back to the Top</b-btn> -->
                         <hr class="my-4">
                         <!-- End of Scroll To -->
                         <hr class="my-4">
 
 </b-container>
+
+<div class="row" style="width:80% !important;margin:0 auto !important;">
+    <div class="col-md-3">
+        <h2>Pages</h2>
+<!-- Cards to Display Books(getBooks) -->
+                            <div v-for="book in bookList" :key="book.id" >
+                                <b-card >
+                                    <p class="card-text">Name of the file: {{ book.title }}</p>
+                                    <div class="mt-3">
+                                        <b-button-group>
+                                        <b-button variant="primary" b-link to="/bookdetails">Edit Page</b-button>
+                                        <b-button variant="danger" b-link to="#">Delete Page</b-button>                                       
+                                        </b-button-group>
+                                    </div>
+                                </b-card>
+                                <hr class="my-4">
+                            </div>
+    </div>
+    <div class="col-md-3">
+        <h2>Images</h2>
+        <!-- Cards to Display Books(getBooks) -->
+                            <div v-for="book in bookList" :key="book.id" >
+                                <b-card >
+                                    <p class="card-text">Name of the image: {{ book.title }}</p>
+                                    <div class="mt-3">
+                                        <b-button-group>
+                                        <b-button variant="danger" b-link to="#">Delete Image</b-button>                                       
+                                        </b-button-group>
+                                    </div>
+                                </b-card>
+                                <hr class="my-4">
+                            </div>
+
+    </div>
+    <div class="col-md-3">
+        <h2>Audios</h2>
+        <!-- Cards to Display Books(getBooks) -->
+                            <div v-for="book in bookList" :key="book.id" >
+                                <b-card >
+                                    <p class="card-text">Name of the audio: {{ book.title }}</p>
+                                    <div class="mt-3">
+                                        <b-button-group>
+                                        <b-button variant="danger" b-link to="#">Delete Audio</b-button>                                       
+                                        </b-button-group>
+                                    </div>
+                                </b-card>
+                                <hr class="my-4">
+                            </div>
+
+    </div>
+    <div class="col-md-3">
+        <h2>Languages</h2>
+        <!-- Cards to Display Books(getBooks) -->
+                            <div v-for="book in bookList" :key="book.id" >
+                                <b-card >
+                                    <p class="card-text">Name of language: {{ book.title }}</p>
+                                    <div class="mt-3">
+                                        <b-button-group>
+                                        <b-button variant="danger" b-link to="#">Delete Language</b-button>                                       
+                                        </b-button-group>
+                                    </div>
+                                </b-card>
+                                <hr class="my-4">
+                            </div>
+
+    </div>
+</div>
 
         <form enctype="multipart/form-data">
             <div class="form-horizontal">
@@ -57,7 +128,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <p class="control-label col-md-2">Language</p>
+                    <p class="control-label col-md-2">Number</p>
                     <div class="col-md-10">
                         <select class="form-control" style="width:80%;" name="partitionkey">
                             <option value="1">1</option>
@@ -105,14 +176,12 @@
         data() {
             return {
                 files: new FormData(),
-                files2: new FormData(),
-                files3: new FormData(),
                 info: null,
                 infos: null,
-                info2: null,
-                infos2: null,
-                info3: null,
-                infos3: null,
+                langages: [],
+                audios: [],
+                images: [],
+                pages: [],
                 bookList: []
             }
         },
@@ -135,12 +204,6 @@
             fileChange(fileList) {
                 this.files.append("file", fileList[0], fileList[0].name);
             },
-            fileChange(fileList2) {
-                this.files2.append("file2", fileList2[0], fileList2[0].name);
-            },
-            fileChange(fileList3) {
-                this.files3.append("file3", fileList3[0], fileList3[0].name);
-            },
             created() {
               var myDate = new Date();
               var myUrl = "https://ad440oneboxtempbb81.blob.core.windows.net/getsastoken/februaryPic.jpg"+this.$session.get('myI');
@@ -156,34 +219,6 @@
                   })
                 .then(response => (this.infos = response))
                 .catch(error => (this.infos = error));
-
-              var myUrl2 = "https://ad440oneboxtempbb81.blob.core.windows.net/getsastoken/FebruarySound.mp3"+this.$session.get('myI');
-              axios({ method: "PUT",
-                  "url": myUrl2,
-                  "data": this.files2,
-                  "headers": {
-                      "x-ms-blob-type": "BlockBlob",
-                      "x-ms-date": myDate,
-                      "x-ms-version": "2018-03-28",
-                      "Content-Type": "multipart/form-data"},
-                      "ContentLength": this.files2.length
-                  })
-                .then(response => (this.infos2 = response))
-                .catch(error => (this.infos2 = error));
-
-              var myUrl3 = "https://ad440oneboxtempbb81.blob.core.windows.net/getsastoken/februaryFile.docx"+this.$session.get('myI');
-              axios({ method: "PUT",
-                  "url": myUrl3,
-                  "data": this.files3,
-                  "headers": {
-                      "x-ms-blob-type": "BlockBlob",
-                      "x-ms-date": myDate,
-                      "x-ms-version": "2018-03-28",
-                      "Content-Type": "multipart/form-data"},
-                      "ContentLength": this.files3.length
-                  })
-                .then(response => (this.infos3 = response))
-                .catch(error => (this.infos3 = error));
             }
         }
     }
@@ -194,7 +229,7 @@
     @import "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css";
     @import "https://fonts.googleapis.com/css?family=Roboto|Parisienne|Fahkwang|Marmelad";
     #app {
-      padding: 20px;
+      padding: 14px;
       font-family: Marmelad;
     }
 </style>
