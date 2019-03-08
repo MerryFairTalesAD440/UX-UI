@@ -5,8 +5,8 @@
                             <b-navbar-brand b-link to="/">Merry Fairy Tales</b-navbar-brand>
                                 <b-collapse is-nav id="nav_collapse">
                                     <b-navbar-nav>
-                                        <b-nav-item b-link to="/">Home</b-nav-item>
-                                        <b-nav-item b-link to="UploadFile">Upload File</b-nav-item>
+                                        <b-nav-item b-link to="/BookList">Home</b-nav-item>
+                                        
                                     </b-navbar-nav>
                                   
                                     <!-- Right aligned nav items -->

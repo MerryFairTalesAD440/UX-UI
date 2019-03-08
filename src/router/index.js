@@ -8,6 +8,7 @@ import BookPage from '@/components/BookPage';
 import AddPage from '@/components/AddPage';
 import AddLanguage from '@/components/AddLanguage';
 import AddImage from '@/components/AddImage';
+import LoginPage from '@/components/LoginPage';
 
 Vue.use(Router);
  
@@ -15,6 +16,11 @@ export default new Router({
   routes:[
     {
       path: '/',
+      name: 'LoginPage',
+      component: LoginPage
+    },
+    {
+      path: '/bookList',
       name: 'BookList',
       component: BookList
     },
