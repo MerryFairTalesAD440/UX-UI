@@ -5,103 +5,103 @@
 
         <h2>Manage book</h2>
 
-<b-container id="topPage" border-variant="dark">
-                        <b-row>
-                            <b-col>        
-                            <!-- Cards to Display Books(getBooks) -->
-                            <div>
-                                <b-card >
-                                    <h2 class="card-text">The Book: {{ bookList[0].title }}</h2>
-                                    <h5 class="card-text">Author: {{ bookList[0].author }}</h5>
-                                    <h6 class="card-text">
-                                        Description: {{bookList[0].description}}
-                                    </h6>
-                                    <div class="mt-3">
-                                        <b-button-group>
-                                        <b-button variant="primary" b-link to="/bookdetails">Edit Book</b-button>
-                                        <b-button variant="danger" b-link to="#">Delete Book</b-button>
-                                        
-                                        </b-button-group>
+        <b-container id="topPage" border-variant="dark">
+                                <b-row>
+                                    <b-col>        
+                                    <!-- Cards to Display Books(getBooks) -->
+                                    <div>
+                                        <b-card >
+                                            <h2 class="card-text">The Book: {{ bookList[0].title }}</h2>
+                                            <h5 class="card-text">Author: {{ bookList[0].author }}</h5>
+                                            <h6 class="card-text">
+                                                Description: {{bookList[0].description}}
+                                            </h6>
+                                            <div class="mt-3">
+                                                <b-button-group>
+                                                <b-button variant="primary" b-link to="/bookdetails">Edit Book</b-button>
+                                                <b-button variant="danger" b-link to="#">Delete Book</b-button>
+                                                
+                                                </b-button-group>
+                                            </div>
+                                        </b-card>
+                                        <hr class="my-4">
                                     </div>
-                                </b-card>
+                                    <!-- End Book Cards -->
+                                    </b-col>
+                                </b-row>
+                                <!-- <b-btn href="#" v-scroll-to="'#topPage'" variant="info">Back to the Top</b-btn> -->
                                 <hr class="my-4">
-                            </div>
-                            <!-- End Book Cards -->
-                            </b-col>
-                        </b-row>
-                        <!-- <b-btn href="#" v-scroll-to="'#topPage'" variant="info">Back to the Top</b-btn> -->
-                        <hr class="my-4">
-                        <!-- End of Scroll To -->
-                        <hr class="my-4">
-
-</b-container>
-
-<div class="row" style="width:80% !important;margin:0 auto !important;">
-    <div class="col-md-3">
-        <h2>Pages</h2>
-<!-- Cards to Display Books(getBooks) -->
-                            <div v-for="book in bookList" :key="book.id" >
-                                <b-card >
-                                    <p class="card-text">Name of the file: {{ book.title }}</p>
-                                    <div class="mt-3">
-                                        <b-button-group>
-                                        <b-button variant="primary" b-link to="/bookdetails">Edit Page</b-button>
-                                        <b-button variant="danger" b-link to="#">Delete Page</b-button>                                       
-                                        </b-button-group>
-                                    </div>
-                                </b-card>
+                                <!-- End of Scroll To -->
                                 <hr class="my-4">
-                            </div>
-    </div>
-    <div class="col-md-3">
-        <h2>Images</h2>
+
+        </b-container>
+
+        <div class="row" style="width:80% !important;margin:0 auto !important;">
+            <div class="col-md-3">
+                <h2>Pages</h2>
         <!-- Cards to Display Books(getBooks) -->
-                            <div v-for="book in bookList" :key="book.id" >
-                                <b-card >
-                                    <p class="card-text">Name of the image: {{ book.title }}</p>
-                                    <div class="mt-3">
-                                        <b-button-group>
-                                        <b-button variant="danger" b-link to="#">Delete Image</b-button>                                       
-                                        </b-button-group>
+                                    <div v-for="book in bookList" :key="book.id" >
+                                        <b-card >
+                                            <p class="card-text">Name of the file: {{ book.title }}</p>
+                                            <div class="mt-3">
+                                                <b-button-group>
+                                                <b-button variant="primary" b-link to="/bookdetails">Edit Page</b-button>
+                                                <b-button variant="danger" b-link to="#">Delete Page</b-button>                                       
+                                                </b-button-group>
+                                            </div>
+                                        </b-card>
+                                        <hr class="my-4">
                                     </div>
-                                </b-card>
-                                <hr class="my-4">
-                            </div>
-
-    </div>
-    <div class="col-md-3">
-        <h2>Audios</h2>
-        <!-- Cards to Display Books(getBooks) -->
-                            <div v-for="book in bookList" :key="book.id" >
-                                <b-card >
-                                    <p class="card-text">Name of the audio: {{ book.title }}</p>
-                                    <div class="mt-3">
-                                        <b-button-group>
-                                        <b-button variant="danger" b-link to="#">Delete Audio</b-button>                                       
-                                        </b-button-group>
+            </div>
+            <div class="col-md-3">
+                <h2>Images</h2>
+                <!-- Cards to Display Books(getBooks) -->
+                                    <div v-for="book in bookList" :key="book.id" >
+                                        <b-card >
+                                            <p class="card-text">Name of the image: {{ book.title }}</p>
+                                            <div class="mt-3">
+                                                <b-button-group>
+                                                <b-button variant="danger" b-link to="#">Delete Image</b-button>                                       
+                                                </b-button-group>
+                                            </div>
+                                        </b-card>
+                                        <hr class="my-4">
                                     </div>
-                                </b-card>
-                                <hr class="my-4">
-                            </div>
 
-    </div>
-    <div class="col-md-3">
-        <h2>Languages</h2>
-        <!-- Cards to Display Books(getBooks) -->
-                            <div v-for="book in bookList" :key="book.id" >
-                                <b-card >
-                                    <p class="card-text">Name of language: {{ book.title }}</p>
-                                    <div class="mt-3">
-                                        <b-button-group>
-                                        <b-button variant="danger" b-link to="#">Delete Language</b-button>                                       
-                                        </b-button-group>
-                                    </div>
-                                </b-card>
-                                <hr class="my-4">
-                            </div>
+            </div>
+            <div class="col-md-3">
+                <h2>Audios</h2>
+                <!-- Cards to Display Books(getBooks) -->
+                <div v-for="book in bookList" :key="book.id" >
+                    <b-card >
+                        <p class="card-text">Name of the audio: {{ book.title }}</p>
+                        <div class="mt-3">
+                            <b-button-group>
+                            <b-button variant="danger" b-link to="#">Delete Audio</b-button>                                       
+                            </b-button-group>
+                        </div>
+                    </b-card>
+                    <hr class="my-4">
+                </div>
 
-    </div>
-</div>
+            </div>
+            <div class="col-md-3">
+                <h2>Languages</h2>
+                <!-- Cards to Display Books(getBooks) -->
+                <div v-for="book in bookList" :key="book.id" >
+                    <b-card >
+                        <p class="card-text">Name of language: {{ book.title }}</p>
+                        <div class="mt-3">
+                            <b-button-group>
+                            <b-button variant="danger" b-link to="#">Delete Language</b-button>                                       
+                            </b-button-group>
+                        </div>
+                    </b-card>
+                    <hr class="my-4">
+                </div>
+
+            </div>
+        </div>
 
         <form enctype="multipart/form-data">
             <div class="form-horizontal">
