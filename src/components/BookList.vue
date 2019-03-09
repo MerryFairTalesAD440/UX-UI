@@ -70,7 +70,7 @@ export default {
    mounted () {
     // var self = this
     axios
-        .get('https://merry-fairy-tales.azurewebsites.net/api/v1/books')
+        .get('https://merry-fairy-tales.azurewebsites.net/v1/books')
         .then(response => (this.bookList = response.data))
         // .then(function (response) {
         //     self.bookList = response.data

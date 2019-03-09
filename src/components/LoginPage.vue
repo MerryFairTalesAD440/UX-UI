@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="LoginPage">
 
     <!-- Google ID Token -->
      
@@ -8,6 +8,7 @@
       {{ infom }}
       <br /><br />
     -->
+  
 
     <div class="holder">
       <button v-google-signin-button="clientId" content="606095925126-3n35c9cad1f5bh51lbsd4okvg388k6vg" type="button" class="google-button">
