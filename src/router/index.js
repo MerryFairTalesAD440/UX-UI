@@ -1,14 +1,3 @@
-// import Vue from 'vue';
-// import Router from 'vue-router';
-// import BookList from '@/components/BookList';
-// import AddBook from '@/components/AddBook';
-// import UploadFile from '@/components/UploadFile';
-// import BookListFilter from '@/components/BookListFilter';
-// import BookPage from '@/components/BookPage';
-// import AddPage from '@/components/AddPage';
-// import AddLanguage from '@/components/AddLanguage';
-// import AddImage from '@/components/AddImage';
-// import LoginPage from '@/components/LoginPage';
 import Vue from 'vue';
 import Router from 'vue-router';
 import InsertBook from '../components/InsertBook';
