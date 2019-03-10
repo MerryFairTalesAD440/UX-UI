@@ -71,6 +71,7 @@ export default {
   &:hover {
     box-shadow: 1px 4px 5px 1px rgba(0,0,0,0.1);
   }
+
   
   &:active {
     background-color: #e5e5e5;
