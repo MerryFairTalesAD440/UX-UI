@@ -35,5 +35,6 @@ export default new Router({
       name: 'BookListFilter',
       component: BookListFilter
     },
-  ]
+  ],
+  mode: 'history'
 });
