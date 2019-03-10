@@ -29,7 +29,7 @@
 
                                     <div class="mt-3">
                                         <b-button-group>
-                                        <b-button variant="primary" b-link to="/bookpage">Edit Book</b-button>
+                                        <b-button variant="primary" b-link to="/bookdetails">Edit Book</b-button>
                                         <b-button variant="danger" b-link to="#">Delete Book</b-button>
                                         
                                         </b-button-group>

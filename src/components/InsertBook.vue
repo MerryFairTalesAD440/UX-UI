@@ -1,5 +1,6 @@
 <template>
-<div id="app">
+<b-container id="topPage" border-variant="dark">
+<div id="InsertBook">
         {{$session.get('myI')}}
         <br /><br />
 
@@ -24,29 +25,24 @@
                         <input type="text" name="custom5" class="form-control" style="width:80%;" maxlength="100">
                     </div>
                 </div>
-                <div class="form-group">
-                    <p class="control-label col-md-2">Tags</p>
-                    <div class="col-md-10">
-                        <input type="text" name="custom3" class="form-control" style="width:80%;" maxlength="500">
-                    </div>
-                </div>
             </div>
             <div class="form-group">
                 <button type="button" v-on:click="created()" class="btn btn-primary btn-lg" style="width:25%;">Add</button>
             </div>
         </form>
     </div>
+    </b-container>
 </template>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
 <script>
     import Vue from 'vue'
     import axios from "axios";
     import VueSession from 'vue-session';
     Vue.use(VueSession);
     export default {
-        name: 'UploadFile',
+        name: 'InsertBook',
         data() {
             return {
                 files: new FormData(),
@@ -125,7 +121,7 @@
 
 <style>
     @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";
-    @import "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css";
+    /* @import "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"; */
     @import "https://fonts.googleapis.com/css?family=Roboto|Parisienne|Fahkwang|Marmelad";
     #app {
       padding: 20px;
