@@ -2,10 +2,10 @@
  <!-- NavBar -->
                     <b-navbar toggleable="md" type="dark" variant="info">
                         <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-                            <b-navbar-brand b-link to="/">Merry Fairy Tales</b-navbar-brand>
+                            <b-navbar-brand b-link to="/BookList">Merry Fairy Tales</b-navbar-brand>
                                 <b-collapse is-nav id="nav_collapse">
                                     <b-navbar-nav>
-                                        <b-nav-item b-link to="/">Home</b-nav-item>
+                                        <b-nav-item b-link to="/BookList">Home</b-nav-item>
                                         
                                     </b-navbar-nav>
                                   
@@ -29,6 +29,7 @@
                     </b-navbar>
                             <!-- End NavBar -->  
 </template>
+
 
 <script>
 export default {
