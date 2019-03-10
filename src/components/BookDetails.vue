@@ -19,9 +19,7 @@
                         </h6>
                         <div class="mt-3">
                             <b-button-group>
-                            <b-button variant="primary" b-link to="/bookdetails">Edit Book</b-button>
-                            
-                            
+                            <b-button variant="danger" b-link to="#">Delete Book</b-button>                           
                             </b-button-group>
                         </div>
                     </b-card>
@@ -30,39 +28,35 @@
                 <!-- End Book Cards -->
                 </b-col>
             </b-row>
-            <!-- <b-btn href="#" v-scroll-to="'#topPage'" variant="info">Back to the Top</b-btn> -->
-            <hr class="my-4">
-            <!-- End of Scroll To -->
-            <hr class="my-4">
-
         
 
         <div class="row">
             <div class="col-md-3">
             <h2>Pages</h2>
             <!-- Cards to Display Books(getBooks) -->
-            <div v-for="book in bookList" :key="book.id" >
+            <div v-for="book in bookList[0].pages" :key="book.id" >
+                <div v-for="item in book.languages" :key="item.id">
                 <b-card >
-                    <p class="card-text">Name of the file: {{ book.title }}</p>
+                    <p class="card-text">Number: {{ book.number }} <br />URL : {{ item.text_url }}<br />lg : {{ item.language}}</p>
                     <div class="mt-3">
                         <b-button-group>
-                        <b-button variant="primary" b-link to="/bookdetails">Edit</b-button>
                         <b-button variant="danger" b-link to="#">Delete</b-button>                                       
                         </b-button-group>
                     </div>
                 </b-card>
+                </div>
                 <hr class="my-4">
             </div>
             </div>
             <div class="col-md-3">
                 <h2>Images</h2>
                 <!-- Cards to Display Books(getBooks) -->
-                <div v-for="book in bookList" :key="book.id" >
+                <div v-for="book in bookList[0].pages" :key="book.id" >
                     <b-card >
-                        <p class="card-text">Name of the image: {{ book.title }}</p>
+                        <p class="card-text">Number: {{ book.number }} <br />URL: {{ book.image_url }}</p>
                         <div class="mt-3">
                             <b-button-group>
-                            <b-button variant="danger" b-link to="#">Delete Image</b-button>                                       
+                            <b-button variant="danger" b-link to="#">Delete</b-button>                                       
                             </b-button-group>
                         </div>
                     </b-card>
@@ -73,15 +67,17 @@
             <div class="col-md-3">
                 <h2>Audios</h2>
                 <!-- Cards to Display Books(getBooks) -->
-                <div v-for="book in bookList" :key="book.id" >
+                <div v-for="book in bookList[0].pages" :key="book.id">
+                    <div v-for="item in book.languages" :key="item.id">
                     <b-card >
-                        <p class="card-text">Name of the audio: {{ book.title }}</p>
+                        <p class="card-text">Url: {{ item.audio_url }}<br />lg: {{ item.language }}</p>
                         <div class="mt-3">
                             <b-button-group>
-                            <b-button variant="danger" b-link to="#">Delete Audio</b-button>                                       
+                            <b-button variant="danger" b-link to="#">Delete</b-button>                                       
                             </b-button-group>
                         </div>
                     </b-card>
+                    </div>
                     <hr class="my-4">
                 </div>
 
@@ -89,15 +85,17 @@
             <div class="col-md-3">
                 <h2>Languages</h2>
                 <!-- Cards to Display Books(getBooks) -->
-                <div v-for="book in bookList" :key="book.id" >
+                <div v-for="book in bookList[0].pages" :key="book.id" >
+                    <div v-for="item in book.languages" :key="item.id">
                     <b-card >
-                        <p class="card-text">Name of language: {{ book.title }}</p>
+                        <p class="card-text">Language: {{ item.language }}</p>
                         <div class="mt-3">
                             <b-button-group>
-                            <b-button variant="danger" b-link to="#">Delete Language</b-button>                                       
+                            <b-button variant="danger" b-link to="#">Delete</b-button>                                       
                             </b-button-group>
                         </div>
                     </b-card>
+                    </div>
                     <hr class="my-4">
                 </div>
 
@@ -180,10 +178,6 @@
                 files: new FormData(),
                 info: null,
                 infos: null,
-                langages: [],
-                audios: [],
-                images: [],
-                pages: [],
                 bookList: []
             }
         },
@@ -195,12 +189,9 @@
         mounted () {
         // var self = this
         axios
+        //.get('https://melanieoneboxfunctionsprint3.azurewebsites.net/v1/books/francesco')
         .get('https://merry-fairy-tales.azurewebsites.net/v1/books')
         .then(response => (this.bookList = response.data))
-        // .then(function (response) {
-        //     self.bookList = response.data
-        //     console.log('Data: ', response.data)
-        // })
             },
         methods: {
             fileChange(fileList) {
@@ -223,15 +214,5 @@
                 .catch(error => (this.infos = error));
             }
         }
-    }
+    };
 </script>
-
-<!--<style>
-    @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";
-    @import "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css";
-    @import "https://fonts.googleapis.com/css?family=Roboto|Parisienne|Fahkwang|Marmelad";
-    #app {
-      padding: 14px;
-      font-family: Marmelad;
-    }
-</style>-->
