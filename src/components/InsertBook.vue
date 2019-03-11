@@ -1,29 +1,12 @@
 <template>
-<div id="UploadFile">
+<b-container id="topPage" border-variant="dark">
+<div id="InsertBook">
         {{$session.get('myI')}}
         <br /><br />
-        {{ info }}
-        <br /><br />
-        {{ infos }}
-        <br /><br />
-        {{ infos2 }}
-        <br /><br />
-        {{ infos3 }}
-        <h2>Upload a File - Vuejs API Call</h2>
+
+        <h2>Add book</h2>
         <form enctype="multipart/form-data">
             <div class="form-horizontal">
-                <div class="form-group">
-                    <p class="control-label col-md-2">Language</p>
-                    <div class="col-md-10">
-                        <select class="form-control" style="width:80%;" name="partitionkey">
-                            <option value="English">English</option>
-                            <option value="Spanish">Spanish</option>
-                            <option value="French">French</option>
-                            <option value="Chineese">Chineese</option>
-                            <option value="Ngambaye">Ngambaye</option>
-                        </select><br />
-                    </div>
-                </div>
                 <div class="form-group">
                     <p class="control-label col-md-2">Book Title</p>
                     <div class="col-md-10">
@@ -31,30 +14,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <p class="control-label col-md-2">Book Text</p>
+                    <p class="control-label col-md-2">Description</p>
                     <div class="col-md-10">
-                        <textarea rows="5" class="form-control" style="width:80%;" name="body" maxlength="2000"></textarea>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <p class="control-label col-md-2">Images</p>
-                    <div class="col-md-10">
-                        <input type="file" multiple="multiple" id="photoUrl" name="file" v-on:change="fileChange($event.target.files)" accept="application/vnd.msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
-                text/plain, application/pdf, image/*">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <p class="control-label col-md-2">Sounds</p>
-                    <div class="col-md-10">
-                        <input type="file" multiple="multiple" id="photoUrl3" name="file2" v-on:change="fileChange3($event2.target.files2)" accept="application/vnd.msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
-                text/plain, application/pdf, image/*">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <p class="control-label col-md-2">Text File</p>
-                    <div class="col-md-10">
-                        <input type="file" multiple="multiple" id="photoUrl2" name="file3" v-on:change="fileChange2($event3.target.files3)" accept="application/vnd.msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
-                text/plain, application/pdf, image/*">
+                        <textarea rows="3" class="form-control" style="width:80%;" name="body" maxlength="2000"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -63,29 +25,24 @@
                         <input type="text" name="custom5" class="form-control" style="width:80%;" maxlength="100">
                     </div>
                 </div>
-                <div class="form-group">
-                    <p class="control-label col-md-2">Tags</p>
-                    <div class="col-md-10">
-                        <input type="text" name="custom3" class="form-control" style="width:80%;" maxlength="500">
-                    </div>
-                </div>
             </div>
             <div class="form-group">
-                <button type="button" v-on:click="created()" class="btn btn-primary btn-lg" style="width:25%;">Submit</button>
+                <button type="button" v-on:click="created()" class="btn btn-primary btn-lg" style="width:25%;">Add</button>
             </div>
         </form>
     </div>
+    </b-container>
 </template>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
 <script>
     import Vue from 'vue'
     import axios from "axios";
     import VueSession from 'vue-session';
     Vue.use(VueSession);
     export default {
-        name: 'UploadFile',
+        name: 'InsertBook',
         data() {
             return {
                 files: new FormData(),
@@ -164,7 +121,7 @@
 
 <style>
     @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";
-    @import "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css";
+    /* @import "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"; */
     @import "https://fonts.googleapis.com/css?family=Roboto|Parisienne|Fahkwang|Marmelad";
     #app {
       padding: 20px;
