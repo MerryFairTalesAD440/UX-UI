@@ -10,9 +10,9 @@
 import BookListFilter from "./components/BookListFilter.vue";
 import NavBar from "./components/NavBar.vue";
 import BookList from "./components/BookList.vue";
-
-
-
+import InsertBook from "./components/InsertBook.vue";
+import BookDetails from "./components/BookDetails.vue";
+import EditBook from "./components/EditBook.vue";
 
 export default {
   name: "app",
@@ -20,7 +20,9 @@ export default {
     BookListFilter,
     NavBar,
     BookList,
-  
+    InsertBook,
+    BookDetails,
+    EditBook
   }
 };
 </script>

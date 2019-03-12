@@ -3,6 +3,12 @@
 <div id="BookDetails">
         {{$session.get('myI')}}
         <br /><br />
+        info : {{ info }}
+        <br /><br />
+        infos : {{ infos }}
+        <br /><br />
+        infop : {{ myId }}
+        <br /><br />
 
         <h2>Manage book</h2>
 
@@ -12,13 +18,14 @@
                 <!-- Cards to Display Books(getBooks) -->
                 <div>
                     <b-card >
-                        <h2 class="card-text">The Book: {{ bookList[0].title }}</h2>
-                        <h5 class="card-text">Author: {{ bookList[0].author }}</h5>
+                        <h2 class="card-text">The Book: {{ book.title }}</h2>
+                        <h5 class="card-text">Author: {{ book.author }}</h5>
                         <h6 class="card-text">
-                            Description: {{bookList[0].description}}
+                            Description: {{book.description}}
                         </h6>
                         <div class="mt-3">
                             <b-button-group>
+                            <b-button variant="primary" v-on:click="gotopage()">Edit Book</b-button>
                             <b-button variant="danger" b-link to="#">Delete Book</b-button>                           
                             </b-button-group>
                         </div>
@@ -31,10 +38,10 @@
         
 
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4">
             <h2>Pages</h2>
             <!-- Cards to Display Books(getBooks) -->
-            <div v-for="book in bookList[0].pages" :key="book.id" >
+            <div v-for="book in book.pages" :key="book.id" >
                 <div v-for="item in book.languages" :key="item.id">
                 <b-card >
                     <p class="card-text">Number: {{ book.number }} <br />URL : {{ item.text_url }}<br />lg : {{ item.language}}</p>
@@ -48,10 +55,10 @@
                 <hr class="my-4">
             </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <h2>Images</h2>
                 <!-- Cards to Display Books(getBooks) -->
-                <div v-for="book in bookList[0].pages" :key="book.id" >
+                <div v-for="book in book.pages" :key="book.id" >
                     <b-card >
                         <p class="card-text">Number: {{ book.number }} <br />URL: {{ book.image_url }}</p>
                         <div class="mt-3">
@@ -64,31 +71,13 @@
                 </div>
 
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <h2>Audios</h2>
                 <!-- Cards to Display Books(getBooks) -->
-                <div v-for="book in bookList[0].pages" :key="book.id">
+                <div v-for="book in book.pages" :key="book.id">
                     <div v-for="item in book.languages" :key="item.id">
                     <b-card >
                         <p class="card-text">Url: {{ item.audio_url }}<br />lg: {{ item.language }}</p>
-                        <div class="mt-3">
-                            <b-button-group>
-                            <b-button variant="danger" b-link to="#">Delete</b-button>                                       
-                            </b-button-group>
-                        </div>
-                    </b-card>
-                    </div>
-                    <hr class="my-4">
-                </div>
-
-            </div>
-            <div class="col-md-3">
-                <h2>Languages</h2>
-                <!-- Cards to Display Books(getBooks) -->
-                <div v-for="book in bookList[0].pages" :key="book.id" >
-                    <div v-for="item in book.languages" :key="item.id">
-                    <b-card >
-                        <p class="card-text">Language: {{ item.language }}</p>
                         <div class="mt-3">
                             <b-button-group>
                             <b-button variant="danger" b-link to="#">Delete</b-button>                                       
@@ -107,51 +96,51 @@
                 <div class="form-group">
                     <p class="control-label col-md-2">File Type</p>
                     <div class="col-md-10">
-                        <select class="form-control" style="width:80%;" name="partitionkey">
-                            <option value="page">page</option>
-                            <option value="image">image</option>
-                            <option value="audio">audio</option>
+                        <select class="form-control" style="width:80%;" v-model="myType">
+                            <option>page</option>
+                            <option>image</option>
+                            <option>audio</option>
                         </select><br />
                     </div>
                 </div>
                 <div class="form-group">
                     <p class="control-label col-md-2">Language</p>
                     <div class="col-md-10">
-                        <select class="form-control" style="width:80%;" name="partitionkey">
-                            <option value="English">English</option>
-                            <option value="Spanish">Spanish</option>
-                            <option value="French">French</option>
-                            <option value="Chineese">Chineese</option>
-                            <option value="Ngambaye">Ngambaye</option>
+                        <select class="form-control" style="width:80%;" v-model="myLanguage">
+                            <option>English</option>
+                            <option>Spanish</option>
+                            <option>French</option>
+                            <option>Chineese</option>
+                            <option>Ngambaye</option>
                         </select><br />
                     </div>
                 </div>
                 <div class="form-group">
                     <p class="control-label col-md-2">Number</p>
                     <div class="col-md-10">
-                        <select class="form-control" style="width:80%;" name="partitionkey">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
+                        <select class="form-control" style="width:80%;" v-model="myNumber">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                            <option>11</option>
+                            <option>12</option>
+                            <option>13</option>
+                            <option>14</option>
+                            <option>15</option>
                         </select><br />
                     </div>
                 </div>
                 <div class="form-group">
                     <p class="control-label col-md-2">Images</p>
                     <div class="col-md-10">
-                        <input type="file" multiple="multiple" id="photoUrl" name="file" v-on:change="fileChange($event.target.files)" accept="application/vnd.msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
+                        <input type="file" id="photoUrl" name="myFileName" v-on:change="fileChange($event.target.files)" accept="application/vnd.msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
                 text/plain, application/pdf, image/*">
                     </div>
                 </div>
@@ -164,8 +153,6 @@
     </b-container>
 </template>
 
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
 <script>
     import Vue from 'vue'
     import axios from "axios";
@@ -178,7 +165,15 @@
                 files: new FormData(),
                 info: null,
                 infos: null,
-                bookList: []
+                infop: null,
+                know: null,
+                myFileName: null,
+                myNumber: null,
+                myType: null,
+                myLanguage: null,
+                myFileNameA: null,
+                book: null,
+                myId: null
             }
         },
         beforeMount(){
@@ -187,19 +182,29 @@
                 .catch(error => (this.info = error))
             },
         mounted () {
-        // var self = this
-        axios
-        //.get('https://melanieoneboxfunctionsprint3.azurewebsites.net/v1/books/francesco')
-        .get('https://merry-fairy-tales.azurewebsites.net/v1/books')
-        .then(response => (this.bookList = response.data))
+            this.myId = this.$route.params;
+            axios
+            .get('https://merry-fairy-tales.azurewebsites.net/v1/books')
+            //.get('https://merry-fairy-tales.azurewebsites.net/v1/books')
+            .then(response => (this.book = response.data[1]))
+            .catch(error => (this.info = error))
             },
         methods: {
             fileChange(fileList) {
                 this.files.append("file", fileList[0], fileList[0].name);
+                this.myFileNameA = this.book.id + "_" + this.myType + "_" + this.myLanguage + "_" + this.myNumber;
+
+                //this.book.pages.push(this.myNumber);
+                //this.book.pages.number.push(this.myNumber);
+                //this.book.pages.number.push(this.myNumber);
+                //this.book.pages.number.push(this.myNumber);
+            },
+            gotopage(){
+                this.$router.push({ path: '/EditBook', query: { id: this.book.id } })
             },
             created() {
               var myDate = new Date();
-              var myUrl = "https://ad440oneboxtempbb81.blob.core.windows.net/getsastoken/februaryPic.jpg"+this.$session.get('myI');
+              var myUrl = "https://ad440oneboxtempbb81.blob.core.windows.net/getsastoken/"+this.myFileNameA+this.$session.get('myI');
               axios({ method: "PUT",
                   "url": myUrl,
                   "data": this.files,
@@ -210,8 +215,24 @@
                       "Content-Type": "multipart/form-data"},
                       "ContentLength": this.files.length
                   })
-                .then(response => (this.infos = response))
+                .then(response => (this.infos = response.status))
                 .catch(error => (this.infos = error));
+
+            //edit json file to pass to API
+            //redirect logic
+            if (this.infos == '201') {
+              var myUrl2 = "https://melanieoneboxfunctionsprint3.azurewebsites.net/v1/books/1e4b5f8e-aa41-4074-adf6-4eec3769be80";
+              axios({ method: "PUT",
+                  "url": myUrl2,
+                  "data": this.book,
+                  "ContentLength": this.book.length
+                  })
+                .then(response => (this.infop = response.data))
+                .catch(error => (this.infop = error));
+                }
+                /*if(this.infop == '201'){
+                    self.$router.push('/BookDetails');
+                }*/
             }
         }
     };

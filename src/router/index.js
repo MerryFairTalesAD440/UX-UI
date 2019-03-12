@@ -5,6 +5,7 @@ import BookDetails from '../components/BookDetails';
 import BookList from '../components/BookList';
 import BookListFilter from '../components/BookListFilter';
 import LoginPage from '../components/LoginPage';
+import EditBook from '../components/EditBook';
 
 Vue.use(Router);
  
@@ -26,15 +27,20 @@ export default new Router({
       component: BookDetails
     },
     {
-      path: '/bookList',
+      path: '/EditBook',
+      name: 'EditBook',
+      component: EditBook
+    },
+    {
+      path: '/BookList',
       name: 'BookList',
       component: BookList
     },
     {
-      path: '/bookListFilter',
+      path: '/BookListFilter',
       name: 'BookListFilter',
       component: BookListFilter
-    },
+    }
   ],
-  mode: 'history'
+  mode: "history"
 });
