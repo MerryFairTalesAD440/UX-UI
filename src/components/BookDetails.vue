@@ -12,10 +12,10 @@
                 <!-- Cards to Display Books(getBooks) -->
                 <div>
                     <b-card >
-                        <h2 class="card-text">The Book: {{ bookList[0].title }}</h2>
-                        <h5 class="card-text">Author: {{ bookList[0].author }}</h5>
+                        <h2 class="card-text">The Book: {{ bookList.title }}</h2>
+                        <h5 class="card-text">Author: {{ bookList.author }}</h5>
                         <h6 class="card-text">
-                            Description: {{bookList[0].description}}
+                            Description: {{bookList.description}}
                         </h6>
                         <div class="mt-3">
                             <b-button-group>
@@ -51,7 +51,7 @@
             <div class="col-md-3">
                 <h2>Images</h2>
                 <!-- Cards to Display Books(getBooks) -->
-                <div v-for="book in bookList[0].pages" :key="book.id" >
+                <div v-for="book in bookList.pages" :key="book.id" >
                     <b-card >
                         <p class="card-text">Number: {{ book.number }} <br />URL: {{ book.image_url }}</p>
                         <div class="mt-3">
@@ -67,7 +67,7 @@
             <div class="col-md-3">
                 <h2>Audios</h2>
                 <!-- Cards to Display Books(getBooks) -->
-                <div v-for="book in bookList[0].pages" :key="book.id">
+                <div v-for="book in bookList.pages" :key="book.id">
                     <div v-for="item in book.languages" :key="item.id">
                     <b-card >
                         <p class="card-text">Url: {{ item.audio_url }}<br />lg: {{ item.language }}</p>
@@ -85,7 +85,7 @@
             <div class="col-md-3">
                 <h2>Languages</h2>
                 <!-- Cards to Display Books(getBooks) -->
-                <div v-for="book in bookList[0].pages" :key="book.id" >
+                <div v-for="book in bookList.pages" :key="book.id" >
                     <div v-for="item in book.languages" :key="item.id">
                     <b-card >
                         <p class="card-text">Language: {{ item.language }}</p>
@@ -178,7 +178,9 @@
                 files: new FormData(),
                 info: null,
                 infos: null,
-                bookList: []
+                bookList: [],
+                myId: null,
+                page: null
             }
         },
         beforeMount(){
@@ -188,9 +190,10 @@
             },
         mounted () {
         // var self = this
+        this.myId = this.$route.query.id
         axios
         //.get('https://melanieoneboxfunctionsprint3.azurewebsites.net/v1/books/francesco')
-        .get('https://merry-fairy-tales.azurewebsites.net/v1/books')
+        .get('https://melanieoneboxfunctionsprint3.azurewebsites.net/v1/books/'+ this.myId)
         .then(response => (this.bookList = response.data))
             },
         methods: {
