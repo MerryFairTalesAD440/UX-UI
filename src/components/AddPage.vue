@@ -10,6 +10,7 @@
             <hr class="my-4">
                             
                                 <b-btn variant="primary" b-link to="AddLanguage">Add Language</b-btn>
+                                &nbsp;&nbsp;
                                 <b-btn variant="primary" b-link to="Uploadpic">Upload Image</b-btn>
                                 <hr class="my-4">
                                 <b-btn variant="info" b-link to="BookPage">Back to Book Page</b-btn>

@@ -10,6 +10,7 @@
             <hr class="my-4">
                             
                                 <b-btn variant="primary" b-link to="UploadText">Upload Text File</b-btn>
+                                &nbsp;&nbsp;
                                 <b-btn variant="primary" b-link to="UploadAudio">Upload Audio File</b-btn>
                                 
                                 <hr class="my-4">
