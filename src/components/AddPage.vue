@@ -1,4 +1,5 @@
 <template>
+<b-container id="topPage" border-variant="dark">
     <div>
         <b-card>
         <b-jumbotron header="Add Page" lead='Upload language audio and text, and image'>
@@ -15,4 +16,5 @@
         </b-jumbotron>
         </b-card>
     </div>
+</b-container>
 </template>

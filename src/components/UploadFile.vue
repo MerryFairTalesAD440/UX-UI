@@ -1,4 +1,5 @@
 <template>
+<b-container id="topPage" border-variant="dark">
 <div id="UploadFile">
         {{$session.get('myI')}}
         <br /><br />
@@ -75,6 +76,7 @@
             </div>
         </form>
     </div>
+</b-container>
 </template>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

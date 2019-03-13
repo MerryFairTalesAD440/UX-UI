@@ -1,6 +1,6 @@
 <template>
 
-
+<b-container id="topPage" border-variant="dark">
 <div class="hero is-fullheight is-info is-bold">
     <div class="hero-body">
     <div class="container">
@@ -43,7 +43,7 @@
     </div>
 
 
-
+</b-container>
 
 </template>
 

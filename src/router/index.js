@@ -1,10 +1,15 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import InsertBook from '../components/InsertBook';
-import BookDetails from '../components/BookDetails';
 import BookList from '../components/BookList';
 import BookListFilter from '../components/BookListFilter';
 import LoginPage from '../components/LoginPage';
+import AddBook from '../components/AddBook';
+import AddImage from '../components/AddImage';
+import AddLanguage from '../components/AddLanguage';
+import AddPage from '../components/AddPage';
+import BookPage from '../components/BookPage';
+import UploadFile from '../components/UploadFile';
+
 
 Vue.use(Router);
  
@@ -14,11 +19,6 @@ export default new Router({
       path: '/',
       name: 'LoginPage',
       component: LoginPage
-    },
-    {
-      path: '/InsertBook',
-      name: 'Insertbook',
-      component: InsertBook
     },
     {
       path: '/addBook',
@@ -31,11 +31,6 @@ export default new Router({
       component: UploadFile
     },
     {
-      path: '/BookDetails',
-      name: 'BookDetails',
-      component: BookDetails
-    },
-    {
       path: '/bookList',
       name: 'BookList',
       component: BookList
@@ -45,6 +40,26 @@ export default new Router({
       name: 'BookListFilter',
       component: BookListFilter
     },
+    {
+      path: '/bookpage',
+      name: 'book_page',
+      component: BookPage
+  },
+  {
+      path: '/addpage',
+      name: 'add_page',
+      component: AddPage
+  },
+  {
+      path: '/addlanguage',
+      name: 'language_page',
+      component: AddLanguage
+  },
+  {
+      path: '/addimage',
+      name: 'image_page',
+      component: AddImage
+  }
   ],
   mode: 'history'
 });

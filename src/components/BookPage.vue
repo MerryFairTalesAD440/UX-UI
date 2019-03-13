@@ -1,4 +1,5 @@
 <template>
+<b-container id="topPage" border-variant="dark">
     <div>
         <b-card>
         <b-jumbotron header="Book Page" lead='Add or Edit Book'>
@@ -10,4 +11,5 @@
         </b-jumbotron>
         </b-card>
     </div>
+</b-container>
 </template>

@@ -12,7 +12,7 @@
                                 </template>
                                 <hr class="my-4">
                             
-                                <b-btn variant="primary" b-link to="InsertBook">Insert New Book</b-btn>
+                                <b-btn variant="primary" b-link to="AddBook">Add New Book</b-btn>
                                             
                             </b-jumbotron>
                             </div>
@@ -83,7 +83,7 @@ export default {
 },
     methods:{
         gotopage:function(index){
-               this.$router.push({ name: 'BookDetails', query: { id: this.bookList[index].id } })
+               this.$router.push({ name: 'BookPage', query: { id: this.bookList[index].id } })
            },
 
         // deleteBook: function() {
