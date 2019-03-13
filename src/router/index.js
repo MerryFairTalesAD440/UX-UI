@@ -21,6 +21,16 @@ export default new Router({
       component: InsertBook
     },
     {
+      path: '/addBook',
+      name: 'AddBook',
+      component: AddBook
+    },
+    {
+      path: '/uploadFile',
+      name: 'UploadFile',
+      component: UploadFile
+    },
+    {
       path: '/BookDetails',
       name: 'BookDetails',
       component: BookDetails
