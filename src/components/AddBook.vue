@@ -1,46 +1,61 @@
 <template>
 
 <b-container id="topPage" border-variant="dark">
-<div class="hero is-fullheight is-info is-bold">
-    <div class="hero-body">
-    <div class="container">
-    
-      <h1 class="title has-text-centered">New Book Form</h1>
-      <div class="box">
+  <hr class="my-4">
+        <b-jumbotron>
+            <template slot="header">
+                Add Book Form
+            </template>
+            <hr class="my-4">
+          </b-jumbotron>
+        <hr class="my-4">
+
     
         <!-- submission form ===================== -->
         <!-- <form id="submisson-form" @submit.prevent="processForm"> -->
-            <form id="getSas" @submit.prevent="processForm">
+            <b-form id="getSas" @submit.prevent="processForm">
 
-          <!-- name -->
-          <div class="field">
+          <!-- book title -->
+          <!-- <div class="field">
             <label class="label">Title</label>
             <input type="text" class="input" name="title"  v-model="title">
+          </div> -->
+          <div>
+            <b-form-input v-model="title" type="text" placeholder="Enter Book Title" />
+            <div class="mt-2">Value: {{ title }}</div>
           </div>
+          <hr class="my-4">
 
-        <!-- description -->
-        <div class="field">
+        <!-- author -->
+        <!-- <div class="field">
           <label class="label">Description</label>
           <input type="text" class="input" name="description"  v-model="description">
+        </div> -->
+        <div>
+            <b-form-input v-model="author" type="text" placeholder="Enter Book Author" />
+            <div class="mt-2">Value: {{ author }}</div>
         </div>
+        <hr class="my-4">
     
-          <!-- author -->
-          <div class="field">
+          <!-- description -->
+          <!-- <div class="field">
             <label class="label">Author</label>
             <input type="author" class="input" name="author"  v-model="author">
+          </div> -->
+          <div>
+            <b-form-input v-model="description" type="text" placeholder="Enter Book Description" />
+            <div class="mt-2">Value: {{ description }}</div>
           </div>
+          <hr class="my-4">
     
           <!-- Add book button -->
-          <div class="field has-text-right">
+          <!-- <div class="field has-text-right">
             <button type="submit" class="button">Add Book</button>
-          </div>
-        </form>
+          </div> -->
+          <b-btn variant="primary" type="submit" b-link to="#">Submit</b-btn>
+        </b-form>
     
-      </div>
-    
-    </div>
-    </div>
-    </div>
+      
 
 
 </b-container>

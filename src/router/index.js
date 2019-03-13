@@ -4,11 +4,12 @@ import BookList from '../components/BookList';
 import BookListFilter from '../components/BookListFilter';
 import LoginPage from '../components/LoginPage';
 import AddBook from '../components/AddBook';
-import AddImage from '../components/AddImage';
+import UploadPic from '../components/UploadPic';
 import AddLanguage from '../components/AddLanguage';
 import AddPage from '../components/AddPage';
 import BookPage from '../components/BookPage';
-import UploadFile from '../components/UploadFile';
+import UploadText from '../components/UploadText';
+import UploadAudio from '../components/UploadAudio';
 
 
 Vue.use(Router);
@@ -26,9 +27,14 @@ export default new Router({
       component: AddBook
     },
     {
-      path: '/uploadFile',
-      name: 'UploadFile',
-      component: UploadFile
+      path: '/uploadText',
+      name: 'UploadText',
+      component: UploadText
+    },
+    {
+      path: '/uploadAudio',
+      name: 'UploadAudio',
+      component: UploadAudio
     },
     {
       path: '/bookList',
@@ -56,9 +62,9 @@ export default new Router({
       component: AddLanguage
   },
   {
-      path: '/addimage',
-      name: 'image_page',
-      component: AddImage
+      path: '/uploadpic',
+      name: 'UploadPic',
+      component: UploadPic
   }
   ],
   mode: 'history'
