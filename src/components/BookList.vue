@@ -1,5 +1,7 @@
 <template>
 
+    <div id="BookList">
+    {{$session.get('myId')}}
 
    <!-- main content container     -->
                     <b-container id="topPage" border-variant="dark">
@@ -61,15 +63,21 @@
                     </b-container>
                     
                     <!-- End Main Content Container -->
+                </div>
 </template>
 
 <script>
+import Vue from 'vue';
 import axios from 'axios'
+import VueSession from 'vue-session';
+Vue.use(VueSession);
+
 export default {
   name:'BookList',
   data(){
     return {
       bookList: [],
+      myId: null
       
     }
   },
