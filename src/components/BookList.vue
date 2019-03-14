@@ -13,13 +13,19 @@
                                 <hr class="my-4">
                             
                                 <b-btn variant="primary" b-link to="InsertBook">Insert New Book</b-btn>
+                                <br /><br />
+                                <b-btn b-link to="UploadPic">UploadPic</b-btn>
+                                <br /><br />
+                                <b-btn b-link to="UploadAudio">UploadAudio</b-btn>
+                                <br /><br />
+                                <b-btn b-link to="UploadText">Upload Text</b-btn>
                                             
                             </b-jumbotron>
                             </div>
                             <!-- end heading -->
         
                             <!-- Cards to Display Books(getBooks) -->
-                            <div v-for="book in bookList" :key="book.id" >
+                            <div v-for="(book, index) in bookList" :key="book.id" >
                                 <b-card >
                                     <h2 class="card-text">Title: {{ book.title }}</h2>
                                     <h5 class="card-text">Author: {{ book.author }}</h5>
@@ -29,7 +35,7 @@
 
                                     <div class="mt-3">
                                         <b-button-group>
-                                        <b-button variant="primary" b-link to="/bookdetails">Edit Book</b-button>
+                                        <b-button variant="primary" v-on:click="gotopage(index)">Manage Book</b-button>
                                         <b-button variant="danger" b-link to="#">Delete Book</b-button>
                                         
                                         </b-button-group>
@@ -65,7 +71,8 @@ export default {
   name:'BookList',
   data(){
     return {
-      bookList: []
+      bookList: [],
+      myId: null
     }
   },
    mounted () {
@@ -77,6 +84,11 @@ export default {
         //     self.bookList = response.data
         //     console.log('Data: ', response.data)
         // })
-}
+    },
+    methods: {
+        gotopage(index){
+            this.$router.push({ name: 'BookDetails', query: { id: this.bookList[index].id } })
+        }
+    }
 }
 </script>
