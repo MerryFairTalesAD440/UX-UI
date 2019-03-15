@@ -103,7 +103,7 @@ async function clearBlobs(aborter, containerURL, pipeline, serviceURL) {
     marker = response.marker;
     for (let blob of response.segment.blobItems) {
       if(getFileContentType(blob.name) == "application/javascript" || getFileContentType(blob.name) == 'text/css'){
-        blobToDelete = new BlockBlobURL(serviceURL + blob.name, pipeline);
+        let blobToDelete = new BlockBlobURL(serviceURL + blob.name, pipeline);
         await blobToDelete.delete(aborter);
         console.log(`Block blob "${blob.name}" is deleted`);
       }
