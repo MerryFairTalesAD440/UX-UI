@@ -106,14 +106,14 @@ name: 'AddBook',
   //       alert('Processing!');
       },
       methods:{
-        addBook() {
+        addBook:function() {
           
-           return axios.post('https://melanieoneboxfunctionsprint3.azurewebsites.net/v1/books', {
+           return axios.post('https://ad440-dev-function.azurewebsites.net/v1/books', {
     title: this.postTitle,
     author: this.postAuthor,
     description: this.postDescription
   }).then((response) => {
-                alert('Book information submitted');
+                alert('Book information submitted')
 
     //         var newId = response.data;
     //         console.log(newId);

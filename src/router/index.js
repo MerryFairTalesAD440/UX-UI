@@ -48,17 +48,17 @@ export default new Router({
     },
     {
       path: '/bookpage/:book_id',
-      name: 'book_page',
+      name: 'BookPage',
       component: BookPage
   },
   {
       path: '/addpage',
-      name: 'add_page',
+      name: 'AddPage',
       component: AddPage
   },
   {
       path: '/addlanguage',
-      name: 'language_page',
+      name: 'AddLanguage',
       component: AddLanguage
   },
   {
