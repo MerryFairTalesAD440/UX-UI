@@ -22,47 +22,47 @@ export default new Router({
       component: LoginPage
     },
     {
-      path: '/addBook',
+      path: '/AddBook',
       name: 'AddBook',
       component: AddBook
     },
     {
-      path: '/uploadText',
+      path: '/UploadText',
       name: 'UploadText',
       component: UploadText
     },
     {
-      path: '/uploadAudio',
+      path: '/UploadAudio',
       name: 'UploadAudio',
       component: UploadAudio
     },
     {
-      path: '/bookList',
+      path: '/BookList',
       name: 'BookList',
       component: BookList
     },
     {
-      path: '/bookListFilter',
+      path: '/BookListFilter',
       name: 'BookListFilter',
       component: BookListFilter
     },
     {
-      path: '/bookpage',
-      name: 'book_page',
+      path: '/Bookpage',
+      name: 'BookPage',
       component: BookPage
   },
   {
-      path: '/addpage',
-      name: 'add_page',
+      path: '/AddPage',
+      name: 'AddPage',
       component: AddPage
   },
   {
-      path: '/addlanguage',
-      name: 'language_page',
+      path: '/AddLanguage',
+      name: 'AddLanguage',
       component: AddLanguage
   },
   {
-      path: '/uploadpic',
+      path: '/UploadPic',
       name: 'UploadPic',
       component: UploadPic
   }

@@ -70,12 +70,13 @@ import axios from 'axios'
 export default {
 name: 'AddBook',
 
-     data() {
+    data() {
     return {
+      data: null,
       title: '',
       description: '',
       author: ''
-         }
+      }
     },
    
  mounted () {
