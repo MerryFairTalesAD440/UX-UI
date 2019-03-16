@@ -47,7 +47,7 @@ export default new Router({
       component: BookListFilter
     },
     {
-      path: '/bookpage',
+      path: '/bookpage/:book_id',
       name: 'book_page',
       component: BookPage
   },
