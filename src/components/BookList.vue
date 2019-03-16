@@ -24,7 +24,10 @@
         
                             <!-- Cards to Display Books(getBooks) -->
                             <!-- <div v-for="book in bookList" :key="book.id" > -->
-                                <div v-for="(book, index) in bookList" :key="book.id" >
+                                <b-form-input v-model="search" placeholder="Search by Author Name or Book Title"/>
+                                <br>
+                                <div v-if="bookList">
+                                <div v-for="(book, index) in filteredBook" :key="book.id" >
                                 <b-card >
                                     <h2 class="card-text">Title: {{ book.title }}</h2>
                                     <h5 class="card-text">Author: {{ book.author }}</h5>
@@ -49,6 +52,7 @@
                                 </b-card>
                                 <hr class="my-4">
                             </div>
+                                </div>
                             <!-- End Book Cards -->
                             </b-col>
                         </b-row>
@@ -77,13 +81,14 @@ export default {
   data(){
     return {
       infos: null,
+      search: '',
       bookList: []
     //   myId: null
       
     }
   },
    mounted () {
-    // var self = this
+    var self = this
     axios
         .get('https://ad440-dev-function.azurewebsites.net/v1/books')
         .then(response => (this.bookList = response.data))
@@ -107,7 +112,14 @@ export default {
                 // this.result.splice(id, 1)
                 // console.log(this.result);
                 }
+            },
+        computed: {
+            filteredBook: function () {
+                return this.bookList.filter((book) => {
+                    return book.title.toLowerCase().match(this.search.toLowerCase()) || book.author.toLowerCase().match(this.search.toLowerCase())
+                })
             }
+        }
     }
 
 </script>
