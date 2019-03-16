@@ -76,8 +76,9 @@ export default {
   name:'BookList',
   data(){
     return {
-      bookList: [],
-      myId: null
+      infos: null,
+      bookList: []
+    //   myId: null
       
     }
   },
@@ -86,6 +87,7 @@ export default {
     axios
         .get('https://ad440-dev-function.azurewebsites.net/v1/books')
         .then(response => (this.bookList = response.data))
+        .catch(error => (this.infos = error));
         // .then(function (response) {
         //     self.bookList = response.data
         //     console.log('Data: ', response.data)

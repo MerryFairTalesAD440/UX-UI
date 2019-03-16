@@ -35,11 +35,24 @@ export default {
   name:'BookPage',
   data(){
     return {
-        bookId: this.$route.params.book_id
+        info: null,
+        page: null,
+        mypage:null,
+        book: null,
+        myId: null,
+        myNumber: null
+        // bookId: this.$route.params.book_id
       
       
     }
   },
+  mounted(){
+      this.myId = this.$route.query.id;
+        axios
+        .get('https://melanieoneboxfunctionsprint3.azurewebsites.net/v1/books/'+this.myId)
+        .then(response => (this.book = response.data))
+        .catch(error => (this.info = error))
+  }
 }
 
 </script>
