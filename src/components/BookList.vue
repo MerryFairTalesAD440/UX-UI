@@ -1,4 +1,8 @@
 <template>
+
+    <div id="BookList">
+    {{$session.get('myId')}}
+
    <!-- main content container     -->
                     <b-container id="topPage" border-variant="dark">
                         <b-row>
@@ -32,7 +36,7 @@
                             
                                         <b-button-group>
                                         <b-button variant="primary" v-on:click="gotopage(index)">Manage Book</b-button>
-                                        <b-button variant="danger" b-link to="#">Delete Book</b-button>
+                                        <b-button variant="danger" v-on:click="deleteBook(book)">Delete Book</b-button>
                                         
                                         </b-button-group>
                                     </div>
@@ -59,41 +63,51 @@
                     </b-container>
                     
                     <!-- End Main Content Container -->
+                </div>
 </template>
 
 <script>
+import Vue from 'vue';
 import axios from 'axios'
+import VueSession from 'vue-session';
+Vue.use(VueSession);
+
 export default {
   name:'BookList',
   data(){
     return {
-      bookList: [],
+      infos: null,
+      bookList: []
+    //   myId: null
       
     }
   },
    mounted () {
     // var self = this
     axios
-        .get('https://merry-fairy-tales.azurewebsites.net/v1/books')
+        .get('https://ad440-dev-function.azurewebsites.net/v1/books')
         .then(response => (this.bookList = response.data))
+        .catch(error => (this.infos = error));
         // .then(function (response) {
         //     self.bookList = response.data
         //     console.log('Data: ', response.data)
         // })
 },
     methods:{
-        gotopage:function(index){
+        gotopage(index){
                this.$router.push({ name: 'BookPage', query: { id: this.bookList[index].id } })
            },
 
-        // deleteBook: function() {
-        //         axios.delete('https://merry-fairy-tales.azurewebsites.net/v1/books'+ book.id)
-        //         .then(response => (this.bookList = response.data))
-        //         // .then(response => (this.bookList = response.data){
-        //         // this.result.splice(id, 1)
-        //         // console.log(this.result);
-        //         }
-            },
+        deleteBook(book) {
+            const url = `https://ad440-dev-function.azurewebsites.net/v1/books/${book.id}`;
+            return axios.delete(url,book);
+                // axios.delete('https://merry-fairy-tales.azurewebsites.net/v1/books'+ book.id)
+                // .then(response => (this.bookList = response.data))
+                // .then(response => (this.bookList = response.data){
+                // this.result.splice(id, 1)
+                // console.log(this.result);
+                }
+            }
     }
 
 </script>

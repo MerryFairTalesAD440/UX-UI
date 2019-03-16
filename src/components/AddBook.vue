@@ -21,8 +21,8 @@
             <input type="text" class="input" name="title"  v-model="title">
           </div> -->
           <div>
-            <b-form-input v-model="title" type="text" placeholder="Enter Book Title" />
-            <div class="mt-2">Value: {{ title }}</div>
+            <b-form-input v-model="postTitle" type="text" placeholder="Enter Book Title" />
+            <div class="mt-2">Value: {{ postTitle }}</div>
           </div>
           <hr class="my-4">
 
@@ -32,8 +32,8 @@
           <input type="text" class="input" name="description"  v-model="description">
         </div> -->
         <div>
-            <b-form-input v-model="author" type="text" placeholder="Enter Book Author" />
-            <div class="mt-2">Value: {{ author }}</div>
+            <b-form-input v-model="postAuthor" type="text" placeholder="Enter Book Author" />
+            <div class="mt-2">Value: {{ postAuthor }}</div>
         </div>
         <hr class="my-4">
     
@@ -43,8 +43,8 @@
             <input type="author" class="input" name="author"  v-model="author">
           </div> -->
           <div>
-            <b-form-input v-model="description" type="text" placeholder="Enter Book Description" />
-            <div class="mt-2">Value: {{ description }}</div>
+            <b-form-input v-model="postDescription" type="text" placeholder="Enter Book Description" />
+            <div class="mt-2">Value: {{ postDescription }}</div>
           </div>
           <hr class="my-4">
     
@@ -52,7 +52,7 @@
           <!-- <div class="field has-text-right">
             <button type="submit" class="button">Add Book</button>
           </div> -->
-          <b-btn variant="primary" type="submit" b-link to="#">Submit</b-btn>
+          <b-btn variant="primary" type="button" v-on:click="addBook()">Submit</b-btn>
         </b-form>
     
       
@@ -72,35 +72,64 @@ name: 'AddBook',
 
      data() {
     return {
-      title: '',
-      description: '',
-      author: ''
+      
+      postTitle: '',
+      postAuthor: '',
+      postDescription: ''
          }
     },
    
  mounted () {
-   var self = this
+
+   
+  //  var self = this
              
-          data = { title: this.title, description: this.description, author: this.author }
-          const url = 'https://melanieoneboxfunctionsprint3.azurewebsites.net/v1/books';
+  //         data = { title: this.title, description: this.description, author: this.author }
+  //         const url = 'https://melanieoneboxfunctionsprint3.azurewebsites.net/v1/books';
 
-          axios.post(url, data)  
+  //         axios.post(url, data)  
  
  
-          .then(response => {
+          // .then(response => {
             
-            alert('Book information submitted');
+            // alert('Book information submitted');
 
-            var newId = response.data;
-            console.log(newId);
+            // var newId = response.data;
+            // console.log(newId);
 
-            data.id= newId
-            console.log(data);
+            // data.id= newId
+            // console.log(data);
 
-           })
+  //          })
 
-        console.log({ title: this.title, description: this.description, author: this.author });
-        alert('Processing!');
+  //       console.log({ title: this.title, description: this.description, author: this.author });
+  //       alert('Processing!');
+      },
+      methods:{
+        addBook() {
+          
+           return axios.post('https://melanieoneboxfunctionsprint3.azurewebsites.net/v1/books', {
+    title: this.postTitle,
+    author: this.postAuthor,
+    description: this.postDescription
+  }).then((response) => {
+                alert('Book information submitted');
+
+    //         var newId = response.data;
+    //         console.log(newId);
+
+    //         (this.postTitle,
+    // this.postAuthor,
+    // this.postDescription).id= newId
+    //         console.log(this.postTitle,
+    // this.postAuthor,
+    // this.postDescription);
+
+  })
+  .catch((e) => {
+    console.error(e)
+  })
+        }
       }
         
   }
