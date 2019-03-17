@@ -1,137 +1,80 @@
 <template>
-
 <b-container id="topPage" border-variant="dark">
-  <hr class="my-4">
-        <b-jumbotron>
-            <template slot="header">
-                Add Book Form
-            </template>
-            <hr class="my-4">
-          </b-jumbotron>
-        <hr class="my-4">
+<div id="InsertBook">
 
-    
-        <!-- submission form ===================== -->
-        <!-- <form id="submisson-form" @submit.prevent="processForm"> -->
-            <b-form id="getSas" @submit.prevent="processForm">
+        infop : {{ infop }}
+        <br /><br />
 
-          <!-- book title -->
-          <!-- <div class="field">
-            <label class="label">Title</label>
-            <input type="text" class="input" name="title"  v-model="title">
-          </div> -->
-          <div>
-            <b-form-input v-model="postTitle" type="text" placeholder="Enter Book Title" />
-            <div class="mt-2">Value: {{ postTitle }}</div>
-          </div>
-          <hr class="my-4">
-
-        <!-- author -->
-        <!-- <div class="field">
-          <label class="label">Description</label>
-          <input type="text" class="input" name="description"  v-model="description">
-        </div> -->
-        <div>
-            <b-form-input v-model="postAuthor" type="text" placeholder="Enter Book Author" />
-            <div class="mt-2">Value: {{ postAuthor }}</div>
-        </div>
-        <hr class="my-4">
-    
-          <!-- description -->
-          <!-- <div class="field">
-            <label class="label">Author</label>
-            <input type="author" class="input" name="author"  v-model="author">
-          </div> -->
-          <div>
-            <b-form-input v-model="postDescription" type="text" placeholder="Enter Book Description" />
-            <div class="mt-2">Value: {{ postDescription }}</div>
-          </div>
-          <hr class="my-4">
-    
-          <!-- Add book button -->
-          <!-- <div class="field has-text-right">
-            <button type="submit" class="button">Add Book</button>
-          </div> -->
-          <b-btn variant="primary" type="button" v-on:click="addBook()">Submit</b-btn>
-        </b-form>
-    
-      
-
-
-</b-container>
-
+        <h2>Add book</h2>
+        <form enctype="multipart/form-data">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <p class="control-label col-md-2">Book Title</p>
+                    <div class="col-md-10">
+                        <input type="text" v-model="title" name="title" class="form-control" style="width:80%;" maxlength="200">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p class="control-label col-md-2">Description</p>
+                    <div class="col-md-10">
+                        <textarea rows="3" v-model="description" class="form-control" style="width:80%;" name="body" maxlength="2000"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p class="control-label col-md-2">Book Author</p>
+                    <div class="col-md-10">
+                        <input type="text" v-model="author" name="custom5" class="form-control" style="width:80%;" maxlength="100">
+                    </div>
+                </div>
+                <input type="hidden" v-model="cover_image" name="cover_image" class="form-control" style="width:80%;" maxlength="100">
+            </div>
+            <div class="form-group">
+                <button type="button" v-on:click="created()" class="btn btn-primary btn-lg" style="width:25%;">Update</button>
+            </div>
+        </form>
+    </div>
+    </b-container>
 </template>
 
-
-
 <script>
-import axios from 'axios'
+    import Vue from 'vue'
+    import axios from "axios";
 
-export default {
-name: 'AddBook',
+    export default {
+        name: 'AddBook',
+        data() {
+            return {
+                infop: '',
+                myId: '',
+                cover_image: '',
+                author: '',
+                description: '',
+                title: '',
+                book: ''
+            }
+        },
+        beforeMount(){
 
-     data() {
-    return {
-      
-      postTitle: '',
-      postAuthor: '',
-      postDescription: ''
-         }
-    },
-   
- mounted () {
+            },
+        mounted () {
 
-   
-  //  var self = this
-             
-  //         data = { title: this.title, description: this.description, author: this.author }
-  //         const url = 'https://melanieoneboxfunctionsprint3.azurewebsites.net/v1/books';
-
-  //         axios.post(url, data)  
- 
- 
-          // .then(response => {
+            },
+        methods: {
+            created() {
+              //var myUrl2 = "https://ad440-dev-function.azurewebsites.net/v1/books"; //bad
+              var myUrl2 = "https://melanieoneboxfunctionsprint3.azurewebsites.net/v1/books"
+              axios.post(myUrl2,
+              {
+                    title: this.title,
+                    author: this.author,
+                    cover_image: this.cover_image,
+                    description: this.description
+              })
+            .then(response => (this.infop = response.data))
+            .catch(error => (this.infop = error));
             
-            // alert('Book information submitted');
-
-            // var newId = response.data;
-            // console.log(newId);
-
-            // data.id= newId
-            // console.log(data);
-
-  //          })
-
-  //       console.log({ title: this.title, description: this.description, author: this.author });
-  //       alert('Processing!');
-      },
-      methods:{
-        addBook:function() {
-          
-           return axios.post('https://ad440-dev-function.azurewebsites.net/v1/books', {
-    title: this.postTitle,
-    author: this.postAuthor,
-    description: this.postDescription
-  }).then((response) => {
-                alert('Book information submitted')
-
-    //         var newId = response.data;
-    //         console.log(newId);
-
-    //         (this.postTitle,
-    // this.postAuthor,
-    // this.postDescription).id= newId
-    //         console.log(this.postTitle,
-    // this.postAuthor,
-    // this.postDescription);
-
-  })
-  .catch((e) => {
-    console.error(e)
-  })
+            this.$router.push({ name: 'BookPage', query: { id: this.infop } })
+            }
         }
-      }
-        
-  }
-  
+    }
 </script>
