@@ -35,7 +35,9 @@
 export default {
   name: 'NavBar',
   data(){
-    
+    return{
+      info: null
+    }
   },
 
     methods: {

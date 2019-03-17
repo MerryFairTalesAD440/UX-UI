@@ -6,13 +6,13 @@
         <hr class="my-4">
         <b-jumbotron>
             <template slot="header">
-                Add Page
+                Page Added
             </template>
             <hr class="my-4">
-                            
+          
             <b-btn variant="primary" b-link to="AddLanguage">Add Language</b-btn>
             &nbsp;&nbsp;
-            <b-btn variant="primary" b-link to="Uploadpic">Upload Image</b-btn>
+            <b-btn variant="primary" v-on:click="gotoUploadPic()">Upload Image</b-btn>
             <hr class="my-4">
             <b-btn variant="info" b-link to="BookPage">Back to Book Page</b-btn>
         
@@ -36,8 +36,21 @@ export default {
   name:'AddPage',
   data(){
     return {
-
+        info: null,
+        page: null,
+        mypage:null,
+        book: null,
+        myId: null,
+        myNumber: null
         }    
+    },
+    mounted () {
+        this.myId = this.$route.query.id;
+    },
+    methods:{
+        gotoUploadPic:function(){
+            this.$router.push({ name: 'UploadPic', query: { id: this.myId} })
     }
+  }
 }
 </script>
