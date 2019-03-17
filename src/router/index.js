@@ -37,7 +37,7 @@ export default new Router({
       component: UploadAudio
     },
     {
-      path: '/bookList',
+      path: '/BookList',
       name: 'BookList',
       component: BookList
     },
@@ -47,12 +47,12 @@ export default new Router({
       component: BookListFilter
     },
     {
-      path: '/bookpage/:book_id',
+      path: '/BookPage',
       name: 'BookPage',
       component: BookPage
   },
   {
-      path: '/addpage',
+      path: '/AddPage',
       name: 'AddPage',
       component: AddPage
   },

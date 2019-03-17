@@ -1,23 +1,24 @@
 <template>
 <div id="BookPage">
 <b-container id="topPage">
-        <!-- id: {{ myId }}
+        id: {{ myId }}
         <br /><br />
         info: {{ info }}
         <br /><br />
-        info: {{ page }} -->
+        info: {{ page }}
     <div>
         <hr class="my-4">
         <b-jumbotron>
             <template slot="header">
-                
-                <h1>Book Title: {{book.title}}</h1>
-                    <h3>Author: {{book.author}}</h3>
-                       <h4>Description: {{book.description}}</h4>
+                Book Page
+                <!-- <h1>{{book.title}}</h1>
+                    <h3>{{book.author}}</h3>
+                       <h4>{{book.description}}</h4> -->
             </template>
+            Titile : {{ book.title }}, Author : {{ book.author }}
             <hr class="my-4">
                             
-            <b-btn variant="primary" b-link to="AddPage">Add Page</b-btn>
+            <b-btn variant="primary" v-on:click="created()">Add Page</b-btn>
         
         <!-- <nav>
             <router-link to='/addpage'>Add Page</router-link>
@@ -72,19 +73,39 @@ export default {
         .catch(error => (this.info = error))
     },
     methods:{
-        // gotoImage:function(index){
-        //         this.myNumber = this.book.pages[index].number;
-        //         this.$router.push({ name: 'UploadPic', query: { id: this.myId, page: this.myNumber } })
-        //     },
-        // gotoAudio:function(index){
-        //         this.myNumber = this.book.pages[index].number;
-        //         this.$router.push({ name: 'UploadAudio', query: { id: this.myId, page: this.myNumber } })
-        //     },
-        // gotoText:function(index){
-        //         this.myNumber = this.book.pages[index].number;
-        //         this.$router.push({ name: 'UploadText', query: { id: this.myId, page: this.myNumber } })
-        //     }
-  },
+        gotoAddPage:function(){
+                this.myNumber = this.book.id;
+                this.$router.push({ name: 'AddPage', query: { id: this.myId} })
+            },
+        gotoImage:function(index){
+                this.myNumber = this.book.pages[index].number;
+                this.$router.push({ name: 'UploadPic', query: { id: this.myId, page: this.myNumber } })
+            },
+        gotoAudio:function(index){
+                this.myNumber = this.book.pages[index].number;
+                this.$router.push({ name: 'UploadAudio', query: { id: this.myId, page: this.myNumber } })
+            },
+        gotoText:function(index){
+                this.myNumber = this.book.pages[index].number;
+                this.$router.push({ name: 'UploadText', query: { id: this.myId, page: this.myNumber } })
+            },
+        created() {
+
+            //edit json file to pass to API
+            //redirect logic
+            //if (this.book.pages[this.myNumber-1].image_url !== null) {
+              //this.book.pages[this.myNumber-1].image_url = "https://ad440oneboxtempbb81.blob.core.windows.net/getsastoken/"+this.myFileNameA;
+              var myUrl2 = "https://ad440-dev-function.azurewebsites.net/v1/books/"+this.myId+"/pages";
+              axios.post(myUrl2,this.book)
+                .then(response => (this.infop = response.data))
+                .catch(error => (this.infop = error));
+                this.$router.push({ name: 'BookPage', query: { id: this.myId } })
+            //}
+            //if(this.infop == '201'){
+                this.$router.push({ name: 'AddPage', query: { id: this.book.id, page: this.myNumber } })
+            //}
+        }
+  }
 }
 
 </script>
