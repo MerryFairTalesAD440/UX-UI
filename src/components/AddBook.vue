@@ -29,7 +29,7 @@
                 <input type="hidden" v-model="cover_image" name="cover_image" class="form-control" style="width:80%;" maxlength="100">
             </div>
             <div class="form-group">
-                <button type="button" v-on:click="created()" class="btn btn-primary btn-lg" style="width:25%;">Update</button>
+                <button type="button" v-on:click="created()" class="btn btn-primary btn-sm" style="width:25%;">Update</button>
             </div>
         </form>
     </div>
@@ -62,7 +62,7 @@
         methods: {
             created() {
               //var myUrl2 = "https://ad440-dev-function.azurewebsites.net/v1/books"; //bad
-              var myUrl2 = "https://melanieoneboxfunctionsprint3.azurewebsites.net/v1/books"
+              var myUrl2 = "https://ad440-dev-function.azurewebsites.net/v1/books"
               axios.post(myUrl2,
               {
                     title: this.title,

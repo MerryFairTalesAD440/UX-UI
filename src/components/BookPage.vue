@@ -10,12 +10,12 @@
         <hr class="my-4">
         <b-jumbotron>
             <template slot="header">
-                Book Page
-                <!-- <h1>{{book.title}}</h1>
-                    <h3>{{book.author}}</h3>
-                       <h4>{{book.description}}</h4> -->
+                
+                <h1>Book Title: {{book.title}}</h1>
+                    <h3>Author: {{book.author}}</h3>
+                       <h4>Description: {{book.description}}</h4>
             </template>
-            Titile : {{ book.title }}, Author : {{ book.author }}
+            <!-- Titile : {{ book.title }}, Author : {{ book.author }} -->
             <hr class="my-4">
                             
             <b-btn variant="primary" v-on:click="created()">Add Page</b-btn>
