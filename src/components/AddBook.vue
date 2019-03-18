@@ -39,6 +39,8 @@
 <script>
     import Vue from 'vue'
     import axios from "axios";
+    import VueSession from 'vue-session';
+    Vue.use(VueSession);
 
     export default {
         name: 'AddBook',
@@ -54,7 +56,9 @@
             }
         },
         beforeMount(){
-
+            axios({ method: "POST", "url": "https://merryfairytales.azurewebsites.net/v1/sastoken", "data": {'container': 'getsastoken'}, "headers": {'Content-Type': 'application/json'}})
+                .then(response => {this.$session.set('myI',response.data.token);})
+                .catch(error => (this.info = error))
             },
         mounted () {
 

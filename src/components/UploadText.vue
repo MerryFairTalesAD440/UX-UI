@@ -3,6 +3,17 @@
 <b-container id="topPage" border-variant="dark">
     <div>
         <hr class="my-4">
+        {{$session.get('myI')}}
+        <br /><br />
+        info : {{ info }}
+        <br /><br />
+        infos : {{ infos }}
+        <br /><br />
+        route : {{ myId }} &nbsp; page : {{ myNumber }}
+        <br /><br />
+        infop : {{ infop }}
+        <br /><br />
+        
         <b-jumbotron>
             <template slot="header">
                 Upload Text File Here

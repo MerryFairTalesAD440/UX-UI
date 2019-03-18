@@ -28,6 +28,7 @@
                                 <div v-for="(book, index) in filteredBook" :key="book.id" >
                                 <b-card >
                                     <h2 class="card-text">Title: {{ book.title }}</h2>
+                                    <h4 class="card-text">Id: {{ book.id }}</h4>
                                     <h5 class="card-text">Author: {{ book.author }}</h5>
                                     <h6 class="card-text">
                                         Description: {{book.description}}

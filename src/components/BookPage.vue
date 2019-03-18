@@ -29,7 +29,7 @@
         <h2><ul>List of Pages Beaneath Here</ul></h2>
         <hr class="my-4">
 
-            <div v-if="book.pages">
+            <!--<div v-if="book.pages">
                 <div v-for="(mypage, index) in book.pages" :key="mypage.id">
                     <div v-if="mypage">
                         <b-card >
@@ -42,7 +42,7 @@
                         </b-card>
                     </div>
                 </div>
-            </div>
+            </div>-->
         
         
     </div>
@@ -58,36 +58,38 @@ export default {
     return {
         info: null,
         page: null,
-        mypage:null,
+        mypage: null,
+        myPage:null,
         book: null,
-        myId: null,
-        myNumber: null
+        myId: null
         }
       
     },
     mounted () {
         this.myId = this.$route.query.id;
+        this.myPage = this.$route.query.page;
         axios
         .get('https://melanieoneboxfunctionsprint3.azurewebsites.net/v1/books/'+this.myId)
+        //.get('https://ad440-dev-function.azurewebsites.net/v1/books/'+this.myId)
         .then(response => (this.book = response.data))
         .catch(error => (this.info = error))
     },
     methods:{
         gotoAddPage:function(){
-                this.myNumber = this.book.id;
+                this.myPage = this.book.id;
                 this.$router.push({ name: 'AddPage', query: { id: this.myId} })
             },
         gotoImage:function(index){
-                this.myNumber = this.book.pages[index].number;
-                this.$router.push({ name: 'UploadPic', query: { id: this.myId, page: this.myNumber } })
+                this.myPage = this.book.pages[index].number;
+                this.$router.push({ name: 'UploadPic', query: { id: this.myId, page: this.myPage } })
             },
         gotoAudio:function(index){
-                this.myNumber = this.book.pages[index].number;
-                this.$router.push({ name: 'UploadAudio', query: { id: this.myId, page: this.myNumber } })
+                this.myPage = this.book.pages[index].number;
+                this.$router.push({ name: 'UploadAudio', query: { id: this.myId, page: this.myPage } })
             },
         gotoText:function(index){
-                this.myNumber = this.book.pages[index].number;
-                this.$router.push({ name: 'UploadText', query: { id: this.myId, page: this.myNumber } })
+                this.myPage = this.book.pages[index].number;
+                this.$router.push({ name: 'UploadText', query: { id: this.myId, page: this.myPage } })
             },
         created() {
 
@@ -102,7 +104,7 @@ export default {
                 this.$router.push({ name: 'BookPage', query: { id: this.myId } })
             //}
             //if(this.infop == '201'){
-                this.$router.push({ name: 'AddPage', query: { id: this.book.id, page: this.myNumber } })
+                this.$router.push({ name: 'AddPage', query: { id: this.book.id, page: this.myPage } })
             //}
         }
   }
