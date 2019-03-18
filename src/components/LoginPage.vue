@@ -1,5 +1,6 @@
 <template>
   <div id="LoginPage">
+    <!-- <LoginNavBar /> -->
     <!-- Google ID Token -->
 
     <!-- Google Token
@@ -46,6 +47,7 @@
 
 <script>
 import GoogleSignInButton from "vue-google-signin-button-directive";
+// import LoginNavBar from "./LoginNavBar.vue";
 export default {
   name: "LoginPage",
   directives: {
@@ -66,6 +68,9 @@ export default {
       this.infom = error;
     }
   }
+  // components: {
+  //   LoginNavBar
+  // }
 };
 </script>
 

@@ -10,6 +10,7 @@ import AddPage from "../components/AddPage";
 import BookPage from "../components/BookPage";
 import UploadText from "../components/UploadText";
 import UploadAudio from "../components/UploadAudio";
+import LoginNavBar from "../components/LoginNavBar";
 
 Vue.use(Router);
 
@@ -64,6 +65,11 @@ export default new Router({
       path: "/uploadpic",
       name: "UploadPic",
       component: UploadPic
+    },
+    {
+      path: "/loginnavbar",
+      name: "LoginNavBar",
+      component: LoginNavBar
     }
   ],
   mode: "history"
