@@ -82,8 +82,8 @@ export default {
       //myNumber: null
     };
   },
-  mounted() {
-    var self = this;
+  beforeMount() {
+    // var self = this;
     axios
       //.get('https://merry-fairy-tales.azurewebsites.net/v1/books')
       .get("https://ad440-dev-function.azurewebsites.net/v1/books")

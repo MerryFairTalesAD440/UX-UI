@@ -78,11 +78,11 @@ export default {
   display: block;
   margin: auto;
   margin-top: 200px;
-  height: 40px;
-  border-width: 0;
+  height: 80px;
+  border-width: 10;
   background: white;
   color: #737373;
-  border-radius: 3px;
+  border-radius: 5px;
   white-space: nowrap;
   box-shadow: 3px 3px 0px 3px rgba(0, 0, 0, 0.08);
   transition-property: background-color, box-shadow;
@@ -105,20 +105,20 @@ export default {
   display: inline-block;
   vertical-align: middle;
   margin: 8px 0 8px 8px;
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 30px;
   box-sizing: border-box;
 }
 
 .google-button__icon--plus {
-  width: 27px;
+  width: 30px;
 }
 
 .google-button__text {
   display: inline-block;
   vertical-align: middle;
   padding: 0 24px;
-  font-size: 14px;
+  font-size: 20px;
   font-weight: bold;
   font-family: "Roboto", arial, sans-serif;
 }
