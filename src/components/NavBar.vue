@@ -44,6 +44,7 @@ export default {
         this.$router.push({ name: "LoginPage", query: { redirect: "/" } });
       });
     }
-  }
+  },
+  
 };
 </script>

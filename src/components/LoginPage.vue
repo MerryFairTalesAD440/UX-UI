@@ -1,14 +1,22 @@
 <template>
   <div id="LoginPage">
-    <!-- Google ID Token -->
+  
+  
+       <!-- main content container     -->
+    <b-container id="topPage" border-variant="dark">
+      <b-row>
+        <b-col>
+          <!-- heading -->
+          <div>
+            <hr class="my-4" />
+            <b-jumbotron class="jumbotron" bg-variant="info" border-variant="dark" text-variant="white">
+              <template slot="header">
+                Merry Fairy Tales
+              </template>
+              <hr class="my-4" />
 
-    <!-- Google Token
-      <br /><br />
-      {{ infom }}
-      <br /><br />
-    -->
-
-    <div class="holder">
+              <!--Google Sign in Button-->
+               <!-- <div class="holder">
       <button
         v-google-signin-button="clientId"
         content="606095925126-3n35c9cad1f5bh51lbsd4okvg388k6vg"
@@ -40,12 +48,32 @@
         </span>
         <span class="google-button__text">Sign in with Google</span>
       </button>
-    </div>
+    </div> -->
+              <!--End of Google Sign In Button-->
+
+              <b-btn v-google-signin-button="clientId"
+        content="606095925126-3n35c9cad1f5bh51lbsd4okvg388k6vg"
+        type="button"
+        class="google-button" variant="primary">Sign in with Google</b-btn>
+            </b-jumbotron>
+          </div>
+          <!-- end heading -->
+
+           
+        </b-col>
+      </b-row>
+
+     
+      <hr class="my-4" />
+    </b-container>
+
+   
   </div>
 </template>
 
 <script>
 import GoogleSignInButton from "vue-google-signin-button-directive";
+
 export default {
   name: "LoginPage",
   directives: {
@@ -66,15 +94,17 @@ export default {
       this.infom = error;
     }
   }
+ 
 };
 </script>
 
 <style>
-.holder {
+
+.jumbotron {
   text-align: center;
 }
 
-.google-button {
+/* .google-button {
   display: block;
   margin: auto;
   margin-top: 200px;
@@ -121,5 +151,5 @@ export default {
   font-size: 14px;
   font-weight: bold;
   font-family: "Roboto", arial, sans-serif;
-}
+} */
 </style>

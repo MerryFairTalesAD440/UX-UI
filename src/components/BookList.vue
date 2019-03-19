@@ -4,13 +4,13 @@
       
     
     <!-- main content container     -->
-    <b-container id="topPage" border-variant="dark">
+    <b-container bg-info id="topPage" border-variant="dark">
       <b-row>
         <b-col>
           <!-- heading -->
           <div>
             <hr class="my-4" />
-            <b-jumbotron>
+            <b-jumbotron class="jumbotron" bg-variant="info" text-variant="white" border-variant="dark">
               <template slot="header">
                 Admin Portal
               </template>
@@ -23,14 +23,16 @@
 
             <!-- Cards to Display Books(getBooks) -->
                             <!-- <div v-for="book in bookList" :key="book.id" > -->
-                                <div v-for="(book, index) in bookList" :key="book.id" >
-                                <b-card >
+                                <b-form-input v-model="search" placeholder="Search by Author Name or Book Title"/>
+                                <br>
+                                <div v-if="bookList">
+                                <div v-for="(book, index) in filteredBook" :key="book.id" >
+                                <b-card bg-variant="info" border-variant="dark" text-variant="white">
                                     <h2 class="card-text">Title: {{ book.title }}</h2>
                                     <h5 class="card-text">Author: {{ book.author }}</h5>
-                                    <h5 class="card-text">Cover Image: {{ book.cover_image }}</h5>
-                                    <h5 class="card-text">
+                                    <h6 class="card-text">
                                         Description: {{book.description}}
-                                    </h5>
+                                    </h6>
 
                                     <div class="mt-3">
                             
@@ -50,6 +52,7 @@
                                 </b-card>
                                 <hr class="my-4">
                             </div>
+                                </div>
                             <!-- End Book Cards -->
         </b-col>
       </b-row>
@@ -78,7 +81,7 @@ export default {
   data() {
     return {
       infos: null,
-      
+      search: '',
       bookList: []
       //myNumber: null
     };
@@ -106,15 +109,15 @@ export default {
       .then(this.$router.go());
     }
   },
-//   computed: {
-//     filteredBook: function() {
-//       return this.bookList.filter(book => {
-//         return (
-//           book.title.toLowerCase().match(this.search.toLowerCase()) ||
-//           book.author.toLowerCase().match(this.search.toLowerCase())
-//         );
-//       });
-//     }
-//   }
+computed: {
+            filteredBook: function () {
+                return this.bookList.filter((book) => {
+                    return book.title.toLowerCase().match(this.search.toLowerCase()) || book.author.toLowerCase().match(this.search.toLowerCase())
+                })
+            }
+}
 };
 </script>
+<style>
+
+</style>

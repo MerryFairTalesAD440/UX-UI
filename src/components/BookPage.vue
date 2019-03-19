@@ -1,17 +1,15 @@
 <template>
   <div id="BookPage">
     <b-container id="topPage">
-      id: {{ myId }} <br /><br />
+      <!-- id: {{ myId }} <br /><br />
       info: {{ info }} <br /><br />
-      info: {{ myNumber }}
+      info: {{ myNumber }} -->
       <div>
         <hr class="my-4" />
-        <b-jumbotron>
+        <b-jumbotron bg-variant="info" text-variant="white">
           <template slot="header">
             <h1>Book Title: {{ book.title }}</h1>
-            <h3>Author: {{ book.author }}</h3>
-            <h4>cover_image: {{ book.cover_image }}</h4>
-            <h4>Description: {{ book.description }}</h4>
+           
           </template>
           <!-- Titile : {{ book.title }}, Author : {{ book.author }} -->
           <hr class="my-4" />
@@ -23,11 +21,18 @@
         </nav> -->
         </b-jumbotron>
         <hr class="my-4" />
+         <h3>Author: {{ book.author }}</h3>
+         <hr class="my-4" />
+            <h4>cover_image: {{ book.cover_image }}</h4>
+            <hr class="my-4" />
+            <h4>Description: {{ book.description }}</h4>
+            <hr class="my-4" />
         <h2>
           <ul>
             List of Pages Beaneath Here
           </ul>
         </h2>
+        
         <hr class="my-4" />
 
         <div v-if="pages !== null">
@@ -35,6 +40,7 @@
             <div v-if="page !== null">
               <b-card>
                 <p class="card-text">Page: {{ page.number }}</p>
+                <p class="card-text">Page Text: {{page.text_url}}</p>
               </b-card>
             </div>
           </div>

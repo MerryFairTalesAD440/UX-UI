@@ -4,19 +4,22 @@
       <div>
         <hr class="my-4" />
         {{ $session.get("myI") }}
-        <br /><br />
+        <!-- <br /><br />
         info : {{ info }} <br /><br />
         infos : {{ infos }} <br /><br />
-        infop : {{ infop }} <br /><br />
-        <b-jumbotron>
+        infop : {{ infop }} <br /><br /> -->
+        <b-jumbotron bg-variant="info" border-variant="dark" text-variant="white">
           <template slot="header">
             Upload Text File Here
           </template>
-          <hr class="my-4" />
+          
+        </b-jumbotron>
+        <div>
+  <hr class="my-4" />
+  <b-card title="File Upload" >
+    <hr class="my-4" />
 
-          <b-btn variant="primary" b-link to="#">Upload Text File</b-btn>
-
-          <h3>{{ book.title }}, {{ book.author }}</h3>
+          
           <form enctype="multipart/form-data">
             <div class="form-horizontal">
               <div class="form-group">
@@ -44,7 +47,8 @@
           </form>
 
           <hr class="my-4" />
-        </b-jumbotron>
+  </b-card>
+</div>
       </div>
     </b-container>
   </div>
