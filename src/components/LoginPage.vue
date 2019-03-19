@@ -1,6 +1,6 @@
 <template>
   <div id="LoginPage">
-    <!-- <LoginNavBar /> -->
+  
     <!-- Google ID Token -->
 
     <!-- Google Token
@@ -8,8 +8,21 @@
       {{ infom }}
       <br /><br />
     -->
+       <!-- main content container     -->
+    <b-container id="topPage" border-variant="dark">
+      <b-row>
+        <b-col>
+          <!-- heading -->
+          <div>
+            <hr class="my-4" />
+            <b-jumbotron bg-variant="dark" border-variant="dark" text-variant="white">
+              <template slot="header">
+                Merry Fairy Tales
+              </template>
+              <hr class="my-4" />
 
-    <div class="holder">
+              <!--Google Sign in Button-->
+               <div class="holder">
       <button
         v-google-signin-button="clientId"
         content="606095925126-3n35c9cad1f5bh51lbsd4okvg388k6vg"
@@ -42,12 +55,28 @@
         <span class="google-button__text">Sign in with Google</span>
       </button>
     </div>
+              <!--End of Google Sign In Button-->
+
+              <!-- <b-btn variant="primary" b-link to="AddBook">Add New Book</b-btn> -->
+            </b-jumbotron>
+          </div>
+          <!-- end heading -->
+
+           
+        </b-col>
+      </b-row>
+
+     
+      <hr class="my-4" />
+    </b-container>
+
+   
   </div>
 </template>
 
 <script>
 import GoogleSignInButton from "vue-google-signin-button-directive";
-// import LoginNavBar from "./LoginNavBar.vue";
+
 export default {
   name: "LoginPage",
   directives: {
@@ -68,9 +97,7 @@ export default {
       this.infom = error;
     }
   }
-  // components: {
-  //   LoginNavBar
-  // }
+ 
 };
 </script>
 
