@@ -31,7 +31,7 @@
           <b-btn variant="primary" v-on:click="gotoUploadPic()">Upload Image</b-btn
           >
           <hr class="my-4" />
-          <b-btn variant="info" b-link to="BookPage">Back to Book Page</b-btn>
+          <b-btn variant="primary" v-on:click="gotobookpage()">Back to Book Page</b-btn>
 
           <!-- <nav>
                 <router-link to='/addpage'>Add Page</router-link>
@@ -98,9 +98,13 @@ export default {
       .catch(error => (this.info = error));
   },
   methods: {
-    gotoUploadPic: function() {
-      this.$router.push({ name: "UploadPic", query: { id: this.myId, page: this.myNumber } });
-    },
+   gotoUploadPic: function() {
+     this.$router.push({ name: "UploadPic", query: { id: this.myId, page: this.myNumber } });
+   },
+
+   gotobookpage: function() {
+       this.$router.push({ name: "BookPage", query: { id: this.myId, page: this.myNumber} });
+   },
     created() {
       var myUrl2 = "https://ad440-dev-function.azurewebsites.net/v1/books/"+this.myId+"/pages/"+this.myNumber+"/language/"+this.myLanguage;
       axios
