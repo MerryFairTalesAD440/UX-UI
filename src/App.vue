@@ -1,20 +1,18 @@
 <template>
   <div id="app">
     <NavBar />
-    <BookList />
+    <router-view />
     <!-- <BookListFilter msg="Book List" /> -->
   </div>
 </template>
 
 <script>
 import NavBar from "./components/NavBar.vue";
-import BookList from "./components/BookList.vue";
 
 export default {
   name: "app",
   components: {
-    NavBar,
-    BookList
+    NavBar
   }
 };
 </script>
