@@ -3,6 +3,11 @@
     <b-container id="topPage" border-variant="dark">
       <div>
         <hr class="my-4" />
+        {{ $session.get("myI") }}
+        <br /><br />
+        info : {{ info }} <br /><br />
+        infos : {{ infos }} <br /><br />
+        infop : {{ infop }} <br /><br />
         <b-jumbotron>
           <template slot="header">
             Upload Text File Here
@@ -84,24 +89,21 @@ export default {
     this.myNumber = this.$route.query.page;
     axios
       .get(
-        "https://ad440-dev-function.azurewebsites.net/v1/books/" +
-          this.myId
+        "https://ad440-dev-function.azurewebsites.net/v1/books/" + this.myId
       )
       .then(response => (this.book = response.data))
       .catch(error => (this.info = error));
-    this.myFileNameA = this.myId + "_image_" + this.myNumber + ".docx";
+    this.myFileNameA = this.myId + "_page_" + this.myNumber + ".docx";
   },
   methods: {
     fileChange(fileList) {
       this.files.append("file", fileList[0], fileList[0].name);
       //this.myNumber = this.book.pages[index].number;
-      //this.myFileNameA = this.book.id + "_image_"  + this.myNumber + ".JPG";
     },
     created() {
       var myDate = new Date();
       var myUrl =
-        "https://ad440uidevassetstorage.blob.core.windows.net/merryfairytalesassets/" +
-        this.myFileNameA +
+        "https://ad440uidevassetstorage.blob.core.windows.net/merryfairytalesassets/" + this.myFileNameA +
         this.$session.get("myI");
       axios({
         method: "PUT",
@@ -115,25 +117,21 @@ export default {
         },
         ContentLength: this.files.length
       })
-        .then(response => (this.infos = response.status))
+        .then(response => (this.infos = response.data))
         .catch(error => (this.infos = error));
 
       //edit json file to pass to API
       //redirect logic
       //if (this.book.pages[this.myNumber-1].image_url !== null) {
-      this.book.pages[this.myNumber - 1].image_url =
-        "https://ad440uidevassetstorage.blob.core.windows.net/merryfairytalesassets/" +
-        this.myFileNameA;
+      this.book.pages.image_url =
+        "https://ad440uidevassetstorage.blob.core.windows.net/merryfairytalesassets/" + this.myFileNameA;
       var myUrl2 =
-        "https://ad440-dev-function.azurewebsites.net/v1/books/" +
-        this.myId +
-        "/pages/" +
-        this.myNumber;
+        "https://ad440-dev-function.azurewebsites.net/v1/books/" + this.myId + "/pages/" + this.myNumber;
       axios
         .put(myUrl2, this.book)
         .then(response => (this.infop = response.data))
         .catch(error => (this.infop = error));
-      this.$router.push({ name: "BookPage", query: { id: this.book.id } });
+      this.$router.push({ name: "AddPage", query: { id: this.book.id, page: this.myNumber } });
       //}
       //if(this.infop == '201'){
       //this.$router.push({ name: 'AddPage', query: { id: this.book.id, page: this.myNumber } })

@@ -28,8 +28,7 @@
              </select><br />
 
           &nbsp;&nbsp;
-          <b-btn variant="primary" v-on:click="gotoUploadPic()"
-            >Upload Image</b-btn
+          <b-btn variant="primary" v-on:click="gotoUploadPic()">Upload Image</b-btn
           >
           <hr class="my-4" />
           <b-btn variant="info" b-link to="BookPage">Back to Book Page</b-btn>
@@ -46,15 +45,15 @@
         </h2>
         <hr class="my-4" />
 
-        <!--<div v-if="languages !== null">
-          <div v-for="language in languages" :key="language.id">
+        <div v-if="book.pages !== null">
+          <div v-for="language in book.pages" :key="language.id">
             <div v-if="language !== null">
               <b-card>
-                <p class="card-text">Page: {{  }}</p>
+                <p class="card-text">Language: {{ language.languages }}</p>
               </b-card>
             </div>
           </div>
-        </div>-->
+        </div>
 
       </div>
     </b-container>
@@ -103,13 +102,13 @@ export default {
       this.$router.push({ name: "UploadPic", query: { id: this.myId, page: this.myNumber } });
     },
     created() {
-      //if (this.book.pages[this.myNumber-1].image_url !== null) {
       var myUrl2 = "https://ad440-dev-function.azurewebsites.net/v1/books/"+this.myId+"/pages/"+this.myNumber+"/language/"+this.myLanguage;
       axios
         .post(myUrl2, this.book)
         //.then(response => (this.infop = response.data))
-        .then(response => (this.$router.push({ name: "AddLanguage", query: { id: this.book.id, page: response.data.language }})))
+        //.then(response => (this.$router.push({ name: "AddLanguage", query: { id: this.book.id, page: this.myNumber }})))
         .catch(error => (this.infop = error));
+        this.$router.push({ name: "AddLanguage", query: { id: this.myId, page: this.myNumber } });
     }
   }
 };

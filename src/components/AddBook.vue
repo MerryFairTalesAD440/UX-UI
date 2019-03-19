@@ -120,11 +120,14 @@ export default {
       })
       .catch(error => (this.info = error));
   },
-  mounted() {},
+  mounted() {
+    this.myId = this.$route.query.id;
+    this.myNumber = this.$route.query.page;
+  },
   methods: {
       fileChange(fileList) {
       this.files.append("file", fileList[0], fileList[0].name);
-      this.myFileNameA = this.myId + "_image.JPG";
+      this.myFileNameA = this.myId + "_cover_image.jpg";
     },
     created() {
       var myDate = new Date();
@@ -147,7 +150,7 @@ export default {
         .then(response => (this.cover_image = response.data))
         .catch(error => (this.infos = "oyo "+error));
 
-      //var myUrl2 = "https://melanieoneboxfunctionsprint3.azurewebsites.net/v1/books"; //bad
+      this.cover_image = "https://ad440uidevassetstorage.blob.core.windows.net/merryfairytalesassets/"+this.myFileNameA;
       var myUrl2 = "https://ad440-dev-function.azurewebsites.net/v1/books";
       axios
         .post(myUrl2, {
@@ -156,8 +159,8 @@ export default {
           cover_image: this.cover_image,
           description: this.description
         })
-        .then(response => (this.infop = response.data.status))
-        //.then(response => (this.$router.push({ name: "BookPage", query: { id: this.response.data.id } })))
+        //.then(response => (this.infop = response.data))
+        .then(response => (this.$router.push({ name: "BookPage", query: { id: response.data } })))
         .catch(error => (this.infop = "aha "+error));
 
       //this.$router.push({ name: "BookPage", query: { id: this.infop } });

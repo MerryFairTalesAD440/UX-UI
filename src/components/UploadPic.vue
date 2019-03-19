@@ -79,18 +79,17 @@ export default {
       headers: { "Content-Type": "application/json" }
     })
       .then(response => {
-        this.$session.set("myI", response.data);
+        this.$session.set("myI", response.data.token);
       })
       .catch(error => (this.info = "sas "+error));
   },
   mounted() {
-    this.myContainer = "seattle_title";
+    //this.myContainer = "seattle_title";
     this.myId = this.$route.query.id;
     this.myNumber = this.$route.query.page;
     axios
       .get(
-        "https://ad440-dev-function.azurewebsites.net/v1/books/" +
-          this.myId
+        "https://ad440-dev-function.azurewebsites.net/v1/books/" + this.myId
       )
       .then(response => (this.book = response.data))
       .catch(error => (this.info = "book "+error));
@@ -98,14 +97,14 @@ export default {
   methods: {
     fileChange(fileList) {
       this.files.append("file", fileList[0], fileList[0].name);
-      this.myFileNameA = this.myId + "_image_" + this.myNumber + ".JPG";
+      this.myFileNameA = this.myId + "_image_" + this.myNumber + ".jpg";
     },
     created() {
       var myDate = new Date();
       var myUrl = "https://ad440uidevassetstorage.blob.core.windows.net/merryfairytalesassets/"+this.myFileNameA+this.$session.get('myI');
       //var myUrl = "https://apidevstorage.blob.core.windows.net/"+this.myContainer+this.myFileNameA+this.$session.get("myI");
       axios({
-        method: "POST",
+        method: "PUT",
         url: myUrl,
         data: this.files,
         headers: {
@@ -122,20 +121,14 @@ export default {
 
       //edit json file to pass to API
       //redirect logic
-      //if (this.book.pages[this.myNumber-1].image_url !== null) {
-      this.book.pages[this.myNumber - 1].image_url =
-        "https://ad440uidevassetstorage.blob.core.windows.net/merryfairytalesassets/" +
-        this.myFileNameA;
+      //var pageIndex = this.myNumber - 1;
+      this.book.pages.image_url =
+        "https://ad440uidevassetstorage.blob.core.windows.net/merryfairytalesassets/" + this.myFileNameA;
       var myUrl2 = "https://ad440-dev-function.azurewebsites.net/v1/books/"+this.myId+"/pages/"+this.myNumber;
       axios
         .put(myUrl2, this.book)
-        .then(response => (this.infop = response.data))
+        .then(response => (this.$router.push({ name: 'AddPage', query: { id: this.book.id, page: this.myNumber } })))
         .catch(error => (this.infop = "upd "+error));
-      //this.$router.push({ name: "BookPage", query: { id: this.book.id } });
-      //}
-      //if(this.infop == '201'){
-      //this.$router.push({ name: 'AddPage', query: { id: this.book.id, page: this.myNumber } })
-      //}
     }
   }
 };

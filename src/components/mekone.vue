@@ -70,7 +70,7 @@ export default {
       headers: { "Content-Type": "application/json" }
     })
       .then(response => {
-        this.$session.set("myI", response.data);
+        this.$session.set("myI", response.data.token);
       })
       .catch(error => (this.info = "sas "+error));
   },
@@ -83,13 +83,15 @@ export default {
     },
     created() {
       var myDate = new Date();
-      var myUrl = "https://ad440uidevassetstorage.blob.core.windows.net/merryfairytalesassets/mekone.JPG"+this.$session.get('myI');
+      var myUrl = "https://ad440uidevassetstorage.blob.core.windows.net/merryfairytalesassets/mekone.jpg"+this.$session.get('myI');
       axios({
-        method: "POST",
+        method: "PUT",
         url: myUrl,
         data: this.files,
         headers: {
-          "Access-Control-Allow-Origin": "*",
+          //"Access-Control-Allow-Origins": "*",
+          //"Access-Control-Allow-Headers": "*",
+          //'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
           "x-ms-blob-type": "BlockBlob",
           "x-ms-date": myDate,
           "x-ms-version": "2018-03-28",

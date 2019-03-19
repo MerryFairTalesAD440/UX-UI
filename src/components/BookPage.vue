@@ -10,6 +10,7 @@
           <template slot="header">
             <h1>Book Title: {{ book.title }}</h1>
             <h3>Author: {{ book.author }}</h3>
+            <h4>cover_image: {{ book.cover_image }}</h4>
             <h4>Description: {{ book.description }}</h4>
           </template>
           <!-- Titile : {{ book.title }}, Author : {{ book.author }} -->
