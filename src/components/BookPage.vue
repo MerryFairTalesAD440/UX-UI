@@ -40,6 +40,7 @@
             <div v-if="page !== null">
               <b-card>
                 <p class="card-text">Page: {{ page.number }}</p>
+                <p class="card-text">Page Text: {{page.text_url}}</p>
               </b-card>
             </div>
           </div>

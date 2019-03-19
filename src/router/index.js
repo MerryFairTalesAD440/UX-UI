@@ -10,7 +10,7 @@ import AddPage from "../components/AddPage";
 import BookPage from "../components/BookPage";
 import UploadText from "../components/UploadText";
 import UploadAudio from "../components/UploadAudio";
-import mekone from "../components/mekone";
+
 
 
 Vue.use(Router);
@@ -66,11 +66,6 @@ export default new Router({
       path: "/uploadpic",
       name: "UploadPic",
       component: UploadPic
-    },
-    {
-    path: "/mekone",
-      name: "mekone",
-      component: mekone
     }
   ],
   mode: "history"
