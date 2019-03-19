@@ -1,115 +1,170 @@
 <template>
   <b-container id="topPage" border-variant="dark">
-    <hr class="my-4" />
-    <b-jumbotron>
-      <template slot="header">
-        Add Book Form
-      </template>
-      <hr class="my-4" />
-    </b-jumbotron>
-    <hr class="my-4" />
+    <div id="InsertBook">
+      {{ $session.get("myI") }} <br /><br />
+      info : {{ info }} <br /><br />
+      infos : {{ infos }} <br /><br />
+      infop : {{ infop }} <br /><br />
+      {{ $session.get("myI") }}
+      <br /><br />
 
-    <!-- submission form ===================== -->
-    <!-- <form id="submisson-form" @submit.prevent="processForm"> -->
-    <b-form id="getSas" @submit.prevent="processForm">
-      <!-- book title -->
-      <!-- <div class="field">
-            <label class="label">Title</label>
-            <input type="text" class="input" name="title"  v-model="title">
-          </div> -->
-      <div>
-        <b-form-input
-          v-model="title"
-          type="text"
-          placeholder="Enter Book Title"
-        />
-        <div class="mt-2">Value: {{ title }}</div>
-      </div>
-      <hr class="my-4" />
-
-      <!-- author -->
-      <!-- <div class="field">
-          <label class="label">Description</label>
-          <input type="text" class="input" name="description"  v-model="description">
-        </div> -->
-      <div>
-        <b-form-input
-          v-model="author"
-          type="text"
-          placeholder="Enter Book Author"
-        />
-        <div class="mt-2">Value: {{ author }}</div>
-      </div>
-      <hr class="my-4" />
-
-      <!-- description -->
-      <!-- <div class="field">
-            <label class="label">Author</label>
-            <input type="author" class="input" name="author"  v-model="author">
-          </div> -->
-      <div>
-        <b-form-input
-          v-model="description"
-          type="text"
-          placeholder="Enter Book Description"
-        />
-        <div class="mt-2">Value: {{ description }}</div>
-      </div>
-      <hr class="my-4" />
-
-      <!-- Add book button -->
-      <!-- <div class="field has-text-right">
-            <button type="submit" class="button">Add Book</button>
-          </div> -->
-      <b-btn variant="primary" type="submit" b-link to="#">Submit</b-btn>
-    </b-form>
+      <h2>Add book</h2>
+      <form enctype="multipart/form-data">
+        <div class="form-horizontal">
+          <div class="form-group">
+            <p class="control-label col-md-2">Book Title</p>
+            <div class="col-md-10">
+              <input
+                type="text"
+                v-model="title"
+                name="title"
+                class="form-control"
+                style="width:80%;"
+                maxlength="200"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <p class="control-label col-md-2">Description</p>
+            <div class="col-md-10">
+              <textarea
+                rows="3"
+                v-model="description"
+                class="form-control"
+                style="width:80%;"
+                name="body"
+                maxlength="2000"
+              ></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <p class="control-label col-md-2">Book Author</p>
+            <div class="col-md-10">
+              <input
+                type="text"
+                v-model="author"
+                name="custom5"
+                class="form-control"
+                style="width:80%;"
+                maxlength="100"
+              />
+            </div>
+          </div>
+          <div class="form-horizontal">
+              <div class="form-group">
+                <div class="col-md-10">
+                  <input
+                    type="file"
+                    id="photoUrl"
+                    name="myFileName"
+                    v-on:change="fileChange($event.target.files)"
+                    accept="application/vnd.msword, application/vnd.ms-excel, application/vnd.ms-powerpoint, text/plain, application/pdf, image/*"
+                  />
+                </div>
+              </div>
+            </div>
+          <!--<input
+            type="hidden"
+            v-model="cover_image"
+            name="cover_image"
+            class="form-control"
+            style="width:80%;"
+            maxlength="100"
+          />-->
+        </div>
+        <div class="form-group">
+          <button
+            type="button"
+            v-on:click="created()"
+            class="btn btn-primary btn-sm"
+            style="width:25%;"
+          >
+            Add
+          </button>
+        </div>
+      </form>
+    </div>
   </b-container>
 </template>
 
 <script>
+import Vue from "vue";
 import axios from "axios";
 
 export default {
   name: "AddBook",
-
   data() {
     return {
-      title: "",
+      files: new FormData(),
+      info: null,
+      infos: null,
+      infop: "",
+      myId: "",
+      cover_image: "",
+      author: "",
       description: "",
-      author: ""
+      myFileNameA: null,
+      title: "",
+      book: ""
     };
   },
-
-  mounted() {
-    var self = this;
-
-    data = {
-      title: this.title,
-      description: this.description,
-      author: this.author
-    };
-    const url =
-      "https://melanieoneboxfunctionsprint3.azurewebsites.net/v1/books";
-
-    axios
-      .post(url, data)
-
+  beforeMount() {
+    axios({
+      method: "POST",
+      url: "https://ad440-dev-function.azurewebsites.net/v1/sastoken/",
+      data: { container: "merryfairytalesassets" },
+      headers: { "Content-Type": "application/json" }
+    })
       .then(response => {
-        alert("Book information submitted");
+        this.$session.set("myI", response.data.token);
+      })
+      .catch(error => (this.info = error));
+  },
+  mounted() {
+    this.myId = this.$route.query.id;
+    this.myNumber = this.$route.query.page;
+  },
+  methods: {
+      fileChange(fileList) {
+      this.files.append("file", fileList[0], fileList[0].name);
+      this.myFileNameA = this.myId + "_cover_image.jpg";
+    },
+    created() {
+      var myDate = new Date();
+      var myUrl =
+        "https://ad440uidevassetstorage.blob.core.windows.net/merryfairytalesassets/"+
+        this.myFileNameA +
+        this.$session.get("myI");
+      axios({
+        method: "PUT",
+        url: myUrl,
+        data: this.files,
+        headers: {
+          "x-ms-blob-type": "BlockBlob",
+          "x-ms-date": myDate,
+          "x-ms-version": "2018-03-28",
+          "Content-Type": "multipart/form-data"
+        },
+        ContentLength: this.files.length
+      })
+        .then(response => (this.cover_image = response.data))
+        .catch(error => (this.infos = "oyo "+error));
 
-        var newId = response.data;
-        console.log(newId);
+      this.cover_image = "https://ad440uidevassetstorage.blob.core.windows.net/merryfairytalesassets/"+this.myFileNameA;
+      var myUrl2 = "https://ad440-dev-function.azurewebsites.net/v1/books";
+      axios
+        .post(myUrl2, {
+          title: this.title,
+          author: this.author,
+          cover_image: this.cover_image,
+          description: this.description
+        })
+        //.then(response => (this.infop = response.data))
+        .then(response => (this.$router.push({ name: "BookPage", query: { id: response.data } })))
+        .catch(error => (this.infop = "aha "+error));
 
-        data.id = newId;
-        console.log(data);
-      });
-
-    console.log({
-      title: this.title,
-      description: this.description,
-      author: this.author
-    });
-    alert("Processing!");
+      //this.$router.push({ name: "BookPage", query: { id: this.infop } });
+    }
   }
 };
 </script>

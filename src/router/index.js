@@ -10,6 +10,7 @@ import AddPage from "../components/AddPage";
 import BookPage from "../components/BookPage";
 import UploadText from "../components/UploadText";
 import UploadAudio from "../components/UploadAudio";
+import mekone from "../components/mekone";
 
 Vue.use(Router);
 
@@ -36,7 +37,7 @@ export default new Router({
       component: UploadAudio
     },
     {
-      path: "/bookList",
+      path: "/BookList",
       name: "BookList",
       component: BookList
     },
@@ -46,24 +47,29 @@ export default new Router({
       component: BookListFilter
     },
     {
-      path: "/bookpage",
-      name: "book_page",
+      path: "/BookPage",
+      name: "BookPage",
       component: BookPage
     },
     {
-      path: "/addpage",
-      name: "add_page",
+      path: "/AddPage",
+      name: "AddPage",
       component: AddPage
     },
     {
       path: "/addlanguage",
-      name: "language_page",
+      name: "AddLanguage",
       component: AddLanguage
     },
     {
       path: "/uploadpic",
       name: "UploadPic",
       component: UploadPic
+    },
+    {
+    path: "/mekone",
+      name: "mekone",
+      component: mekone
     }
   ],
   mode: "history"
