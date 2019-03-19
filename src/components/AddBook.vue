@@ -1,15 +1,33 @@
 <template>
   <b-container id="topPage" border-variant="dark">
-    <div id="InsertBook">
+    <div id="AddBook">
       {{ $session.get("myI") }} <br /><br />
-      info : {{ info }} <br /><br />
+      <!-- info : {{ info }} <br /><br />
       infos : {{ infos }} <br /><br />
       infop : {{ infop }} <br /><br />
       {{ $session.get("myI") }}
-      <br /><br />
+      <br /><br /> -->
 
-      <h2>Add book</h2>
-      <form enctype="multipart/form-data">
+      <div>
+  <b-jumbotron bg-variant="info" border-variant="dark" text-variant="white">
+     <template slot="header">
+                Add New Book
+              </template>
+  </b-jumbotron>
+</div>
+      <div class="form-group">
+    <b-form-input  v-model="title" type="text" placeholder="Enter Book Title" />
+    <div class="mt-2">Book Title: {{ title }}</div>
+  </div>
+  <div class="form-group">
+    <b-form-input v-model="author" type="text" placeholder="Enter Book Author" />
+    <div class="mt-2">Author: {{ author }}</div>
+  </div>
+  <div class="form-group">
+    <b-form-input v-model="description" type="text" placeholder="Enter Description of Book" />
+    <div class="mt-2">Description: {{ description }}</div>
+  </div>
+      <!-- <form enctype="multipart/form-data">
         <div class="form-horizontal">
           <div class="form-group">
             <p class="control-label col-md-2">Book Title</p>
@@ -49,7 +67,7 @@
                 maxlength="100"
               />
             </div>
-          </div>
+          </div> -->
           <div class="form-horizontal">
               <div class="form-group">
                 <div class="col-md-10">

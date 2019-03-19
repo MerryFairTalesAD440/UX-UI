@@ -3,11 +3,16 @@
     <b-container id="topPage" border-variant="dark">
       <div>
         <hr class="my-4" />
-        <b-jumbotron>
+        <b-jumbotron bg-variant="info" border-variant="dark" text-variant="white">
           <template slot="header">
             Add Text and Audio Files Here
           </template>
-          <hr class="my-4" />
+         
+        </b-jumbotron>
+        <div>
+  <b-card title="File Upload" >
+   
+    <hr class="my-4" />
 
           <b-btn variant="primary" v-on:click="gotoUploadText()">Upload Text File</b-btn>
           &nbsp;&nbsp;
@@ -15,7 +20,8 @@
 
           <hr class="my-4" />
           <b-btn variant="info" b-link to="BookPage">Back to Book Page</b-btn>
-        </b-jumbotron>
+  </b-card>
+</div>
       </div>
     </b-container>
   </div>

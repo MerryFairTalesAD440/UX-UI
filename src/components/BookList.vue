@@ -10,7 +10,7 @@
           <!-- heading -->
           <div>
             <hr class="my-4" />
-            <b-jumbotron bg-variant="dark" text-variant="white" border-variant="dark">
+            <b-jumbotron class="jumbotron" bg-variant="info" text-variant="white" border-variant="dark">
               <template slot="header">
                 Admin Portal
               </template>
@@ -27,7 +27,7 @@
                                 <br>
                                 <div v-if="bookList">
                                 <div v-for="(book, index) in filteredBook" :key="book.id" >
-                                <b-card bg-variant="dark" border-variant="dark" text-variant="white">
+                                <b-card bg-variant="info" border-variant="dark" text-variant="white">
                                     <h2 class="card-text">Title: {{ book.title }}</h2>
                                     <h5 class="card-text">Author: {{ book.author }}</h5>
                                     <h6 class="card-text">
@@ -118,3 +118,6 @@ computed: {
 }
 };
 </script>
+<style>
+
+</style>
