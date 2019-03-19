@@ -7,14 +7,13 @@
         <br /><br />
         info : {{ info }} <br /><br />
         infos : {{ infos }} <br /><br />
-        route : {{ myId }} &nbsp; page : {{ myNumber }} <br /><br />
         infop : {{ infop }} <br /><br />
         <b-jumbotron>
           <template slot="header">
             Upload Image File Here
           </template>
           <hr class="my-4" />
-          <h3>{{ book.title }}, {{ book.author }}</h3>
+
           <form enctype="multipart/form-data">
             <div class="form-horizontal">
               <div class="form-group">
@@ -53,28 +52,20 @@ import axios from "axios";
 import VueSession from "vue-session";
 Vue.use(VueSession);
 export default {
-  name: "UploadPic",
+  name: "mekone",
   data() {
     return {
       files: new FormData(),
       info: null,
       infos: null,
       infop: null,
-      know: null,
-      myFileName: null,
-      myNumber: null,
-      myFileNameA: null,
-      page: null,
-      book: null,
-      myContainer: null,
-      myId: null
+      know: null
     };
   },
   beforeMount() {
     axios({
       method: "POST",
       url: "https://ad440-dev-function.azurewebsites.net/v1/sastoken/",
-      //url: "https://merryfairytales.azurewebsites.net/v1/sastoken",
       data: { container: "merryfairytalesassets" },
       headers: { "Content-Type": "application/json" }
     })
@@ -84,58 +75,30 @@ export default {
       .catch(error => (this.info = "sas "+error));
   },
   mounted() {
-    this.myContainer = "seattle_title";
-    this.myId = this.$route.query.id;
-    this.myNumber = this.$route.query.page;
-    axios
-      .get(
-        "https://ad440-dev-function.azurewebsites.net/v1/books/" +
-          this.myId
-      )
-      .then(response => (this.book = response.data))
-      .catch(error => (this.info = "book "+error));
+
   },
   methods: {
     fileChange(fileList) {
       this.files.append("file", fileList[0], fileList[0].name);
-      this.myFileNameA = this.myId + "_image_" + this.myNumber + ".JPG";
     },
     created() {
       var myDate = new Date();
-      var myUrl = "https://ad440uidevassetstorage.blob.core.windows.net/merryfairytalesassets/"+this.myFileNameA+this.$session.get('myI');
-      //var myUrl = "https://apidevstorage.blob.core.windows.net/"+this.myContainer+this.myFileNameA+this.$session.get("myI");
+      var myUrl = "https://ad440uidevassetstorage.blob.core.windows.net/merryfairytalesassets/mekone.JPG"+this.$session.get('myI');
       axios({
         method: "POST",
         url: myUrl,
         data: this.files,
         headers: {
+          "Access-Control-Allow-Origin": "*",
           "x-ms-blob-type": "BlockBlob",
           "x-ms-date": myDate,
           "x-ms-version": "2018-03-28",
-          "Content-Type": "multipart/form-data",
-          "Access-Control-Allow-Origin": "*"
+          "Content-Type": "multipart/form-data"
         },
         ContentLength: this.files.length
       })
         .then(response => (this.infos = response.data))
         .catch(error => (this.infos = "nt "+error));
-
-      //edit json file to pass to API
-      //redirect logic
-      //if (this.book.pages[this.myNumber-1].image_url !== null) {
-      this.book.pages[this.myNumber - 1].image_url =
-        "https://ad440uidevassetstorage.blob.core.windows.net/merryfairytalesassets/" +
-        this.myFileNameA;
-      var myUrl2 = "https://ad440-dev-function.azurewebsites.net/v1/books/"+this.myId+"/pages/"+this.myNumber;
-      axios
-        .put(myUrl2, this.book)
-        .then(response => (this.infop = response.data))
-        .catch(error => (this.infop = "upd "+error));
-      //this.$router.push({ name: "BookPage", query: { id: this.book.id } });
-      //}
-      //if(this.infop == '201'){
-      //this.$router.push({ name: 'AddPage', query: { id: this.book.id, page: this.myNumber } })
-      //}
     }
   }
 };

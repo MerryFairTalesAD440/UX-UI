@@ -84,7 +84,7 @@ export default {
     this.myNumber = this.$route.query.page;
     axios
       .get(
-        "https://melanieoneboxfunctionsprint3.azurewebsites.net/v1/books/" +
+        "https://ad440-dev-function.azurewebsites.net/v1/books/" +
           this.myId
       )
       .then(response => (this.book = response.data))
@@ -100,7 +100,7 @@ export default {
     created() {
       var myDate = new Date();
       var myUrl =
-        "https://ad440oneboxtempbb81.blob.core.windows.net/getsastoken/" +
+        "https://ad440uidevassetstorage.blob.core.windows.net/merryfairytalesassets/" +
         this.myFileNameA +
         this.$session.get("myI");
       axios({
@@ -122,7 +122,7 @@ export default {
       //redirect logic
       //if (this.book.pages[this.myNumber-1].image_url !== null) {
       this.book.pages[this.myNumber - 1].image_url =
-        "https://ad440oneboxtempbb81.blob.core.windows.net/getsastoken/" +
+        "https://ad440uidevassetstorage.blob.core.windows.net/merryfairytalesassets/" +
         this.myFileNameA;
       var myUrl2 =
         "https://ad440-dev-function.azurewebsites.net/v1/books/" +
