@@ -32,7 +32,9 @@
 <script>
 export default {
   name: "NavBar",
-  data() {},
+  data() {
+    info: null
+  },
 
   methods: {
     signOut: function() {
