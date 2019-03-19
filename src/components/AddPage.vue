@@ -121,7 +121,7 @@ export default {
       axios
         .post(myUrl2, this.book)
         //.then(response => (this.infop = response.data))
-        //.then(response => (this.$router.push({ name: "AddLanguage", query: { id: this.book.id, page: this.myNumber }})))
+        // .then(response => (this.$router.push({ name: "AddLanguage", query: { id: this.book.id, page: this.myNumber }})))
         .catch(error => (this.infop = error));
         this.$router.push({ name: "AddLanguage", query: { id: this.myId, page: this.myNumber } });
     }
