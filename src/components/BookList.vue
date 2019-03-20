@@ -106,7 +106,7 @@ export default {
     deleteBook: function(book) {
       const url = `https://ad440-dev-function.azurewebsites.net/v1/books/${book.id}`;
       return axios.delete(url, book)
-      .then(this.$router.go());
+    //   .then(response =>(this.$router.go()))
     }
   },
 computed: {
