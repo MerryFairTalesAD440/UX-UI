@@ -29,7 +29,7 @@
             <hr class="my-4" />
         <h2>
           <ul>
-            List of Pages Beaneath Here
+            List of Pages for : {{book.title}}
           </ul>
         </h2>
         

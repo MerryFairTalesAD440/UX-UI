@@ -50,7 +50,7 @@
         
         <h2>
           <ul>
-            List of Languages for this Page Beaneath Here
+            List of Languages for: {{book.title}}
           </ul>
         </h2>
         <hr class="my-4" />
