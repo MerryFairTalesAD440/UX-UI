@@ -5,18 +5,14 @@ const {
   ServiceURL,
   SharedKeyCredential,
   StorageURL,
-  IUploadToBlockBlobOptions,
   uploadFileToBlockBlob
 } = require("@azure/storage-blob");
 
-const fs = require("fs");
 const path = require("path");
 
 const STORAGE_ACCOUNT_NAME = process.env.ACCOUNT_NAME_DEV;
 const ACCOUNT_ACCESS_KEY = process.env.ACCOUNT_KEY_DEV;
 
-const ONE_MEGABYTE = 1024 * 1024;
-const FOUR_MEGABYTES = 4 * ONE_MEGABYTE;
 const ONE_MINUTE = 60 * 1000;
 
 async function showContainerNames(aborter, serviceURL) {
@@ -37,15 +33,15 @@ async function uploadLocalFile(aborter, containerURL, filePath) {
 
   const pathArray = filePath.split(path.sep);
 
-  var fileName = '';
+  var fileName = "";
 
-  for(let i = 7; i < pathArray.length; i++){
-    fileName = path.join(fileName,pathArray[i]);
+  for (let i = 7; i < pathArray.length; i++) {
+    fileName = path.join(fileName, pathArray[i]);
   }
 
-  var contentType = getFileContentType(fileName); 
+  var contentType = getFileContentType(fileName);
 
-  const options = {blobHTTPHeaders:{blobContentType:contentType}}
+  const options = { blobHTTPHeaders: { blobContentType: contentType } };
 
   const blockBlobURL = BlockBlobURL.fromContainerURL(containerURL, fileName);
 
@@ -66,32 +62,30 @@ async function showBlobNames(aborter, containerURL) {
 }
 
 function getFileContentType(filename) {
-  var extension = filename.split('.').pop();
-  var contentType = '';
+  var extension = filename.split(".").pop();
+  var contentType = "";
 
-  switch(extension) {
-    case 'html':
-      contentType = 'text/html';
+  switch (extension) {
+    case "html":
+      contentType = "text/html";
       break;
-    case 'js':
-      contentType = 'application/javascript';
+    case "js":
+      contentType = "application/javascript";
       break;
-    case 'css':
-      contentType = 'text/css';
+    case "css":
+      contentType = "text/css";
       break;
-    case 'png':
-      contentType = 'image/png';
+    case "png":
+      contentType = "image/png";
       break;
-    case 'ico':
-      contentType = 'image/x-icon';
+    case "ico":
+      contentType = "image/x-icon";
       break;
-    case 'map':
-      contentType = 'application/javascript';
+    case "map":
+      contentType = "application/javascript";
       break;
   }
-
   return contentType;
-
 }
 
 async function clearJsBlobs(aborter, containerURL, pipeline, serviceURL) {
@@ -102,8 +96,8 @@ async function clearJsBlobs(aborter, containerURL, pipeline, serviceURL) {
     response = await containerURL.listBlobFlatSegment(aborter);
     marker = response.marker;
     for (let blob of response.segment.blobItems) {
-      if(getFileContentType(blob.name) == "application/javascript"){
-        blobToDelete = new BlockBlobURL(serviceURL + blob.name, pipeline);
+      if (getFileContentType(blob.name) == "application/javascript") {
+        let blobToDelete = new BlockBlobURL(serviceURL + blob.name, pipeline);
         await blobToDelete.delete(aborter);
         console.log(`Block blob "${blob.name}" is deleted`);
       }
@@ -111,25 +105,15 @@ async function clearJsBlobs(aborter, containerURL, pipeline, serviceURL) {
   } while (marker);
 }
 
-
 async function execute() {
+  //Prepare to move the contents of ./dist folder into the $web container
   const containerName = "$web";
   const folderPath = "./dist";
-  const walk = require('walk');
+  //to do so we will need to walk through ./dist folder and copy down all of the paths to each file.
+  const walk = require("walk");
+  const walker = walk.walk(folderPath, { followLinks: false });
   const files = [];
-
-  const walker  = walk.walk(folderPath, { followLinks: false });
-
-  walker.on('file', function(root, stat, next) {
-    // Add this file to the list of files
-    files.push(root + '/' + stat.name);
-    next();
-  });
-
-  walker.on('end', function() {
-  });
-
-
+  //next we will prepare an api request to azure to store our files.
   const credentials = new SharedKeyCredential(
     STORAGE_ACCOUNT_NAME,
     ACCOUNT_ACCESS_KEY
@@ -139,23 +123,33 @@ async function execute() {
     `https://${STORAGE_ACCOUNT_NAME}.blob.core.windows.net`,
     pipeline
   );
-
   const containerURL = ContainerURL.fromServiceURL(serviceURL, containerName);
-
   const aborter = Aborter.timeout(30 * ONE_MINUTE);
+  //For each file you find
+  walker.on("file", function(root, stat, next) {
+    // Add this file to a list of file names
+    files.push(root + "/" + stat.name);
+    next();
+  });
 
+  //log the containers
   console.log("Containers:");
   await showContainerNames(aborter, serviceURL);
-
+  //Clear out the old minified js
   console.log("Deleting old JS files:");
-  await clearJsBlobs(aborter, containerURL, pipeline, serviceURL.url + containerName + "/");
-
+  await clearJsBlobs(
+    aborter,
+    containerURL,
+    pipeline,
+    serviceURL.url + containerName + "/"
+  );
+  //upload the new files
   console.log("Uploading build files:");
-  for(let file of files){
+  for (let file of files) {
     await uploadLocalFile(aborter, containerURL, file);
     console.log(`Local file "${file}" is uploaded`);
   }
-
+  //log what files are in the $wweb container after
   console.log(`Blobs in "${containerName}" container:`);
   await showBlobNames(aborter, containerURL);
 }
