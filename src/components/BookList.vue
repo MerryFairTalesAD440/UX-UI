@@ -45,7 +45,7 @@
                                     </div>
                                     <!-- <b-btn variant="info" b-link to="book_page">Edit Book</b-btn>
                                     <b-btn variant="info" b-link to="#">Delete Book</b-btn> -->
-                                    <!-- <a href="#"
+            <!-- <a href="#"
                                        class="card-link">Edit Book</a>
                                     <b-link href="/bookpage"
                                             class="card-link">Delete Book</b-link> -->
